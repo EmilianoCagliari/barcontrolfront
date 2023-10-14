@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&family=Red+Hat+Display:wght@300;400;500;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-family: "Oxygen";
+        @apply text-prim-dark-1;
+    }
+    h1 {
+        font-family: "Red Hat Display";
+        @apply text-2xl;
+        
+    }
+
+}
