@@ -26,11 +26,12 @@
 
                     <div class="w-2/3 h-1/2 flex justify-center pb-4">
 
-                        <form class="w-full flex flex-col" action="" autocomplete="disabled">
+                        <form class="w-full flex flex-col" [formGroup]="loginForm" (ngSubmit)="onSubmit()"
+                            autocomplete="disabled">
 
                             <div class="h-3/5 flex flex-col justify-evenly">
                                 <div class="relative z-0 mb-3">
-                                    <input type="text" id="email"
+                                    <input type="text" id="email" formControlName="email" autocomplete="new-email"
                                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " />
                                     <label for="email"
@@ -38,20 +39,22 @@
                                 </div>
 
                                 <div class="relative z-0 mb-4">
-                                    <input type="text" id="password"
+                                    <input type="password" id="password" formControlName="password"
+                                        autocomplete="new-password"
                                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " />
                                     <label for="password"
                                         class="absolute text-sm border-b-prim-dark-1 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
                                 </div>
                             </div>
-                            <div>
-                                <button
-                                    class="w-full h-12 border-2 rounded-2xl border-b-prim-dark-1 font-bold shadow-sm shadow-prim-dark-1">
-                                    Iniciar Sesión
-                                </button>
-                            </div>
-                            <!-- <input type="button" value="Iniciar Sesión" class="w-full h-12 border-2 rounded-2xl border-b-prim-dark-1"> -->
+
+                            <button type="submit" class="transition ease-in-out delay-75 w-full h-12 border-2 rounded-2xl border-b-prim-dark-1 font-bold hover:shadow-md hover:shadow-prim-dark-1 hover:-translate-y-1
+                                    ">
+                                Iniciar Sesión
+                            </button>
+
+                            <!-- <input value="Iniciar Sesión" type="button" class="transition ease-in-out delay-75 w-full h-12 border-2 rounded-2xl border-b-prim-dark-1 font-bold hover:shadow-md hover:shadow-prim-dark-1 hover:-translate-y-1
+                            "> -->
                         </form>
 
                     </div>
@@ -60,8 +63,10 @@
             </div>
 
             <!-- Right Side Login -->
-            <div class="w-3/5 h-full bg-sec-light-1 rounded-r-2xl ">
-                <app-carousel></app-carousel>
+            <div class="w-3/5 h-full bg-sec-light-1 rounded-r-2xl flex justify-center">
+                <div class="w-9/12 h-2/5 mt-6">
+                    <app-carousel></app-carousel>
+                </div>
             </div>
 
         </div>

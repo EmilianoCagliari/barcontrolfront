@@ -1,0 +1,17 @@
+/* .slider {
+    aspect-ratio: 10 / 16;
+    width: 300px;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    scroll-snap-type: x mandatory;
+  }
+  
+  .slider img {
+    width: fit-content;
+    left: 0;
+    position: sticky;
+    object-fit: fill;
+    border-radius: 15px;
+    scroll-snap-align: center;
+  } */
