@@ -9,6 +9,7 @@
     html {
         font-family: "Oxygen";
         @apply text-prim-dark-1;
+        background-color: #ECECFC;
     }
     h1 {
         font-family: "Red Hat Display";

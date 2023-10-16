@@ -1,0 +1,15 @@
+.iconsize {
+    height: 36px;
+    width: 36px;
+}
+
+.iconbigsize {
+    height: 40px;
+    width: 40px;
+}
+.thin {
+    stroke-width: 1.2px;
+}
+.midstroke{
+    stroke-width: 1.5px;
+}

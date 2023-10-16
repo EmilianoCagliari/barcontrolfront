@@ -19,7 +19,8 @@ module.exports = {
       'sec-dark': '#268724',
       'sec-dark-1': '#164D14',
       'sec-dark-2': '#051305',
-      'transparent': 'transparent'
+      'transparent': 'transparent',
+      'danger': '#D30E0E'
     },
     fontFamily: {
       'custom': ['Oxygen', 'Red Hat Display', 'sans-serif'],
