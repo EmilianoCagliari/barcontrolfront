@@ -38,6 +38,11 @@ export class AuthComponent {
     this.isEmailNotValid = !this.loginForm.get('email')?.valid;
     this.isPasswordNotValid = !this.loginForm.get('password')?.valid;
 
+    //Una vez activada la alerta 3 segundos para desaparecer.
+    setTimeout(() => {
+      this.isEmailNotValid = false;
+      this.isPasswordNotValid = false;
+    }, 3000);
 
     if (this.loginForm.valid) {
       const email = this.loginForm.get('email')!.value;

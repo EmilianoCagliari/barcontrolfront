@@ -8,6 +8,8 @@ import { AuthComponent } from './auth/auth.component';
 import { ComponentModule } from './components/component.module';
 import { HomeComponent } from './home/home.component';
 import { IconsModule } from './components/icons/icons.module';
+import { InicioComponent } from './home/inicio/inicio.component';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { IconsModule } from './components/icons/icons.module';
     AppRoutingModule,
     ComponentModule,
     ReactiveFormsModule,
-    IconsModule
+    IconsModule,
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
