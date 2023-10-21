@@ -1,59 +1,60 @@
 <div class="max-w-[1400px] max-h-[1024px] m-auto flex">
 
+    <!-- ASIDE NAVEGACION -->
     <aside class="w-2/12 h-screen bg-prim-dark-1 flex flex-col items-center">
         <div class="w-36 h-36 mt-3 mb-20">
             <img src="../../assets/logo-white.svg" alt="">
         </div>
 
         <!-- navitems -->
-
         <nav class="w-full h-4/5 mb-5 px-5 flex justify-center">
-            <ul class="max-w-[200px] text-prim-light-2 flex flex-col">
-                <li class="mt-1 mb-8">
-                    <a routerLink="/" class="flex items-center justify-between text-secondary pointer-events-none" >
-                        <i-tabler name="home" class="iconsize "></i-tabler>
-                        <p class="font-bold text-sm w-7/12">Inicio</p>
+            <ul class="max-w-[200px] text-prim-light-2 flex flex-col justify-center">
+                <li class="mt-1 mb-14 transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:text-secondary duration-150" routerLinkActive="li-active">
+                    <a routerLink="inicio" class="flex items-center justify-between" routerLinkActive="a-active">
+                        <i-tabler name="home" class="iconsize thin" routerLinkActive="i-tabler-active"></i-tabler>
+                        <p class="text-sm w-7/12" routerLinkActive="p-active">Inicio</p>
                     </a>
                 </li>
-                <li class="mt-1 mb-8 transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:text-secondary duration-150 ">
-                    <a routerLink="productos" class="flex items-center justify-between">
-                        <i-tabler name="bottle" class="iconsize thin"></i-tabler>
-                        <p class="table-caption text-sm w-7/12">ABM Productos</p>
+                <li class="mt-1 mb-14 transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:text-secondary duration-150" routerLinkActive="li-active">
+                    <a routerLink="productos" class="flex items-center justify-between" routerLinkActive="a-active">
+                        <i-tabler name="bottle" class="iconsize thin" routerLinkActive="i-tabler-active"></i-tabler>
+                        <p class="table-caption text-sm w-7/12" routerLinkActive="p-active">ABM Productos</p>
                     </a>
                 </li>
-                <li class="mt-1 mb-8 transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:text-secondary duration-150">
-                    <a routerLink="registro" class="flex items-center justify-between">
-                        <i-tabler name="scale-outline" class="iconsize thin"></i-tabler>
-                        <p class="text-sm w-7/12">Registro</p>
+                <li class="mt-1 mb-14 transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:text-secondary duration-150" routerLinkActive="li-active">
+                    <a routerLink="registro" class="flex items-center justify-between" routerLinkActive="a-active">
+                        <i-tabler name="scale-outline" class="iconsize thin" routerLinkActive="i-tabler-active"></i-tabler>
+                        <p class="text-sm w-7/12" routerLinkActive="p-active">Registro</p>
                     </a>
                 </li>
-                <li class="mt-1 mb-8 transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:text-secondary duration-150">
-                    <a routerLink="analiticas" class="flex items-center justify-between">
-                        <i-tabler name="report-analytics" class="iconsize thin"></i-tabler>
-                        <p class="text-sm w-7/12">Analiticas</p>
+                <li class="mt-1 mb-14 transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:text-secondary duration-150" routerLinkActive="li-active">
+                    <a routerLink="analiticas" class="flex items-center justify-between" routerLinkActive="a-active">
+                        <i-tabler name="report-analytics" class="iconsize thin" routerLinkActive="i-tabler-active"></i-tabler>
+                        <p class="text-sm w-7/12" routerLinkActive="p-active">Analiticas</p>
                     </a>
                 </li>
-                <li class="mt-1 mb-8 transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:text-secondary duration-150">
-                    <a routerLink="ajustes" class="flex items-center justify-between">
-                        <i-tabler name="settings" class="iconsize thin"></i-tabler>
-                        <p class="text-sm w-7/12">Ajustes</p>
+                <li class="mt-1 mb-14 transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:text-secondary duration-150" routerLinkActive="li-active">
+                    <a routerLink="ajustes" class="flex items-center justify-between" routerLinkActive="a-active">
+                        <i-tabler name="settings" class="iconsize thin" routerLinkActive="i-tabler-active"></i-tabler>
+                        <p class="text-sm w-7/12" routerLinkActive="p-active">Ajustes</p>
                     </a>
                 </li>
                 <li class="mt-auto transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:text-secondary duration-150 ">
-                    <a href="#" class="flex items-center justify-between">
+                    <a href="#" class="flex items-center justify-between" (click)="Logout()">
                         <i-tabler name="logout" class="iconsize thin"></i-tabler>
                         <p class="text-sm w-7/12">Cerrar Sesión</p>
                     </a>
                 </li>
             </ul>
         </nav>
+
     </aside>
 
     <div class="w-12/12  flex flex-col flex-1" >
 
         <header class="h-24 flex justify-center">
     
-            <div class="p-1 ml-3 mt-2 h-4/5 flex flex-col items-center border-2 rounded-lg border-b-prim-dark-1">
+            <div class="p-2 ml-3 mt-2 h-4/5 flex flex-col justify-center items-center border-2 rounded-lg border-b-prim-dark-1">
                 <h2 class="font-bold">Balanza</h2>
                 <i-tabler name="scale-outline-off" class="iconsize text-danger"></i-tabler>
             </div>
@@ -85,7 +86,7 @@
         
         </header>
 
-        <main class="w-full h-full m-2 border-2 rounded-xl border-[#ECECFC] mainshadow">
+        <main class="w-full h-full m-2 border-2 rounded-xl border-[#ECECFC] mainshadow p-2">
             
             <router-outlet></router-outlet>
     

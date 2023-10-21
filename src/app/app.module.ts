@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { IconsModule } from './components/icons/icons.module';
 import { InicioComponent } from './home/inicio/inicio.component';
 import { HomeModule } from './home/home.module';
+import { LocalstorageService } from './helpers/localstorage.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import { HomeModule } from './home/home.module';
     IconsModule,
     HomeModule
   ],
-  providers: [],
+  providers: [
+    LocalstorageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

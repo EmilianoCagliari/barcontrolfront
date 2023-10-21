@@ -8,7 +8,7 @@ import { AjustesComponent } from './ajustes/ajustes.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'inicio',
     component: InicioComponent,    
   },
   {
@@ -26,7 +26,8 @@ const routes: Routes = [
   {
     path: 'ajustes',
     component: AjustesComponent
-  },
+  }
+  
 ];
 
 @NgModule({

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth-service.service';
 import { Router } from '@angular/router';
+import { LocalstorageService } from '../helpers/localstorage.service';
+
 
 @Component({
   selector: 'app-auth',
@@ -10,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class AuthComponent {
 
+  isLogin: boolean = false;
+  errorLogin: boolean = false;
 
 
   //Formulario de login
@@ -21,7 +25,9 @@ export class AuthComponent {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router:Router,
+    private localstorage: LocalstorageService
+
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -31,27 +37,68 @@ export class AuthComponent {
 
 
   onSubmit() {
+   
+   
+    //Redireccion sin nada de validación.
+    this.router.navigate(['home/inicio']);
 
-    console.log("onSubmit");
-    console.log(this.loginForm.get('email')?.valid);
-    
-    this.isEmailNotValid = !this.loginForm.get('email')?.valid;
-    this.isPasswordNotValid = !this.loginForm.get('password')?.valid;
 
-    //Una vez activada la alerta 3 segundos para desaparecer.
-    setTimeout(() => {
-      this.isEmailNotValid = false;
-      this.isPasswordNotValid = false;
-    }, 3000);
+    // console.log("onSubmit");
+    // console.log(this.loginForm.get('email')?.valid);
 
-    if (this.loginForm.valid) {
-      const email = this.loginForm.get('email')!.value;
-      const password = this.loginForm.get('password')!.value;
+    // this.isEmailNotValid = !this.loginForm.get('email')?.valid;
+    // this.isPasswordNotValid = !this.loginForm.get('password')?.valid;
 
-      this.router.navigate(['home']);
-      // Realizar la lógica de autenticación aquí, por ejemplo, enviar los datos al servidor
-      console.log('Correo electrónico:', email);
-      console.log('Contraseña:', password);
-    }
+    // //Una vez activada la alerta 3 segundos para desaparecer.
+    // setTimeout(() => {
+    //   this.isEmailNotValid = false;
+    //   this.isPasswordNotValid = false;
+    // }, 3000);
+
+    // if (this.loginForm.valid) {
+
+
+    //   const email = this.loginForm.get('email')!.value;
+    //   const password = this.loginForm.get('password')!.value;
+
+    //   console.log('loginForm', this.loginForm.value);
+
+    //   this.authService.login(this.loginForm.value)
+    //   .subscribe({
+    //     next: response => {
+    //       // Manejar la respuesta de la solicitud HTTP
+            
+    //         this.isLogin = true;
+    //         console.log('Respuesta:', response);
+    //         setTimeout(() => {
+    //           this.isLogin = false;
+
+    //           this.localstorage.LocalSetItem( "token", response['access_token'] );
+    //           this.router.navigate(['home/inicio']);
+    //         }, 2000);
+
+    //       },
+    //       error: err => {
+    //         this.errorLogin = true
+    //         console.error('Error:', err);
+    //       }
+    //     });
+
+
+
+
+
+
+    //   setTimeout(() => {
+    //     this.errorLogin = false;
+    //     // this.router.navigate(['home/inicio']);
+    //   }, 2000);
+    //   // Realizar la lógica de autenticación aquí, por ejemplo, enviar los datos al servidor
+    //   // console.log('Correo electrónico:', email);
+    //   // console.log('Contraseña:', password);
+    // }
   }
+
+
+
 }

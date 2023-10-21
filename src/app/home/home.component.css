@@ -20,3 +20,18 @@
   -moz-box-shadow: 2px 2px 10px 0px rgba(27, 26, 91, 0.50);
   box-shadow: 2px 2px 10px 0px rgba(27, 26, 91, 0.50);
 }
+
+.li-active{
+    @apply mt-1 mb-14 transition-none transform-none text-prim-light-2
+}
+
+.a-active {
+    @apply flex items-center justify-between text-secondary pointer-events-none
+}
+
+.i-tabler-active {
+    @apply iconsize
+}
+.p-active {
+    @apply table-caption font-bold text-sm w-7/12
+}

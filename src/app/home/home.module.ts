@@ -6,6 +6,9 @@ import { ProductosComponent } from './productos/productos.component';
 import { RegistroComponent } from './registro/registro.component';
 import { AnaliticasComponent } from './analiticas/analiticas.component';
 import { AjustesComponent } from './ajustes/ajustes.component';
+import { AuthService } from '../auth/auth-service.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ComponentModule } from '../components/component.module';
 
 
 
@@ -19,8 +22,13 @@ import { AjustesComponent } from './ajustes/ajustes.component';
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    HttpClientModule,
+    ComponentModule
   ], 
-  exports: []
+  exports: [],
+  providers: [
+    AuthService
+  ]
 })
 export class HomeModule { }

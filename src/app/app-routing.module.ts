@@ -13,7 +13,8 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     loadChildren: () => import('./home/home-routing.module').then(m => m.HomeRoutingModule)
-  }
+  },
+  { path: '**', redirectTo: '' }
 ];
 
 

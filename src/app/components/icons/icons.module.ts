@@ -11,7 +11,10 @@ import {
   IconScaleOutlineOff,
   IconBell,
   IconUserCircle,
-  IconChevronDown } from 'angular-tabler-icons/icons';
+  IconChevronDown,
+  IconExclamationCircle,
+  IconEditCircle,
+  IconTrash } from 'angular-tabler-icons/icons';
 
 
 
@@ -28,7 +31,10 @@ const icons = {
   IconScaleOutlineOff,
   IconBell,
   IconUserCircle,
-  IconChevronDown
+  IconChevronDown,
+  IconExclamationCircle,
+  IconEditCircle,
+  IconTrash
 };
 
 @NgModule({
