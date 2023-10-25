@@ -32,7 +32,7 @@ export class CarouselComponent {
 
   //Carrousel slide
   startCarouselSlide() {
-    const interval = 3000; // Cambiar cada 3 segundos (ajusta según tus necesidades)
+    const interval = 2000; // Cambiar cada 3 segundos (ajusta según tus necesidades)
     setInterval(() => {
 
       //Si la imagen actual esta activo y el siguiente elemento existe

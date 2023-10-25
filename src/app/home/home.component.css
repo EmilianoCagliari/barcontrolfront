@@ -22,7 +22,7 @@
 }
 
 .li-active{
-    @apply mt-1 mb-14 transition-none transform-none text-prim-light-2
+    @apply mt-1 mb-10 transition-none transform-none text-prim-light-2
 }
 
 .a-active {
@@ -33,5 +33,5 @@
     @apply iconsize
 }
 .p-active {
-    @apply table-caption font-bold text-sm w-7/12
+    @apply font-bold text-sm w-7/12
 }
