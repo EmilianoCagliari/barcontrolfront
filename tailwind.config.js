@@ -25,7 +25,11 @@ module.exports = {
     fontFamily: {
       'custom': ['Oxygen', 'Red Hat Display', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      screens: {
+        '3xl': '1920px',
+      },
+    },
   },
   plugins: [],
 }

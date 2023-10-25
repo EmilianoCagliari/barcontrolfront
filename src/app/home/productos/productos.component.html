@@ -1,372 +1,76 @@
-
-<div class="w-full h-full 
-            2xl:max-h-[950px]
-            xl:max-h-[560px]
-            lg:max-h-[600px]
-            md:max-h-[550px]
+<div class="w-full h-full flex flex-col justify-between">
+    <div class="w-full
+            border
+            border-prim-light-2
+            rounded-xl
             sm:max-h-[530px]  
+            md:max-h-[550px]
+            lg:max-h-[600px]
+            xl:max-h-[660px]
+            2xl:max-h-[700px]
             overflow-y-auto">
-    <table class="table-auto w-full text-center">
-        <thead>
-            <tr class="bg-prim-light-1/25">
+        <table class="table-auto w-full text-center">
+            <thead>
+                <!-- <tr class="bg-prim-light-1/25">
                 <th class="py-2">Song</th>
                 <th class="py-2">Artist</th>
                 <th class="py-2">Year</th>
                 <th class="py-2">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                <td class="py-2">Malcolm Lockyer</td>
-                <td class="py-2">1961</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Witchy Woman</td>
-                <td class="py-2">The Eagles</td>
-                <td class="py-2">1972</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Shining Star</td>
-                <td class="py-2">Earth, Wind, and Fire</td>
-                <td class="py-2">1975</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                <td class="py-2">Malcolm Lockyer</td>
-                <td class="py-2">1961</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Witchy Woman</td>
-                <td class="py-2">The Eagles</td>
-                <td class="py-2">1972</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Shining Star</td>
-                <td class="py-2">Earth, Wind, and Fire</td>
-                <td class="py-2">1975</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                <td class="py-2">Malcolm Lockyer</td>
-                <td class="py-2">1961</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Witchy Woman</td>
-                <td class="py-2">The Eagles</td>
-                <td class="py-2">1972</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Shining Star</td>
-                <td class="py-2">Earth, Wind, and Fire</td>
-                <td class="py-2">1975</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                <td class="py-2">Malcolm Lockyer</td>
-                <td class="py-2">1961</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Witchy Woman</td>
-                <td class="py-2">The Eagles</td>
-                <td class="py-2">1972</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Shining Star</td>
-                <td class="py-2">Earth, Wind, and Fire</td>
-                <td class="py-2">1975</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                <td class="py-2">Malcolm Lockyer</td>
-                <td class="py-2">1961</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Witchy Woman</td>
-                <td class="py-2">The Eagles</td>
-                <td class="py-2">1972</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Shining Star</td>
-                <td class="py-2">Earth, Wind, and Fire</td>
-                <td class="py-2">1975</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                <td class="py-2">Malcolm Lockyer</td>
-                <td class="py-2">1961</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Witchy Woman</td>
-                <td class="py-2">The Eagles</td>
-                <td class="py-2">1972</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Shining Star</td>
-                <td class="py-2">Earth, Wind, and Fire</td>
-                <td class="py-2">1975</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                <td class="py-2">Malcolm Lockyer</td>
-                <td class="py-2">1961</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Witchy Woman</td>
-                <td class="py-2">The Eagles</td>
-                <td class="py-2">1972</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Shining Star</td>
-                <td class="py-2">Earth, Wind, and Fire</td>
-                <td class="py-2">1975</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                <td class="py-2">Malcolm Lockyer</td>
-                <td class="py-2">1961</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Witchy Woman</td>
-                <td class="py-2">The Eagles</td>
-                <td class="py-2">1972</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Shining Star</td>
-                <td class="py-2">Earth, Wind, and Fire</td>
-                <td class="py-2">1975</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                <td class="py-2">Malcolm Lockyer</td>
-                <td class="py-2">1961</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Witchy Woman</td>
-                <td class="py-2">The Eagles</td>
-                <td class="py-2">1972</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-            <tr class="border-b border-b-[#574FB4]/25">
-                <td class="py-2">Shining Star</td>
-                <td class="py-2">Earth, Wind, and Fire</td>
-                <td class="py-2">1975</td>
-                <td class="py-2 flex justify-evenly items-center">
-                    <button class="w-9 h-9 rounded-full bg-prim-light flex justify-center items-center">
-                        <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
-                    </button>
-                    <button class="w-9 h-9 rounded-full bg-danger flex justify-center items-center">
-                        <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+            </tr> -->
+
+                <tr class="bg-prim-light-1/25">
+                    <th class="py-2" *ngFor="let d of data[0] | keyvalue ">{{d.key}}</th>
+                    <!-- <th class="py-2">Artist</th>
+                <th class="py-2">Year</th>-->
+                    <th class="py-2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let d of data; let i = index;" class="border-b border-b-[#574FB4]/25">
+                    <th class="py-2" *ngFor="let v of data[i] | keyvalue ">{{v.value}}</th>
+                    <!-- <th class="py-2">Artist</th>
+                <th class="py-2">Year</th>-->
+                    <td class="py-2 flex justify-center items-center">
+                        <button class="w-9 h-9 mr-1 rounded-full bg-prim-light flex justify-center items-center">
+                            <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
+                        </button>
+                        <button class="w-9 h-9 mr-1 rounded-full bg-danger flex justify-center items-center">
+                            <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
+                        </button>
+                        <button class="w-9 h-9 mr-1 rounded-full bg-secondary flex justify-center items-center">
+                            <i-tabler name="device-floppy" class="text-prim-light-2"></i-tabler>
+                        </button>
+                    </td>
+                </tr>
+
+
+
+            </tbody>
+        </table>
+    </div>
+    <div class="w-full h-3/12 flex justify-center items-center  text-lg">
+        <div class="w-3/6 h-16  flex items-center justify-center">
+            <button
+                class="w-9 h-9 bg-prim-light-1/50 hover:bg-prim-light-1/90 rounded-full flex justify-center items-center">
+                <i-tabler name="chevron-left"></i-tabler>
+            </button>
+            <div class="w-1/2 flex justify-evenly">
+                <span
+                    class="w-9 h-9 rounded-full flex justify-center items-center bg-prim-dark-1 text-prim-light-2 font-bold">1</span>
+                <span class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">2</span>
+                <span class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">3</span>
+                <span class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">4</span>
+                <span class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">5</span>
+                <span
+                    class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">...</span>
+            </div>
+
+            <button
+                class="w-9 h-9 bg-prim-light-1/50 hover:bg-prim-light-1/90 rounded-full flex justify-center items-center">
+                <i-tabler name="chevron-right"></i-tabler>
+            </button>
+        </div>
+
+    </div>
 </div>
