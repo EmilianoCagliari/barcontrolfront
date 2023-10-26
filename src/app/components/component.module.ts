@@ -8,6 +8,8 @@ import { LoaderComponent } from './loader/loader.component';
 import { AlertComponent } from './alert/alert.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
+import { WarningComponent } from './warning/warning.component';
+import { GaugeComponent } from './gauge/gauge.component';
 
 
 
@@ -19,7 +21,9 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     LoaderComponent,
     AlertComponent,
     NotFoundComponent,
-    WorkInProgressComponent
+    WorkInProgressComponent,
+    WarningComponent,
+    GaugeComponent
   ],
   imports: [
     CommonModule,
@@ -33,8 +37,9 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     AlertComponent,
     IconsModule,
     NotFoundComponent,
-    WorkInProgressComponent
-
+    WorkInProgressComponent,
+    WarningComponent,
+    GaugeComponent
   ]
 })
 export class ComponentModule { }

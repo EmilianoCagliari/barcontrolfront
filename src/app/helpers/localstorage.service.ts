@@ -8,24 +8,24 @@ export class LocalstorageService {
   constructor() { }
 
 
-  LocalSetItem( k:string, v:string): boolean {
+  setItem( k:string, v:string): boolean {
     localStorage.setItem(k,v);
     
     
-    return this.LocalGetItem(k);
+    return this.getItem(k);
   }
 
-  LocalGetItem(k:string): boolean {
+  getItem(k:string): boolean {
     
     return ( localStorage.getItem(k) != null );
 
   }
 
-  LocalDeleteItem(): boolean {
+  deleteItem(): boolean {
     return true;
   }
 
-  LocalClearData() {
+  clearData() {
     localStorage.clear();
   }
 

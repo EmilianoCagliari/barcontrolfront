@@ -11,12 +11,14 @@ import { LocalstorageService } from '../helpers/localstorage.service';
 export class HomeComponent {
 
   productBtn: boolean = false;
+  currentUrl: string = "";
 
   constructor(
     private readonly router:Router,
     private readonly localstorage: LocalstorageService
   ){
     this.router.events.subscribe(() => {
+      this.currentUrl = this.router.url.replace('/home/', '');
       this.productBtn = this.router.url === '/home/productos'; // Cambia '/pagina1' por la ruta en la que quieras mostrar el botón.
     });
   }
@@ -24,7 +26,7 @@ export class HomeComponent {
 
   Logout(){
 
-    this.localstorage.LocalClearData();
+    this.localstorage.clearData();
     this.router.navigate(['#']);
   }
 
