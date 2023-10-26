@@ -6,6 +6,8 @@ import { HeaderComponent } from './header/header.component';
 import { IconsModule } from './icons/icons.module';
 import { LoaderComponent } from './loader/loader.component';
 import { AlertComponent } from './alert/alert.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 
 
 
@@ -15,7 +17,9 @@ import { AlertComponent } from './alert/alert.component';
     CarouselComponent,
     HeaderComponent,
     LoaderComponent,
-    AlertComponent
+    AlertComponent,
+    NotFoundComponent,
+    WorkInProgressComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +31,10 @@ import { AlertComponent } from './alert/alert.component';
     HeaderComponent,
     LoaderComponent,
     AlertComponent,
-    IconsModule
+    IconsModule,
+    NotFoundComponent,
+    WorkInProgressComponent
+
   ]
 })
 export class ComponentModule { }
