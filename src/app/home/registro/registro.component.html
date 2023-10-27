@@ -1,44 +1,51 @@
 <!-- <app-warning></app-warning> -->
-<div class="w-full h-full py-2 flex justify-center items-center">
-    <div
-        class=" w-2/3 h-2/3 border-2 rounded-xl border-[#ECECFC] mainshadow p-2 flex flex-col justify-evenly items-center">
-        <h1 class="font-black text-3xl">Registro de peso</h1>
-        <div class="w-3/4 flex flex-col items-center text-sm font-bold">
-            <p>Seleccione la bebida a registrar.</p>
-            <p>Utilice la balanza inalámbrica y apoye la bebida para comenzar a registrar.</p>
-        </div>
-        <div class="w-3/4 h-3/5  flex justify-center items-center p-1">
-            <div class="w-1/2 h-full m-1 flex flex-col justify-around items-center ">
-                <app-gauge></app-gauge>
-                <h2 class="text-2xl font-bold">Peso: <span class="font-normal ml-5">1460 grs.</span></h2>
+<app-warning *ngIf="!balanza"></app-warning>
+<ng-container *ngIf="balanza">
+    <div class="w-full h-full py-2 flex justify-center items-center">
+
+
+        <div class=" w-2/3 h-2/3 
+                lg:w-2/3
+                lg:h-5/6
+    border-2 rounded-xl border-[#ECECFC] mainshadow p-2 flex flex-col justify-evenly items-center">
+            <h1 class="font-black text-3xl">Registro de peso</h1>
+            <div class="w-3/4 flex flex-col items-center text-sm font-bold">
+                <p>Seleccione la bebida a registrar.</p>
+                <p>Utilice la balanza inalámbrica y apoye la bebida para comenzar a registrar.</p>
             </div>
-
-            <div class="w-1/2 h-full   m-1 flex flex-col items-center justify-around">
-
-                <div class="w-6/12  p-2">
-                    <img src="../../../assets/carrousel/img1.jpg" alt="" class="rounded-lg">
-                </div>
-                <div class="w-full flex justify-around text-sm px-6">
-                    <div class="flex flex-col text-prim-dark-2 font-bold">
-                        <p>Nombre:</p>
-                        <p>Marca:</p>
-                        <p>Tipo:</p>
-                    </div>
-                    <div class="flex flex-col">
-                        <p>Bacardi</p>
-                        <p>Ron Blanco 1L</p>
-                        <p>Bebida Base</p>
-                    </div>
+            <div class="w-3/4 h-3/5  flex justify-center items-center p-1">
+                <div class="w-1/2 h-full m-1 flex flex-col justify-around items-center ">
+                    <app-gauge [valorIndicador]='peso'></app-gauge>
+                    <h2 class="text-2xl font-bold">Peso: <span class="font-normal ml-5">{{peso}} grs.</span></h2>
                 </div>
 
+                <div class="w-1/2 h-full   m-1 flex flex-col items-center justify-around">
+
+                    <div class="w-6/12  p-2">
+                        <img src="../../../assets/carrousel/img1.jpg" alt="" class="rounded-lg">
+                    </div>
+                    <div class="w-full flex justify-around text-sm px-6">
+                        <div class="flex flex-col text-prim-dark-2 font-bold">
+                            <p>Nombre:</p>
+                            <p>Marca:</p>
+                            <p>Tipo:</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <p>Bacardi</p>
+                            <p>Ron Blanco 1L</p>
+                            <p>Bebida Base</p>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
+            <button
+                class="w-36 h-10 rounded-xl bg-prim-dark-1 text-sm text-prim-light-2 shadow shadow-prim-dark-2 transition-all ease-in-out duration-100 hover:-translate-y-px hover:bg-prim-dark">
+                Registrar Peso
+            </button>
+
         </div>
-
-        <button
-            class="w-36 h-10 rounded-xl bg-prim-dark-1 text-sm text-prim-light-2 shadow shadow-prim-dark-2 transition-all ease-in-out duration-100 hover:-translate-y-px hover:bg-prim-dark">
-            Registrar Peso
-        </button>
-
     </div>
-</div>
+</ng-container>

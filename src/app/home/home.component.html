@@ -60,7 +60,9 @@
     
             <div class="p-2 ml-3 mt-2 h-4/5 flex flex-col justify-center items-center border-2 rounded-lg border-b-prim-dark-1">
                 <h2 class="font-bold">Balanza</h2>
-                <i-tabler name="scale-outline-off" class="iconsize text-danger"></i-tabler>
+
+                <i-tabler *ngIf="scaleConected" name="scale-outline" class="iconsize text-secondary"></i-tabler>
+                <i-tabler *ngIf="!scaleConected" name="scale-outline-off" class="iconsize text-danger"></i-tabler>
             </div>
     
             <h1 class="ml-3 mb-4 self-end font-black">{{ currentUrl | titlecase }}</h1>
@@ -69,9 +71,10 @@
             <!-- User area -->
             <div class="w-5/12 ml-auto flex justify-evenly items-center ">
         
-                <button class="h-3/5 w-2/6 border-2 rounded-2xl border-none bg-secondary text-prim-dark-2 shadow-sm shadow-prim-dark-2 font-bold transition-all ease-in-out duration-100  hover:-translate-y-1"
-                [ngClass]="{ 'invisible': !productBtn }"
+                <button (click)="scaleChangeStatus()" class="h-3/5 w-2/6 border-2 rounded-2xl border-none bg-secondary text-prim-dark-2 shadow-sm shadow-prim-dark-2 font-bold transition-all ease-in-out duration-100  hover:-translate-y-1"
                 >
+                
+                <!-- [ngClass]="{ 'invisible': !productBtn }" -->
                     Crear Producto
                 </button>
 
