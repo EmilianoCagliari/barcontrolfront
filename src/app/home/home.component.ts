@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
 import { LocalstorageService } from '../helpers/localstorage.service';
 import { WebsocketService } from '../helpers/websocket.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,20 @@ export class HomeComponent implements OnInit {
   currentUrl: string = "";
 
   scaleConected: boolean;
+
+
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    iconColor: 'white',
+    background: '#2F2DA0',
+    color: '#fff',
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    
+
+  })
 
   constructor(
     private readonly router: Router,
@@ -45,7 +60,18 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['#']);
   }
 
-  scaleChangeStatus() {
+  async scaleChangeStatus() {
+
+    (!this.webSocketService.getScaleConected()) ?
+      await this.Toast.fire({
+        icon: 'warning',
+        title: 'Balanza conectada!'
+      })
+      :
+      await this.Toast.fire({
+        icon: 'warning',
+        title: 'Balanza desconectada!'
+      })
 
     console.log("scaleChangeStatus");
     console.log("Scale Status:", this.scaleConected);

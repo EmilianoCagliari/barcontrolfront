@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth-service.service';
 import { Router } from '@angular/router';
 import { LocalstorageService } from '../helpers/localstorage.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -15,6 +16,17 @@ export class AuthComponent {
   isLogin: boolean = false;
   errorLogin: boolean = false;
 
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'bottom',
+    iconColor: 'white',
+    background: '#D30E0E',
+    color: '#fff',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true
+  })
+
 
   //Formulario de login
   loginForm: FormGroup;
@@ -25,7 +37,7 @@ export class AuthComponent {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router:Router,
+    private router: Router,
     private localstorage: LocalstorageService
 
   ) {
@@ -36,69 +48,79 @@ export class AuthComponent {
   }
 
 
-  onSubmit() {
-   
-   
+  async onSubmit() {
+
+
     //Redireccion sin nada de validación.
-    this.router.navigate(['home/inicio']);
+    // this.router.navigate(['home/inicio']);
 
 
     // console.log("onSubmit");
     // console.log(this.loginForm.get('email')?.valid);
 
-    // this.isEmailNotValid = !this.loginForm.get('email')?.valid;
-    // this.isPasswordNotValid = !this.loginForm.get('password')?.valid;
+    this.isEmailNotValid = !this.loginForm.get('email')?.valid;
+    this.isPasswordNotValid = !this.loginForm.get('password')?.valid;
 
-    // //Una vez activada la alerta 3 segundos para desaparecer.
-    // setTimeout(() => {
-    //   this.isEmailNotValid = false;
-    //   this.isPasswordNotValid = false;
-    // }, 3000);
+    //Una vez activada la alerta 3 segundos para desaparecer.
+    setTimeout(() => {
+      this.isEmailNotValid = false;
+      this.isPasswordNotValid = false;
+    }, 3000);
 
-    // if (this.loginForm.valid) {
-
-
-    //   const email = this.loginForm.get('email')!.value;
-    //   const password = this.loginForm.get('password')!.value;
-
-    //   console.log('loginForm', this.loginForm.value);
-
-    //   this.authService.login(this.loginForm.value)
-    //   .subscribe({
-    //     next: response => {
-    //       // Manejar la respuesta de la solicitud HTTP
-            
-    //         this.isLogin = true;
-    //         console.log('Respuesta:', response);
-    //         setTimeout(() => {
-    //           this.isLogin = false;
-
-    //           this.localstorage.LocalSetItem( "token", response['access_token'] );
-    //           this.router.navigate(['home/inicio']);
-    //         }, 2000);
-
-    //       },
-    //       error: err => {
-    //         this.errorLogin = true
-    //         console.error('Error:', err);
-    //       }
-    //     });
+    if (this.loginForm.valid) {
 
 
+      const email = this.loginForm.get('email')!.value;
+      const password = this.loginForm.get('password')!.value;
+
+      console.log('loginForm', this.loginForm.value);
+
+      this.authService.login(this.loginForm.value)
+        .subscribe({
+          next: response => {
+            // Manejar la respuesta de la solicitud HTTP
+
+            this.isLogin = true;
+            console.log('Respuesta:', response);
+            setTimeout(() => {
+              this.isLogin = false;
+
+              this.localstorage.setItem("token", response['access_token']);
+              this.router.navigate(['home/inicio']);
+            }, 2000);
+
+          },
+          error: async (err) => {
+            this.errorLogin = true
+            console.error('Error:', err);
+
+
+            if (this.errorLogin) {
+               await this.Toast.fire({
+                icon: 'error',
+                title: 'Usuario y/o contraseña incorrecto.'
+              })
+              this.router.navigate(['home/inicio']);
+            }
+          }
+        });
+
+
+      
 
 
 
 
-    //   setTimeout(() => {
-    //     this.errorLogin = false;
-    //     // this.router.navigate(['home/inicio']);
-    //   }, 2000);
-    //   // Realizar la lógica de autenticación aquí, por ejemplo, enviar los datos al servidor
-    //   // console.log('Correo electrónico:', email);
-    //   // console.log('Contraseña:', password);
-    // }
+      //   setTimeout(() => {
+      //     this.errorLogin = false;
+      //     // this.router.navigate(['home/inicio']);
+      //   }, 2000);
+      //   // Realizar la lógica de autenticación aquí, por ejemplo, enviar los datos al servidor
+      //   // console.log('Correo electrónico:', email);
+      //   // console.log('Contraseña:', password);
+      // }
+    }
   }
-
 
 
 }

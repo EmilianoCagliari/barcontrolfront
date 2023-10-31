@@ -9,7 +9,7 @@ export class WebsocketService {
   constructor() { }
 
 
-  private _scaleConected: boolean = false;
+  private _scaleConected: boolean = true;
   scaleConected$ = new Subject<boolean>();
 
 

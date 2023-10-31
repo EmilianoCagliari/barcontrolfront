@@ -8,18 +8,33 @@ import { Subscription, interval } from 'rxjs';
 })
 export class GaugeComponent {
 
-  @Input() valorIndicador: number = 1;
 
   private valorMaximo = 10000;
   private anguloMaximo = 90;
 
+  anguloTransform: string;
+  private _valorIndicador: number;
 
-  calcularAnguloRotacion(): string {
+
+  constructor() {
+    this.anguloTransform = `rotate(${-this.anguloMaximo}deg)`;
+    this._valorIndicador = 1;
+  }
+
+
+  @Input()
+  set valorIndicador(valor: number) {
+    this._valorIndicador = valor;
+    this.calcularAnguloRotacion();
+  }
+
+
+  calcularAnguloRotacion(): void {
 
     //Calculo para tener el angulo del indicador entre -90deg y 90deg
-    const angulo = ((this.valorIndicador - this.valorMaximo / 2) / (this.valorMaximo / 2)) * this.anguloMaximo;
+    const angulo = ((this._valorIndicador - this.valorMaximo / 2) / (this.valorMaximo / 2)) * this.anguloMaximo;
     console.log("Angulo:", angulo);
-    return `rotate(${angulo}deg)`;
+    this.anguloTransform = `rotate(${angulo}deg)`;
   }
 
 }

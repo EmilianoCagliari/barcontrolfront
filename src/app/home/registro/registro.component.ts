@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { Subscription, interval } from 'rxjs';
 import { WebsocketService } from 'src/app/helpers/websocket.service';
 
@@ -17,9 +17,36 @@ export class RegistroComponent implements OnInit {
   private randomValueSubscription!: Subscription;
 
 
-  constructor(private webSocketService: WebsocketService) {
+  isMenuOpen: boolean = false;
+
+
+
+  constructor(
+    private webSocketService: WebsocketService,
+    private elRef: ElementRef
+  ) {
     this.balanza = this.webSocketService.getScaleConected();
   }
+
+  
+
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: Event) {
+    if (this.isMenuOpen) {
+      
+      // Verifica si el clic ocurrió fuera del cuadro de elementos.
+      if (!this.elRef.nativeElement.contains(event.target)) {
+        this.isMenuOpen = false; // Cierra el cuadro de elementos.
+      }
+    }
+  }
+
 
 
   ngOnInit() {

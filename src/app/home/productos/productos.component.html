@@ -28,7 +28,7 @@
             <tbody>
 
                 <tr *ngFor="let d of data; let i = index;" class="border-b border-b-[#574FB4]/25">
-                    <td class="py-2" *ngFor="let v of data[i] | keyvalue ">
+                    <td class="py-2" *ngFor="let v of data[i] | keyvalue">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='v.value' *ngIf="i === rowEdit">
                         <span *ngIf="i !== rowEdit"> {{v.value}}</span>
                     </td>
@@ -80,5 +80,4 @@
 
 <app-loader msg="Cargando..." *ngIf="loading"></app-loader>
 
-<app-loader msg="Guardando cambios..." *ngIf="saveDataLoader"></app-loader>
 

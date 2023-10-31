@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IconTemperatureMinus } from 'angular-tabler-icons/icons';
+import Swal from 'sweetalert2';
 
 interface ProductoInterface {
   id: Number,
@@ -21,9 +22,9 @@ interface ProductoInterface {
 })
 export class ProductosComponent implements OnInit {
   ngOnInit(): void {
-    setTimeout(() => {
-      this.loading = false;
-    }, 2000);
+    // setTimeout(() => {
+    //   this.loading = false;
+    // }, 2000);
   }
 
   data: ProductoInterface[] = [
@@ -195,9 +196,8 @@ export class ProductosComponent implements OnInit {
   ];
 
   rowEdit: Number | null = null;
-  loading: boolean = true;
+  loading: boolean = false;
 
-  saveDataLoader: boolean = false;
 
 
   editRow(idx: number) {
@@ -205,13 +205,41 @@ export class ProductosComponent implements OnInit {
   }
 
   saveRow(idx: number) {
-    // Aquí puedes realizar la lógica de guardar los cambios en tus datos.
-    this.rowEdit = null; // Desactivar la edición
-    this.saveDataLoader = true;
 
-    setTimeout(() => {
-      this.saveDataLoader = false;
-    }, 2000);
+    this.rowEdit = null; // Desactivar la edición
+
+    Swal.fire({
+      title: 'Quiere guardar los cambios?',
+      showDenyButton: true,
+      denyButtonColor: '#2F2DA0',
+      denyButtonText: `Cancelar`,
+      icon: 'info',
+      confirmButtonText: 'Guardar',
+      confirmButtonColor: '#37C234',
+      allowOutsideClick: false
+      
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        // Swal.fire('Datos Guardados!', '', 'success')
+        Swal.fire({
+          title: 'Datos Guardados!',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#37C234'
+        });
+
+      } else if (result.isDenied) {
+        console.log("Denegado");
+        
+        Swal.fire({
+          title: 'Datos no guardados.',
+          icon: 'error',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#37C234'
+        });
+      }
+    })
 
   }
 
