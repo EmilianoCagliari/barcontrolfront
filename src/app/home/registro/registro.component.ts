@@ -1,5 +1,4 @@
 import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
-import { Subscription, interval } from 'rxjs';
 import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
@@ -13,50 +12,40 @@ export class RegistroComponent implements OnInit {
 
   private valorMaximo = 10000;
 
-  public peso: number = 0;
-  private randomValueSubscription!: Subscription;
+  peso: number;
+  // private randomValueSubscription!: Subscription;
 
 
 
 
   constructor(
-    private webSocketService: WebsocketService,
-    
+    private webSocketService: WebsocketService
   ) {
+    //Estado de la balanza
     this.balanza = this.webSocketService.getScaleConected();
+    //Estado del peso
+    this.peso = this.webSocketService.getScaleWeight();
   }
 
-  
+
+
+
 
 
 
 
   ngOnInit() {
-    // Simular cambios aleatorios en el valor del indicador cada segundo
-    this.randomValueSubscription = interval(1000).subscribe(() => {
-      // Generar un valor aleatorio dentro del rango (0 a 10000 gramos)
-      //  this.peso = Math.floor(Math.random() * (this.valorMaximo + 1));
-      if (this.peso == this.valorMaximo) {
-        this.peso = 0;
-      } else {
-        this.peso = this.peso + 1000;
-      }
 
+    //Al cargar el modulo verifica y esta constantemente atento a cambios en la conexion de la balanza.
+    this.webSocketService.scaleConected$.subscribe((connected) => {
+      this.balanza = connected;
     });
 
-    this.webSocketService.scaleConected$.subscribe((valor) => {
-      this.balanza = valor;
-    });
-
+    this.webSocketService.scaleWeight$.subscribe((peso) => {
+      // console.log("Peso registro:", peso.toFixed(2));      
+      this.peso = peso;
+    })
 
   }
-
-  ngOnDestroy() {
-    // Asegúrate de desuscribirte del Observable al destruir el componente
-    if (this.randomValueSubscription) {
-      this.randomValueSubscription.unsubscribe();
-    }
-  }
-
 
 }

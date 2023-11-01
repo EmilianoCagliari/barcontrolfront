@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from './auth-service.service';
+import { AuthService } from '../services/auth-service.service';
 import { Router } from '@angular/router';
 import { LocalstorageService } from '../services/localstorage.service';
 import Swal from 'sweetalert2';
@@ -69,6 +69,8 @@ export class AuthComponent {
 
     if (this.loginForm.valid) {
 
+      this.isLogin = true;
+
 
       const email = this.loginForm.get('email')!.value;
       const password = this.loginForm.get('password')!.value;
@@ -90,31 +92,21 @@ export class AuthComponent {
             }, 2000);
 
           },
-          error: async (err) => {
+          error: (err) => {
 
-            await this.Toast.fire({
-              icon: 'error',
-              title: `${err.error.message}`
-            })
+            setTimeout(async () => {
+              this.isLogin = false;
+              await this.Toast.fire({
+                icon: 'error',
+                title: `${err.error.message}`
+              })
+            }, 2000);
 
           }
         });
-
-
-
-
-
-
-
-      //   setTimeout(() => {
-      //     this.errorLogin = false;
-      //     // this.router.navigate(['home/inicio']);
-      //   }, 2000);
-      //   // Realizar la lógica de autenticación aquí, por ejemplo, enviar los datos al servidor
-      //   // console.log('Correo electrónico:', email);
-      //   // console.log('Contraseña:', password);
-      // }
     }
+
+
   }
 
 

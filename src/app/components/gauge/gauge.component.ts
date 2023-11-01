@@ -33,7 +33,7 @@ export class GaugeComponent {
 
     //Calculo para tener el angulo del indicador entre -90deg y 90deg
     const angulo = ((this._valorIndicador - this.valorMaximo / 2) / (this.valorMaximo / 2)) * this.anguloMaximo;
-    console.log("Angulo:", angulo);
+    // console.log("Angulo:", angulo);
     this.anguloTransform = `rotate(${angulo}deg)`;
   }
 

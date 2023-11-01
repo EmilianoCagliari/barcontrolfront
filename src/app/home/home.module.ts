@@ -6,11 +6,16 @@ import { ProductosComponent } from './productos/productos.component';
 import { RegistroComponent } from './registro/registro.component';
 import { AnaliticasComponent } from './analiticas/analiticas.component';
 import { AjustesComponent } from './ajustes/ajustes.component';
-import { AuthService } from '../auth/auth-service.service';
+import { AuthService } from '../services/auth-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentModule } from '../components/component.module';
 import { DropdownProductsComponent } from './registro/components/dropdown-products/dropdown-products.component';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { env } from 'src/environments/environment';
+
+
+const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };
 
 
 @NgModule({
@@ -26,7 +31,8 @@ import { DropdownProductsComponent } from './registro/components/dropdown-produc
     CommonModule,
     HomeRoutingModule,
     HttpClientModule,
-    ComponentModule
+    ComponentModule,
+    SocketIoModule.forRoot(config)
   ], 
   exports: [],
   providers: [

@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li class="mt-auto transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:text-secondary duration-150 ">
-                    <a href="#" class="flex items-center justify-between" (click)="Logout()">
+                    <a class="flex items-center justify-between" (click)="Logout()">
                         <i-tabler name="logout" class="iconsize thin"></i-tabler>
                         <p class="hidden md:text-sm md:w-7/12 md:block">Cerrar Sesión</p>
                     </a>
@@ -72,9 +72,9 @@
             <div class="w-5/12 ml-auto flex justify-evenly items-center ">
         
                 <button  class="h-3/5 w-2/6 border-2 rounded-2xl border-none bg-secondary text-prim-dark-2 shadow-sm shadow-prim-dark-2 font-bold transition-all ease-in-out duration-100  hover:-translate-y-1"
-                (click)="scaleChangeStatus()"
+                [ngClass]="{ 'invisible': !productBtn }"
                 >
-                <!-- [ngClass]="{ 'invisible': !productBtn }" -->
+                <!-- (click)="scaleChangeStatus()" -->
                     Crear Producto
                 </button>
 

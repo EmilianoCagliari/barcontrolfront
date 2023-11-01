@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, from } from 'rxjs';
 
+import { env } from 'src/environments/environment';
+
 interface UserLogin {
   email: string,
   password: string
@@ -10,16 +12,17 @@ interface UserLogin {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+
   
-  url: string = "http://localhost:3000/auth";
-  
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
 
 
   login( userData: UserLogin  ): Observable<any>  {
 
-    return from(this.http.post(`${this.url}/login`, userData));
+    return from(this.http.post(`${env.apiUrl}/auth/login`, userData));
 
 
     // console.log("usuario:", userData.email);

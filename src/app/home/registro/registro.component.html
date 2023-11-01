@@ -18,7 +18,7 @@
                 <!-- Indicador de peso -->
                 <div class="w-1/2 h-full m-1 flex flex-col justify-around items-center ">
                     <app-gauge [valorIndicador]='peso'></app-gauge>
-                    <h2 class="text-2xl font-bold">Peso: <span class="font-normal ml-5">{{peso}} Grs.</span></h2>
+                    <h2 class="text-2xl font-bold">Peso: <span class="font-normal ml-5">{{peso | number: '1.2-2'}} Grs.</span></h2>
                 </div>
 
                 <!-- Seleccion de bebida  - POSIBLE CAMBIO POR CODIGO DE BARRA -->
