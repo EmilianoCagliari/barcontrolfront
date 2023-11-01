@@ -9,6 +9,7 @@ import { AjustesComponent } from './ajustes/ajustes.component';
 import { AuthService } from '../auth/auth-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentModule } from '../components/component.module';
+import { DropdownProductsComponent } from './registro/components/dropdown-products/dropdown-products.component';
 
 
 
@@ -18,7 +19,8 @@ import { ComponentModule } from '../components/component.module';
     ProductosComponent,
     RegistroComponent,
     AnaliticasComponent,
-    AjustesComponent
+    AjustesComponent,
+    DropdownProductsComponent
   ],
   imports: [
     CommonModule,

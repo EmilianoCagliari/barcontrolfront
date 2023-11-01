@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth-service.service';
 import { Router } from '@angular/router';
-import { LocalstorageService } from '../helpers/localstorage.service';
+import { LocalstorageService } from '../services/localstorage.service';
 import Swal from 'sweetalert2';
 
 
@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 export class AuthComponent {
 
   isLogin: boolean = false;
-  errorLogin: boolean = false;
+  // errorLogin: boolean = false;
 
   Toast = Swal.mixin({
     toast: true,
@@ -73,7 +73,7 @@ export class AuthComponent {
       const email = this.loginForm.get('email')!.value;
       const password = this.loginForm.get('password')!.value;
 
-      console.log('loginForm', this.loginForm.value);
+      // console.log('loginForm', this.loginForm.value);
 
       this.authService.login(this.loginForm.value)
         .subscribe({
@@ -91,22 +91,17 @@ export class AuthComponent {
 
           },
           error: async (err) => {
-            this.errorLogin = true
-            console.error('Error:', err);
 
+            await this.Toast.fire({
+              icon: 'error',
+              title: `${err.error.message}`
+            })
 
-            if (this.errorLogin) {
-               await this.Toast.fire({
-                icon: 'error',
-                title: 'Usuario y/o contraseña incorrecto.'
-              })
-              this.router.navigate(['home/inicio']);
-            }
           }
         });
 
 
-      
+
 
 
 

@@ -1,18 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IconTemperatureMinus } from 'angular-tabler-icons/icons';
+import { ProductoInterface } from 'src/app/interfaces/producto.interface';
 import Swal from 'sweetalert2';
 
-interface ProductoInterface {
-  id: Number,
-  name: string,
-  price: string,
-  quantity: Number,
-  brand_id: Number,
-  type: string,
-  initialWeight: string,
-  updatedAt: string,
-  createdAt: string
-}
+
 
 
 @Component({
@@ -210,33 +200,44 @@ export class ProductosComponent implements OnInit {
 
     Swal.fire({
       title: 'Quiere guardar los cambios?',
+      background: '#ECECFC',
+      icon: 'info',
+      iconColor: '#1B1A5B',
+      confirmButtonText: 'Guardar',
+      confirmButtonColor: '#37C234',
       showDenyButton: true,
       denyButtonColor: '#2F2DA0',
       denyButtonText: `Cancelar`,
-      icon: 'info',
-      confirmButtonText: 'Guardar',
-      confirmButtonColor: '#37C234',
+      color: '#1B1A5B',
       allowOutsideClick: false
-      
+
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         // Swal.fire('Datos Guardados!', '', 'success')
         Swal.fire({
           title: 'Datos Guardados!',
+          background: '#ECECFC',
           icon: 'success',
+          iconColor: '#37C234',
           confirmButtonText: 'Ok',
-          confirmButtonColor: '#37C234'
+          confirmButtonColor: '#37C234',
+          color: '#1B1A5B',
+
         });
 
       } else if (result.isDenied) {
         console.log("Denegado");
-        
+
         Swal.fire({
           title: 'Datos no guardados.',
+          background: '#ECECFC',
           icon: 'error',
+          iconColor: '#D30E0E',
           confirmButtonText: 'Ok',
-          confirmButtonColor: '#37C234'
+          confirmButtonColor: '#37C234',
+          color: '#1B1A5B',
+
         });
       }
     })

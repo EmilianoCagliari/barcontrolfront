@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
-import { LocalstorageService } from '../helpers/localstorage.service';
-import { WebsocketService } from '../helpers/websocket.service';
+import { LocalstorageService } from '../services/localstorage.service';
+import { WebsocketService } from '../services/websocket.service';
 import Swal from 'sweetalert2';
 
 @Component({

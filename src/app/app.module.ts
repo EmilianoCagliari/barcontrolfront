@@ -8,9 +8,8 @@ import { AuthComponent } from './auth/auth.component';
 import { ComponentModule } from './components/component.module';
 import { HomeComponent } from './home/home.component';
 import { IconsModule } from './components/icons/icons.module';
-import { InicioComponent } from './home/inicio/inicio.component';
 import { HomeModule } from './home/home.module';
-import { LocalstorageService } from './helpers/localstorage.service';
+import { LocalstorageService } from './services/localstorage.service';
 
 @NgModule({
   declarations: [

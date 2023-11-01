@@ -14,7 +14,7 @@ const routes: Routes = [
     component: HomeComponent,
     loadChildren: () => import('./home/home-routing.module').then(m => m.HomeRoutingModule)
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '/' }
 ];
 
 
