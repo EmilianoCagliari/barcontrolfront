@@ -13,16 +13,26 @@ interface UserLogin {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
+  private _isLoggedIn: boolean = false;
   
   constructor(
     private http: HttpClient
   ) { }
 
 
+  isLoggedIn() {
+    return this._isLoggedIn;
+  }
 
   login( userData: UserLogin  ): Observable<any>  {
 
-    return from(this.http.post(`${env.apiUrl}/auth/login`, userData));
+    let data: Observable<any> = from(this.http.post(`${env.apiUrl}/auth/login`, userData));
+
+    if(data != null) {
+      this._isLoggedIn = true;
+    }
+    return data;
+
 
 
     // console.log("usuario:", userData.email);

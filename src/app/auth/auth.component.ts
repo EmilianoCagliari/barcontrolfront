@@ -88,6 +88,8 @@ export class AuthComponent {
               this.isLogin = false;
 
               this.localstorage.setItem("token", response['access_token']);
+              console.log("LoggedIn", this.authService.isLoggedIn());
+              
               this.router.navigate(['home/inicio']);
             }, 2000);
 

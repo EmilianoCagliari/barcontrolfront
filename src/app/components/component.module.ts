@@ -10,6 +10,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 import { WarningComponent } from './warning/warning.component';
 import { GaugeComponent } from './gauge/gauge.component';
+import { OptionCardComponent } from './option-card/option-card.component';
 
 
 
@@ -23,7 +24,8 @@ import { GaugeComponent } from './gauge/gauge.component';
     NotFoundComponent,
     WorkInProgressComponent,
     WarningComponent,
-    GaugeComponent
+    GaugeComponent,
+    OptionCardComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { GaugeComponent } from './gauge/gauge.component';
     NotFoundComponent,
     WorkInProgressComponent,
     WarningComponent,
-    GaugeComponent
+    GaugeComponent,
+    OptionCardComponent
   ]
 })
 export class ComponentModule { }

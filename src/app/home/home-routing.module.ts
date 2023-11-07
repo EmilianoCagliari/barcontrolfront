@@ -5,29 +5,35 @@ import { ProductosComponent } from './productos/productos.component';
 import { RegistroComponent } from './registro/registro.component';
 import { AnaliticasComponent } from './analiticas/analiticas.component';
 import { AjustesComponent } from './ajustes/ajustes.component';
+import { parentActiveGuardGuard } from '../guards/parent-active-guard.guard';
+import { AuthComponent } from '../auth/auth.component';
 
 const routes: Routes = [
   {
     path: 'inicio',
-    component: InicioComponent,    
+    component: InicioComponent,
+    canActivate: [parentActiveGuardGuard]
   },
   {
     path: 'productos',
-    component: ProductosComponent
+    component: ProductosComponent,
+    canActivate: [parentActiveGuardGuard]
   },
   {
     path: 'registro',
-    component: RegistroComponent
+    component: RegistroComponent,
+    canActivate: [parentActiveGuardGuard]
   },
   {
     path: 'analiticas',
-    component: AnaliticasComponent
+    component: AnaliticasComponent,
+    canActivate: [parentActiveGuardGuard]
   },
   {
     path: 'ajustes',
-    component: AjustesComponent
+    component: AjustesComponent,
+    canActivate: [parentActiveGuardGuard]
   }
-  
 ];
 
 @NgModule({
