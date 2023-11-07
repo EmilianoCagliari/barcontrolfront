@@ -35,8 +35,6 @@ const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };
     SocketIoModule.forRoot(config)
   ], 
   exports: [],
-  providers: [
-    AuthService
-  ]
+  providers: []
 })
 export class HomeModule { }

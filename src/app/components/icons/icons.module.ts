@@ -17,7 +17,8 @@ import {
   IconTrash,
   IconDeviceFloppy,
   IconChevronLeft,
-  IconChevronRight } from 'angular-tabler-icons/icons';
+  IconChevronRight,
+  IconAsset } from 'angular-tabler-icons/icons';
 
 
 
@@ -40,7 +41,8 @@ const icons = {
   IconTrash,
   IconDeviceFloppy,
   IconChevronLeft,
-  IconChevronRight
+  IconChevronRight,
+  IconAsset
 };
 
 @NgModule({

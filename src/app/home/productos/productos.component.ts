@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductoInterface } from 'src/app/interfaces/producto.interface';
+import { ProductInterface } from 'src/app/interfaces/product.interface';
 import Swal from 'sweetalert2';
 
 
@@ -17,7 +17,7 @@ export class ProductosComponent implements OnInit {
     // }, 2000);
   }
 
-  data: ProductoInterface[] = [
+  data: ProductInterface[] = [
     {
       "id": 1,
       "name": "Ergonomic Steel Gloves",

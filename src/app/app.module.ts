@@ -10,6 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { IconsModule } from './components/icons/icons.module';
 import { HomeModule } from './home/home.module';
 import { LocalstorageService } from './services/localstorage.service';
+import { AuthService } from './services/auth-service.service';
+import { UserService } from './services/user.service';
+import { WebsocketService } from './services/websocket.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { LocalstorageService } from './services/localstorage.service';
     HomeModule
   ],
   providers: [
-    LocalstorageService
+    LocalstorageService,
+    AuthService,
+    UserService,
+    WebsocketService
   ],
   bootstrap: [AppComponent]
 })
