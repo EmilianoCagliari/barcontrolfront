@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth-service.service';
 import { Router } from '@angular/router';
 import { LocalstorageService } from '../services/localstorage.service';
 import Swal from 'sweetalert2';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class AuthComponent {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private localstorage: LocalstorageService
+    private localstorage: LocalstorageService,
+    private userService: UserService
 
   ) {
     this.loginForm = this.formBuilder.group({
@@ -89,7 +91,8 @@ export class AuthComponent {
 
               this.localstorage.setItem("token", response['access_token']);
               console.log("LoggedIn", this.authService.isLoggedIn());
-              
+              this.userService.email = email;
+
               this.router.navigate(['home/inicio']);
             }, 2000);
 

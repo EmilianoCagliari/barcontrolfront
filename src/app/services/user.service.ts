@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class UserService {
 
-  public userName: string = "";
+  public email: string = "";
 
   constructor(
     private http: HttpClient
@@ -28,10 +28,7 @@ export class UserService {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get<User>(`${env.apiUrl}/users` + queryParam, { headers: headers })
-      .subscribe(resp => {
-        this.userName = `${resp.name} ${resp.surname}`;
-      });
+    return this.http.get<User[]>(`${env.apiUrl}/users` + queryParam, { headers: headers });
 
   }
 }

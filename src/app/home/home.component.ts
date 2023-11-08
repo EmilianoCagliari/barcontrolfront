@@ -3,18 +3,27 @@ import { Router } from '@angular/router';
 import { LocalstorageService } from '../services/localstorage.service';
 import { WebsocketService } from '../services/websocket.service';
 import Swal from 'sweetalert2';
+import { UserService } from '../services/user.service';
+import { User } from '../interfaces/user.interface';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent  {
+export class HomeComponent implements OnInit {
 
   productBtn: boolean = false;
   currentUrl: string = "";
 
   scaleConected: boolean = false;
+
+
+  //User data Logged
+  private _user!: User;
+  
+  
+  username: string = "";
 
 
   Toast = Swal.mixin({
@@ -33,7 +42,8 @@ export class HomeComponent  {
   constructor(
     private readonly router: Router,
     private readonly localstorage: LocalstorageService,
-    private readonly webSocketService: WebsocketService
+    private readonly webSocketService: WebsocketService,
+    private readonly userService: UserService
   ) {
     this.router.events.subscribe(() => {
       this.currentUrl = this.router.url.replace('/home/', '');
@@ -56,6 +66,22 @@ export class HomeComponent  {
         })
     });
   }
+  ngOnInit(): void {
+
+    this.userService.getUserByMail( this.userService.email )
+    .subscribe(
+      (users: User[]) => {
+        
+        this.username = `${users[0].name}`;
+      }
+    )
+
+    
+  }
+
+
+
+
 
 
   Logout() {

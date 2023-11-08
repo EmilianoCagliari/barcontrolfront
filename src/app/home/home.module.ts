@@ -6,13 +6,13 @@ import { ProductosComponent } from './productos/productos.component';
 import { RegistroComponent } from './registro/registro.component';
 import { AnaliticasComponent } from './analiticas/analiticas.component';
 import { AjustesComponent } from './ajustes/ajustes.component';
-import { AuthService } from '../services/auth-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentModule } from '../components/component.module';
 import { DropdownProductsComponent } from './registro/components/dropdown-products/dropdown-products.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { env } from 'src/environments/environment';
+import { BrandPipe } from '../pipes/brand.pipe';
 
 
 const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };
@@ -25,7 +25,8 @@ const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };
     RegistroComponent,
     AnaliticasComponent,
     AjustesComponent,
-    DropdownProductsComponent
+    DropdownProductsComponent,
+    BrandPipe
   ],
   imports: [
     CommonModule,

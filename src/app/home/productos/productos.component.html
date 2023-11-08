@@ -19,26 +19,84 @@
             </tr> -->
 
                 <tr class="bg-prim-light-1/25">
-                    <th class="py-2" *ngFor="let d of data[0] | keyvalue ">{{d.key}}</th>
-                    <!-- <th class="py-2">Artist</th>
-                <th class="py-2">Year</th>-->
+                    <!-- <th class="py-2" *ngFor="let d of products[0] | keyvalue ">{{d.key}}</th> -->
+                     
+                    <th class="py-2">Nombre</th>
+                    <th class="py-2">Precio</th>
+                    <th class="py-2">Cantidad</th>
+                    <th class="py-2">Marca</th>
+                    <th class="py-2">Tipo</th>
+                    <th class="py-2">Peso Inicial</th>
+                    <th class="py-2">Codigo de Barra</th>
+                    <th class="py-2">Creado</th>
+                    <th class="py-2">Actualizado</th>
                     <th class="py-2">Acciones</th>
                 </tr>
             </thead>
             <tbody>
 
-                <tr *ngFor="let d of data; let i = index;" class="border-b border-b-[#574FB4]/25">
-                    <td class="py-2" *ngFor="let v of data[i] | keyvalue">
-                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='v.value' *ngIf="i === rowEdit">
-                        <span *ngIf="i !== rowEdit"> {{v.value}}</span>
+                <tr *ngFor="let d of products; let i = index;" class="border-b border-b-[#574FB4]/25 text-center">
+                    <td class="py-2 text-start">
+                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.name'
+                            *ngIf="i === rowEdit">
+                        <span *ngIf="i !== rowEdit"> {{d.name}}</span>
                     </td>
+                    <td class="py-2">
+                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.price'
+                            *ngIf="i === rowEdit">
+                        <span *ngIf="i !== rowEdit"> {{d.price}}</span>
+                    </td>
+                    <td class="py-2">
+                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.quantity'
+                            *ngIf="i === rowEdit">
+                        <span *ngIf="i !== rowEdit"> {{d.quantity}}</span>
+                    </td>
+                    <td class="py-2">
+                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.brand_id'
+                            *ngIf="i === rowEdit">
+                        <span *ngIf="i !== rowEdit"> {{d.brand_id | brandPipe}}</span>
+                    </td>
+                    <td class="py-2">
+                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.type'
+                            *ngIf="i === rowEdit">
+                        <span *ngIf="i !== rowEdit"> {{d.type}}</span>
+                    </td>
+                    <td class="py-2">
+                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.initialWeight'
+                            *ngIf="i === rowEdit">
+                        <span *ngIf="i !== rowEdit"> {{d.initialWeight}}</span>
+                    </td>
+                    <td class="py-2">
+                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.barcode'
+                            *ngIf="i === rowEdit">
+                        <span *ngIf="i !== rowEdit"> {{d.barcode}}</span>
+                    </td>
+                    <td class="py-2">
+                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.createdAt'
+                            *ngIf="i === rowEdit">
+                        <span *ngIf="i !== rowEdit"> {{d.createdAt | date:"short"}}</span>
+                    </td>
+                    <td class="py-2">
+                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.updatedAt'
+                            *ngIf="i === rowEdit">
+                        <span *ngIf="i !== rowEdit"> {{d.updatedAt | date:"short"}}</span>
+                    </td>
+
+
+
+
+
+
+
                     <!-- <th class="py-2">Artist</th>
                 <th class="py-2">Year</th>-->
                     <td class="py-2 flex justify-center items-center">
-                        <button (click)="editRow(i)" *ngIf="i !== rowEdit" class="w-9 h-9 mx-2 rounded-full bg-prim-light flex justify-center items-center">
+                        <button (click)="editRow(i)" *ngIf="i !== rowEdit"
+                            class="w-9 h-9 mx-2 rounded-full bg-prim-light flex justify-center items-center">
                             <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
                         </button>
-                        <button (click)="saveRow(i)" *ngIf="i === rowEdit" class="w-9 h-9 mx-2 rounded-full bg-secondary flex justify-center items-center">
+                        <button (click)="saveRow(i)" *ngIf="i === rowEdit"
+                            class="w-9 h-9 mx-2 rounded-full bg-secondary flex justify-center items-center">
                             <i-tabler name="device-floppy" class="text-prim-light-2"></i-tabler>
                         </button>
                         <button class="w-9 h-9 mr-1 rounded-full bg-danger flex justify-center items-center">
@@ -52,32 +110,38 @@
             </tbody>
         </table>
     </div>
-    <div class="w-full h-3/12 flex justify-center items-center  text-lg">
-        <div class="w-3/6 h-16  flex items-center justify-center">
-            <button
-                class="w-9 h-9 bg-prim-light-1/50 hover:bg-prim-light-1/90 rounded-full flex justify-center items-center">
-                <i-tabler name="chevron-left"></i-tabler>
-            </button>
-            <div class="w-1/2 flex justify-evenly">
-                <span
-                    class="w-9 h-9 rounded-full flex justify-center items-center bg-prim-dark-1 text-prim-light-2 font-bold">1</span>
-                <span class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">2</span>
-                <span class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">3</span>
-                <span class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">4</span>
-                <span class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">5</span>
-                <span
-                    class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">...</span>
+
+    <ng-container *ngIf="products.length > 10">
+
+        <div class="w-full h-3/12 flex justify-center items-center  text-lg">
+            <div class="w-3/6 h-16  flex items-center justify-center">
+                <button
+                    class="w-9 h-9 bg-prim-light-1/50 hover:bg-prim-light-1/90 rounded-full flex justify-center items-center">
+                    <i-tabler name="chevron-left"></i-tabler>
+                </button>
+                <div class="w-1/2 flex justify-evenly">
+                    <span
+                        class="w-9 h-9 rounded-full flex justify-center items-center bg-prim-dark-1 text-prim-light-2 font-bold">1</span>
+                    <span
+                        class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">2</span>
+                    <span
+                        class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">3</span>
+                    <span
+                        class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">4</span>
+                    <span
+                        class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">5</span>
+                    <span
+                        class="w-9 h-9 rounded-full flex justify-center items-center text-prim-dark-1 font-bold ">...</span>
+                </div>
+
+                <button
+                    class="w-9 h-9 bg-prim-light-1/50 hover:bg-prim-light-1/90 rounded-full flex justify-center items-center">
+                    <i-tabler name="chevron-right"></i-tabler>
+                </button>
             </div>
 
-            <button
-                class="w-9 h-9 bg-prim-light-1/50 hover:bg-prim-light-1/90 rounded-full flex justify-center items-center">
-                <i-tabler name="chevron-right"></i-tabler>
-            </button>
         </div>
-
-    </div>
+    </ng-container>
 </div>
 
 <app-loader msg="Cargando..." *ngIf="loading"></app-loader>
-
-
