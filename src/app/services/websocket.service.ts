@@ -42,10 +42,6 @@ export class WebsocketService {
   }
 
 
-
-
-
-
   public socketConnect() {
     this.socket.connect();
     this.socket.fromEvent('scaleStatus')

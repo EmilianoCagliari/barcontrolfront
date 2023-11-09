@@ -7,6 +7,7 @@ import { AnaliticasComponent } from './analiticas/analiticas.component';
 import { AjustesComponent } from './ajustes/ajustes.component';
 import { parentActiveGuardGuard } from '../guards/parent-active-guard.guard';
 import { AuthComponent } from '../auth/auth.component';
+import { FormCreateComponent } from '../components/form-create/form-create.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,11 @@ const routes: Routes = [
   {
     path: 'ajustes',
     component: AjustesComponent,
+    canActivate: [parentActiveGuardGuard]
+  },
+  {
+    path: 'create/:item',
+    component: FormCreateComponent,
     canActivate: [parentActiveGuardGuard]
   }
 ];

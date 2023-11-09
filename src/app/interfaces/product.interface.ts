@@ -1,5 +1,5 @@
-export interface Product {
-    id: Number,
+export interface ProductInterface {
+    id?: Number,
     name: string,
     price: string,
     quantity: Number,
@@ -7,6 +7,6 @@ export interface Product {
     type: string,
     initialWeight: string,
     barcode: string,
-    updatedAt: string,
-    createdAt: string
+    updatedAt?: string,
+    createdAt?: string
 }

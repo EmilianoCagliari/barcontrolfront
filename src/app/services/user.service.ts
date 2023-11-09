@@ -28,7 +28,7 @@ export class UserService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<User[]>(`${env.apiUrl}/users` + queryParam, { headers: headers });
+    return this.http.get<User>(`${env.apiUrl}/users` + queryParam, { headers: headers });
 
   }
 }

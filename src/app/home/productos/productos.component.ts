@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/interfaces/product.interface';
+import { ProductInterface } from 'src/app/interfaces/product.interface';
 import { BrandService } from 'src/app/services/brand.service';
 import { ProductService } from 'src/app/services/product.service';
 import Swal from 'sweetalert2';
@@ -15,10 +15,10 @@ import Swal from 'sweetalert2';
 export class ProductosComponent implements OnInit {
 
 
-  private _Products: Product[] = [];
+  private _Products: ProductInterface[] = [];
 
   
-  public get products() : Product[] {
+  public get products() : ProductInterface[] {
     return this._Products;
   }
   
@@ -42,7 +42,7 @@ export class ProductosComponent implements OnInit {
 
     this.productService.getProducts()
     .subscribe({
-      next: (products: Product[]) => {
+      next: (products: ProductInterface[]) => {
         this._Products = products;
         console.log(this._Products);
         

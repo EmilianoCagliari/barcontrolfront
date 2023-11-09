@@ -11,6 +11,8 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
 import { WarningComponent } from './warning/warning.component';
 import { GaugeComponent } from './gauge/gauge.component';
 import { OptionCardComponent } from './option-card/option-card.component';
+import { FormCreateComponent } from './form-create/form-create.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -25,11 +27,13 @@ import { OptionCardComponent } from './option-card/option-card.component';
     WorkInProgressComponent,
     WarningComponent,
     GaugeComponent,
-    OptionCardComponent
+    OptionCardComponent,
+    FormCreateComponent
   ],
   imports: [
     CommonModule,
-    IconsModule
+    IconsModule,
+    ReactiveFormsModule
   ],
   exports: [
     ButtonComponent,
@@ -42,7 +46,8 @@ import { OptionCardComponent } from './option-card/option-card.component';
     WorkInProgressComponent,
     WarningComponent,
     GaugeComponent,
-    OptionCardComponent
+    OptionCardComponent,
+    FormCreateComponent
   ]
 })
 export class ComponentModule { }

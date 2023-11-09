@@ -42,19 +42,20 @@
                         <span *ngIf="i !== rowEdit"> {{d.name}}</span>
                     </td>
                     <td class="py-2">
-                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.price'
+                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="number" [value]='d.price'
                             *ngIf="i === rowEdit">
                         <span *ngIf="i !== rowEdit"> {{d.price}}</span>
                     </td>
                     <td class="py-2">
-                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.quantity'
+                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="number" [value]='d.quantity'
                             *ngIf="i === rowEdit">
                         <span *ngIf="i !== rowEdit"> {{d.quantity}}</span>
                     </td>
                     <td class="py-2">
-                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.brand_id'
-                            *ngIf="i === rowEdit">
-                        <span *ngIf="i !== rowEdit"> {{d.brand_id | brandPipe}}</span>
+                        <!-- <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.brand_id'
+                            *ngIf="i === rowEdit" > -->
+                            <span> {{d.brand_id | brandPipe}}</span>
+                            <!-- <span *ngIf="i !== rowEdit"> {{d.brand_id | brandPipe}}</span> -->
                     </td>
                     <td class="py-2">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.type'
@@ -64,7 +65,7 @@
                     <td class="py-2">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.initialWeight'
                             *ngIf="i === rowEdit">
-                        <span *ngIf="i !== rowEdit"> {{d.initialWeight}}</span>
+                        <span *ngIf="i !== rowEdit"> {{d.initialWeight| number: '4.1-2' }}</span>
                     </td>
                     <td class="py-2">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.barcode'
@@ -72,14 +73,16 @@
                         <span *ngIf="i !== rowEdit"> {{d.barcode}}</span>
                     </td>
                     <td class="py-2">
-                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.createdAt'
-                            *ngIf="i === rowEdit">
-                        <span *ngIf="i !== rowEdit"> {{d.createdAt | date:"short"}}</span>
+                        <!-- <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.createdAt'
+                            *ngIf="i === rowEdit"> -->
+                        <span> {{d.createdAt | date:"shortDate"}}</span>
+                        <!-- <span *ngIf="i !== rowEdit"> {{d.createdAt | date:"short"}}</span> -->
                     </td>
                     <td class="py-2">
-                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.updatedAt'
-                            *ngIf="i === rowEdit">
-                        <span *ngIf="i !== rowEdit"> {{d.updatedAt | date:"short"}}</span>
+                        <!-- <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.updatedAt'
+                        *ngIf="i === rowEdit">
+                        <span *ngIf="i !== rowEdit"> {{d.updatedAt | date:"shortDate"}}</span> -->
+                        <span> {{d.updatedAt | date:"shortDate"}}</span>
                     </td>
 
 

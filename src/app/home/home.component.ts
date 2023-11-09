@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
 
   //User data Logged
-  private _user!: User;
+  private _user: User | undefined;
   
   
   username: string = "";
@@ -47,6 +47,22 @@ export class HomeComponent implements OnInit {
   ) {
     this.router.events.subscribe(() => {
       this.currentUrl = this.router.url.replace('/home/', '');
+
+      switch (this.currentUrl) {
+        case 'create/product':
+          this.currentUrl = "Crear Producto"
+          break;
+        case 'create/user':
+          this.currentUrl = "Crear Usuario"
+          break;
+        case 'create/brand':
+          this.currentUrl = "Crear Marca"
+          break;
+        case 'create/report':
+          this.currentUrl = "Crear Reporte"
+          break;
+      }
+
       this.productBtn = this.router.url === '/home/productos'; // Cambia '/pagina1' por la ruta en la que quieras mostrar el botón.
     });
     this.webSocketService.socketConnect();
@@ -70,19 +86,14 @@ export class HomeComponent implements OnInit {
 
     this.userService.getUserByMail( this.userService.email )
     .subscribe(
-      (users: User[]) => {
+      (users: User) => {
         
-        this.username = `${users[0].name}`;
+        this.username = `${users.name}`;
       }
     )
 
     
   }
-
-
-
-
-
 
   Logout() {
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../interfaces/product.interface';
+import { ProductInterface } from '../interfaces/product.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { env } from 'src/environments/environment';
 
@@ -24,7 +24,7 @@ export class ProductService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<Product[]>(this._url, { headers: headers });
+    return this.http.get<ProductInterface[]>(this._url, { headers: headers });
 
   }
 
