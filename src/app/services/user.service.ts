@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { env } from 'src/environments/environment';
-import { User } from '../interfaces/user.interface';
+import { UserInterface } from '../interfaces/user.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class UserService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<User>(`${env.apiUrl}/users` + queryParam, { headers: headers });
+    return this.http.get<UserInterface>(`${env.apiUrl}/users` + queryParam, { headers: headers });
 
   }
 }

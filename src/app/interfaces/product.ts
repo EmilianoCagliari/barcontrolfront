@@ -31,10 +31,12 @@ export class Product implements ProductInterface {
         this.barcode = barcode;
     }
 
-    
 
 
 
 
-   
+
+
+
+
 }

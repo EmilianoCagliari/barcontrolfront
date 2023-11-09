@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductInterface } from 'src/app/interfaces/product.interface';
 import { BrandService } from 'src/app/services/brand.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -29,7 +30,8 @@ export class ProductosComponent implements OnInit {
 
   constructor(
     private readonly productService: ProductService,
-    private readonly brandService: BrandService
+    private readonly brandService: BrandService,
+    private readonly router: Router
   ) {
     this.brandService.getBrands();
 
@@ -48,6 +50,7 @@ export class ProductosComponent implements OnInit {
         
       },
       error: (err) => {
+        this.router.navigate(['/asdadas']);
         throw new Error(err);
       },
       complete: () => {

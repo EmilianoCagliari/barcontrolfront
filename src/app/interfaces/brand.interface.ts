@@ -1,7 +1,7 @@
-export interface Brand {
-    id: Number,
+export interface BrandInterface {
+    id?: Number,
     name: string,
     distributor: string,
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

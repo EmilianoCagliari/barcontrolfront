@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { UserInterface } from '../interfaces/user.interface';
+
+import { UserService } from '../services/user.service';
 import { LocalstorageService } from '../services/localstorage.service';
 import { WebsocketService } from '../services/websocket.service';
+
 import Swal from 'sweetalert2';
-import { UserService } from '../services/user.service';
-import { User } from '../interfaces/user.interface';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +23,7 @@ export class HomeComponent implements OnInit {
 
 
   //User data Logged
-  private _user: User | undefined;
+  private _user: UserInterface | undefined;
   
   
   username: string = "";
@@ -86,7 +89,7 @@ export class HomeComponent implements OnInit {
 
     this.userService.getUserByMail( this.userService.email )
     .subscribe(
-      (users: User) => {
+      (users: UserInterface) => {
         
         this.username = `${users.name}`;
       }

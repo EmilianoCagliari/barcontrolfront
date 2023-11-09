@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Brand } from '../interfaces/brand.interface';
+import { BrandInterface } from '../interfaces/brand.interface';
 import { env } from 'src/environments/environment';
 
 @Injectable({
@@ -8,14 +8,14 @@ import { env } from 'src/environments/environment';
 })
 export class BrandService {
   private _url: string = `${env.apiUrl}/brands`;
-  private _brands: Brand[] = [];
+  private _brands: BrandInterface[] = [];
 
   constructor(
     private http: HttpClient
   ) { }
 
 
-  public get brands(): Brand[] {
+  public get brands(): BrandInterface[] {
     return this._brands;
   }
 
@@ -28,9 +28,9 @@ export class BrandService {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get<Brand[]>(this._url, { headers: headers })
+    this.http.get<BrandInterface[]>(this._url, { headers: headers })
       .subscribe({
-        next: (brands: Brand[]) => {
+        next: (brands: BrandInterface[]) => {
           this._brands = brands;
         }
       })
