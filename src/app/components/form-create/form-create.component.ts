@@ -122,13 +122,90 @@ export class FormCreateComponent implements OnInit {
 
     // console.log("CLASE:", this.clase);
 
+    if(this.clase !== "Report"){
 
-    // Creacion de los campos a controlar FormBuilder.
-    this.generateForm();
+      // Creacion de los campos a controlar FormBuilder.
+      this.generateForm();
+    }
+    
+    
+  
+  }
+  //Funcion para generar el formulario dinamico
+  generateForm() {
 
+
+    //Verificar y en base al tipo de clase se genera el formulario.
+    switch (this.clase) {
+
+      case "Product":
+        let prodClass = new Product();
+        Object.keys(prodClass).forEach(
+          (p, i) => {
+            // console.log("Obj Key:", p.valueOf());
+            this.formControls[p] = ['', [Validators.required]];
+
+            this.claseProp.push(p);
+          }
+        );
+        
+        this.changeNameField(this.claseProp);
+        this.form = this.formBuilder.group(this.formControls);
+
+        break;
+
+      case "Brand":
+
+        let brandClass = new Brand();
+        Object.keys(brandClass).forEach(
+          (p, i) => {
+            // console.log("Obj Key:", p.valueOf());
+            this.formControls[p] = ['', [Validators.required]];
+
+            this.claseProp.push(p);
+          }
+        );
+
+        this.changeNameField( this.claseProp );
+        this.form = this.formBuilder.group(this.formControls);
+
+        break;
+
+      case "User":
+
+        let userClass = new User();
+        Object.keys(userClass).forEach(
+          (p, i) => {
+
+            // console.log("Obj Key:", p.valueOf());
+            // console.log("TypeOf Key", typeof Object.values(userClass)[i]);
+            console.log("userClass Prop:", p);
+            const idx = Object.keys(userClass).indexOf(p);
+
+            console.log("userClass Value:", typeof Object.values(userClass)[idx] );
+
+            if(typeof Object.values(userClass)[idx] === 'boolean'){
+              this.formControls[p] = [ Object.values(userClass)[idx], [Validators.required]];
+            } else {
+              this.formControls[p] = [ `${Object.values(userClass)[idx]}`, [Validators.required]];
+            }
+            
+
+            this.claseProp.push(p);
+          }
+        );
+
+        this.changeNameField(this.claseProp);
+        console.log("formbuilder:", this.formControls);
+        
+        this.form = this.formBuilder.group(this.formControls);
+
+        break;
+      default:
+        break;
+    }
 
   }
-
 
   async onSubmit() {
 
@@ -161,68 +238,6 @@ export class FormCreateComponent implements OnInit {
 
   }
 
-  generateForm() {
-
-
-    //Verificar y en base al tipo de clase se genera el formulario.
-    switch (this.clase) {
-
-      case "Product":
-        let prodClass = new Product();
-        Object.keys(prodClass).forEach(
-          (p, i) => {
-            // console.log("Obj Key:", p.valueOf());
-            this.formControls[p] = ['', [Validators.required]];
-
-            this.claseProp.push(p);
-          }
-        );
-
-        this.changeNameField(this.claseProp);
-        this.form = this.formBuilder.group(this.formControls);
-
-        break;
-
-      case "Brand":
-
-        let brandClass = new Brand();
-        Object.keys(brandClass).forEach(
-          (p, i) => {
-            // console.log("Obj Key:", p.valueOf());
-            this.formControls[p] = ['', [Validators.required]];
-
-            this.claseProp.push(p);
-          }
-        );
-
-        this.changeNameField( this.claseProp );
-        this.form = this.formBuilder.group(this.formControls);
-
-        break;
-
-      case "User":
-
-        let userClass = new User();
-        Object.keys(userClass).forEach(
-          (p, i) => {
-
-            // console.log("Obj Key:", p.valueOf());
-            // console.log("TypeOf Key", typeof Object.values(userClass)[i]);
-            this.formControls[p] = ['', [Validators.required]];
-
-            this.claseProp.push(p);
-          }
-        );
-
-        this.changeNameField(this.claseProp);
-        this.form = this.formBuilder.group(this.formControls);
-
-        break;
-      default:
-        break;
-    }
-
-  }
 
 
   //funcion privada para cambiar el nombre de las tablas en ingles a español para los inputs html.

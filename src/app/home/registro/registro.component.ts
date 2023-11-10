@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { WebsocketService } from 'src/app/services/websocket.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
@@ -29,11 +30,6 @@ export class RegistroComponent implements OnInit {
 
 
 
-
-
-
-
-
   ngOnInit() {
 
     //Al cargar el modulo verifica y esta constantemente atento a cambios en la conexion de la balanza.
@@ -47,5 +43,34 @@ export class RegistroComponent implements OnInit {
     })
 
   }
+
+
+  onSubmit() {
+    let timerInterval: any;
+    Swal.fire({
+      title: "Auto close alert!",
+      html: "I will close in <b></b> milliseconds.",
+      timer: 2000,
+      timerProgressBar: true,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        const timer = Swal.getPopup()!.querySelector("b");
+        timerInterval = setInterval(() => {
+          timer!.textContent = `${Swal.getTimerLeft()}`;
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      }
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log("I was closed by the timer");
+      }
+    });
+  }
+
+
 
 }
