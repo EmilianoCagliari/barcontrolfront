@@ -4,8 +4,8 @@ export interface UserInterface {
     surname:   string;
     email:     string;
     password:  string;
-    role:      number;
-    isActive:  boolean;
+    role?:      number;
+    isActive?:  boolean;
     createdAt?: Date;
     updatedAt?: Date;
 }

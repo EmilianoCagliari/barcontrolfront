@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 })
 export class WebsocketService {
 
-  private _scaleConected: boolean = false;
+  private _scaleConected: boolean = true;
   scaleConected$ = new Subject<boolean>();
 
   private _scaleWeight: number = 0;

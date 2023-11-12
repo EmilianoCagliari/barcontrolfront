@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Brand } from 'src/app/interfaces/brand';
 import { Product } from 'src/app/interfaces/product';
 import { User } from 'src/app/interfaces/user';
+import { UserService } from 'src/app/services/user.service';
 
 import Swal from 'sweetalert2';
 
@@ -71,6 +72,8 @@ export class FormCreateComponent implements OnInit {
     },
   ]
 
+  //Loader
+  isLoading: boolean = false;
   //Formulario de creacion
   form!: FormGroup;
   //Objeto para acumular los campos
@@ -86,7 +89,8 @@ export class FormCreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private readonly userService: UserService
   ) {
 
     //Controlar y obtener la ruta para cambiar el titulo y boton del formulario
@@ -122,14 +126,14 @@ export class FormCreateComponent implements OnInit {
 
     // console.log("CLASE:", this.clase);
 
-    if(this.clase !== "Report"){
+    if (this.clase !== "Report") {
 
       // Creacion de los campos a controlar FormBuilder.
       this.generateForm();
     }
-    
-    
-  
+
+
+
   }
   //Funcion para generar el formulario dinamico
   generateForm() {
@@ -148,7 +152,7 @@ export class FormCreateComponent implements OnInit {
             this.claseProp.push(p);
           }
         );
-        
+
         this.changeNameField(this.claseProp);
         this.form = this.formBuilder.group(this.formControls);
 
@@ -166,7 +170,7 @@ export class FormCreateComponent implements OnInit {
           }
         );
 
-        this.changeNameField( this.claseProp );
+        this.changeNameField(this.claseProp);
         this.form = this.formBuilder.group(this.formControls);
 
         break;
@@ -179,25 +183,25 @@ export class FormCreateComponent implements OnInit {
 
             // console.log("Obj Key:", p.valueOf());
             // console.log("TypeOf Key", typeof Object.values(userClass)[i]);
-            console.log("userClass Prop:", p);
+            // console.log("userClass Prop:", p);
             const idx = Object.keys(userClass).indexOf(p);
 
-            console.log("userClass Value:", typeof Object.values(userClass)[idx] );
+            // console.log("userClass Value:", typeof Object.values(userClass)[idx]);
 
-            if(typeof Object.values(userClass)[idx] === 'boolean'){
-              this.formControls[p] = [ Object.values(userClass)[idx], [Validators.required]];
+            if (typeof Object.values(userClass)[idx] === 'boolean') {
+              this.formControls[p] = [Object.values(userClass)[idx], [Validators.required]];
             } else {
-              this.formControls[p] = [ `${Object.values(userClass)[idx]}`, [Validators.required]];
+              this.formControls[p] = [`${Object.values(userClass)[idx]}`, [Validators.required]];
             }
-            
+
 
             this.claseProp.push(p);
           }
         );
 
         this.changeNameField(this.claseProp);
-        console.log("formbuilder:", this.formControls);
-        
+        // console.log("formbuilder:", this.formControls);
+
         this.form = this.formBuilder.group(this.formControls);
 
         break;
@@ -208,33 +212,53 @@ export class FormCreateComponent implements OnInit {
   }
 
   async onSubmit() {
-
+    this.isLoading = true;
     // Manejar la lógica cuando se envía el formulario
     console.log(this.form.value);
+    let data =  this.form.value;
 
-    let timerInterval: any;
-    Swal.fire({
-      title: "Auto close alert!",
-      html: "I will close in <b></b> milliseconds.",
-      timer: 2000,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-        const timer = Swal.getPopup()!.querySelector("b");
-        timerInterval = setInterval(() => {
-          timer!.textContent = `${Swal.getTimerLeft()}`;
-        }, 100);
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      }
-    }).then((result) => {
-      /* Read more about handling dismissals below */
-      if (result.dismiss === Swal.DismissReason.timer) {
-        console.log("I was closed by the timer");
-      }
-    });
+    
 
+    this.userService.createUser( data )
+      .subscribe({
+        next: (response: any) => {
+          console.log(response);
+          this.isLoading = false;
+          let status = response.status;
+          let msg = "";
+          if( status !== 200 ){
+            msg = response.response.response.msg;
+          }
+          Swal.fire({
+            title: (status === 200) ? 'Usuario creado!' : 'Error al crear usuario',
+            html: `${msg}`,
+            background: '#ECECFC',
+            icon: (status === 200)  ? 'success' : 'info',
+            iconColor: (status === 200) ? '#37C234': '#4441E5',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#37C234',
+            color: '#1B1A5B',
+          });
+
+        },
+        error: (err) => {
+            console.log("Error", err);
+            
+
+          this.isLoading = false;
+          Swal.fire({
+            title: `${err.error.error}`,
+            html: `${err.error.message}`,
+            background: '#ECECFC',
+            icon: 'error',
+            iconColor: '#D30E0E',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#37C234',
+            color: '#1B1A5B',
+          });
+          // throw new Error(err);
+        }
+      })
 
   }
 

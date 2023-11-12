@@ -16,8 +16,18 @@ export class UserService {
   ) { }
 
 
+  createUser( user: string) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+      return this.http.post(`${env.apiUrl}/users`, user ,{ headers: headers } );
+  }
+
+
   getUsers() {
-    return this.http.get(`${env.apiUrl}/auth/users`);
+    return this.http.get(`${env.apiUrl}/users`);
   }
 
   getUserByMail(email: string) {

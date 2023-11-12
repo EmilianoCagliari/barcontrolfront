@@ -80,8 +80,7 @@
                     </div>
 
 
-                    <app-button title="{{ htmlBtnTitleString }}" type="submit"
-                        class="mt-4 w-1/3 self-center"></app-button>
+                    <app-button title="{{ htmlBtnTitleString }}" class="mt-4 w-1/3 self-center" (click)="onSubmit"></app-button>
 
 
                 </form>
@@ -93,5 +92,8 @@
     <ng-container *ngIf="claseProp.length == 0">
         <app-work-in-progress></app-work-in-progress>
     </ng-container>
+
+    <app-loader msg="Creando usuario" *ngIf="isLoading" ></app-loader>
+
 
 </div>

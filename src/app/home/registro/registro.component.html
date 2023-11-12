@@ -14,69 +14,54 @@
                 <p>Utilice la balanza inalámbrica y apoye la bebida para comenzar a registrar.</p>
             </div>
 
+            <ng-container *ngIf="product == undefined">
+                <app-search-product
+                    class="w-3/6 h-4/6  flex flex-col justify-evenly items-center "></app-search-product>
+            </ng-container>
 
-            <div class="w-3/6 h-4/6  flex flex-col justify-evenly items-center ">
-                
-                <img src="../../../assets/search-ilu.svg" alt="" srcset="" class="w-6/12 p-2 bg-prim-light/60 rounded-2xl">
 
-                <div class="w-1/2 mx-1">
-                    <div class="relative z-0 mb-4">
-                        <input type="text" id="barcode" autocomplete="new-password"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " />
-                        <label for="barcode"
-                            class="absolute text-sm border-b-prim-dark-1 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Codigo
-                            de barra</label>
-                        <!-- <span *ngIf="isPasswordNotValid" class=" absolute text-sm font-bold text-danger">
-                                Muestra un mensaje de error o un tooltip aquí 
-                                La contraseña debe tener 6 caracteres minimos.
-                            </span> -->
+            <ng-container *ngIf="product !== undefined">
+
+                <div class="w-3/4 h-3/5  flex justify-center items-center p-1">
+
+                    <!-- Indicador de peso -->
+                    <div class="w-1/2 h-full m-1 flex flex-col justify-around items-center ">
+                        <app-gauge [valorIndicador]='peso'></app-gauge>
+                        <h2 class="text-2xl font-bold">Peso: <span class="font-normal ml-5">{{peso | number: '1.2-2'}}
+                                Grs.</span></h2>
                     </div>
-                </div>
 
-                <app-button title="Buscar producto" class="w-2/4" (click)="onSubmit()" ></app-button>
+                    <!-- Seleccion de bebida  - POSIBLE CAMBIO POR CODIGO DE BARRA -->
+                    <div class="w-1/2 h-full   m-1 flex flex-col items-center justify-start">
 
-            </div>
-
-
-
-
-            <!-- <div class="w-3/4 h-3/5  flex justify-center items-center p-1"> -->
-
-            <!-- Indicador de peso -->
-            <!-- <div class="w-1/2 h-full m-1 flex flex-col justify-around items-center ">
-                    <app-gauge [valorIndicador]='peso'></app-gauge>
-                    <h2 class="text-2xl font-bold">Peso: <span class="font-normal ml-5">{{peso | number: '1.2-2'}}
-                            Grs.</span></h2>
-                </div> -->
-
-            <!-- Seleccion de bebida  - POSIBLE CAMBIO POR CODIGO DE BARRA -->
-            <!-- <div class="w-1/2 h-full   m-1 flex flex-col items-center justify-start">
-
-                    <div class="w-6/12  p-2">
-                        <img src="../../../assets/carrousel/img1.jpg" alt="" class="rounded-lg">
-                    </div>
-                    <div class="w-full flex justify-around text-sm px-6">
-                        <div class="flex flex-col text-prim-dark-2 font-bold">
-                            <p>Nombre:</p>
-                            <p>Marca:</p>
-                            <p>Tipo:</p>
+                        <div class="w-6/12  p-2">
+                            <img src="../../../assets/carrousel/img1.jpg" alt="" class="rounded-lg">
                         </div>
-                        <div class="flex flex-col">
-                            <p>Bacardi</p>
-                            <p>Ron Blanco 1L</p>
-                            <p>Bebida Base</p>
+                        <div class="w-full flex justify-around text-sm px-6">
+                            <div class="flex flex-col text-prim-dark-2 font-bold">
+                                <p>Nombre:</p>
+                                <p>Marca:</p>
+                                <p>Tipo:</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p>{{ product.name }}</p>
+                                <p>{{ product.brand_id | brandPipe }}</p>
+                                <p>{{ product.type }}</p>
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
 
-            </div>
+                <button
+                    class="w-36 h-10 rounded-xl bg-prim-dark-1 text-sm text-prim-light-2 shadow shadow-prim-dark-2 transition-all ease-in-out duration-100 hover:-translate-y-px hover:bg-prim-dark" (click)="onCreate()">
+                    Registrar Peso
+                </button>
 
-            <button
-                class="w-36 h-10 rounded-xl bg-prim-dark-1 text-sm text-prim-light-2 shadow shadow-prim-dark-2 transition-all ease-in-out duration-100 hover:-translate-y-px hover:bg-prim-dark">
-                Registrar Peso
-            </button> -->
+            </ng-container>
+
+
 
         </div>
     </div>

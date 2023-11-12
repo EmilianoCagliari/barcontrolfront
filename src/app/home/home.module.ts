@@ -8,11 +8,11 @@ import { AnaliticasComponent } from './analiticas/analiticas.component';
 import { AjustesComponent } from './ajustes/ajustes.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentModule } from '../components/component.module';
-import { DropdownProductsComponent } from './registro/components/dropdown-products/dropdown-products.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { env } from 'src/environments/environment';
 import { BrandPipe } from '../pipes/brand.pipe';
+import { SearchProductComponent } from './registro/components/search-product/search-product.component';
 
 
 const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };
@@ -25,7 +25,7 @@ const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };
     RegistroComponent,
     AnaliticasComponent,
     AjustesComponent,
-    DropdownProductsComponent,
+    SearchProductComponent,
     BrandPipe
   ],
   imports: [
