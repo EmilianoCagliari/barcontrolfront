@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TablerIconsModule } from 'angular-tabler-icons';
-import { 
+import {
   IconHome,
   IconBottle,
   IconLogout,
@@ -18,7 +18,11 @@ import {
   IconDeviceFloppy,
   IconChevronLeft,
   IconChevronRight,
-  IconAsset } from 'angular-tabler-icons/icons';
+  IconAsset,
+  IconFocusCentered,
+  IconCamera,
+  IconCameraOff
+} from 'angular-tabler-icons/icons';
 
 
 
@@ -42,7 +46,10 @@ const icons = {
   IconDeviceFloppy,
   IconChevronLeft,
   IconChevronRight,
-  IconAsset
+  IconAsset,
+  IconFocusCentered,
+  IconCamera,
+  IconCameraOff
 };
 
 @NgModule({

@@ -19,6 +19,9 @@ export class RegistroComponent implements OnInit {
 
   product: Product | undefined;
 
+  scanBarcode: string | undefined;
+
+  scanActive: boolean;
 
   constructor(
     private webSocketService: WebsocketService,
@@ -29,6 +32,10 @@ export class RegistroComponent implements OnInit {
     this.balanza = this.webSocketService.getScaleConected();
     //Estado del peso
     this.peso = this.webSocketService.getScaleWeight();
+
+    //Estado boton escanear
+    this.scanActive = this.regWeightService.getScannerActive();
+    
   }
 
 
@@ -46,6 +53,10 @@ export class RegistroComponent implements OnInit {
 
     this.webSocketService.scaleWeight$.subscribe((peso) => {
       this.peso = peso;
+    })
+
+    this.regWeightService.scannerActive$.subscribe( (active) => {
+      this.scanActive = active;
     })
 
   }

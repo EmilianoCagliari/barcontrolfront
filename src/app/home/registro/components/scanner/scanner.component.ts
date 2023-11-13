@@ -1,12 +1,13 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnDestroy } from '@angular/core';
 import { NgxScannerQrcodeComponent, NgxScannerQrcodeService, ScannerQRCodeConfig, ScannerQRCodeResult, ScannerQRCodeSelectedFiles } from 'ngx-scanner-qrcode';
+import { WeightRegisterService } from 'src/app/services/weight-register.service';
 
 @Component({
   selector: 'app-scanner',
   templateUrl: './scanner.component.html',
   styleUrl: './scanner.component.css'
 })
-export class ScannerComponent implements AfterViewInit {
+export class ScannerComponent implements  OnDestroy, AfterViewInit {
 
   // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#front_and_back_camera
   public config: ScannerQRCodeConfig = {
@@ -15,6 +16,7 @@ export class ScannerComponent implements AfterViewInit {
         width: window.innerWidth
       },
     },
+    decode: 'utf-8'
     // canvasStyles: [
     //   { /* layer */
     //     lineWidth: 1,
@@ -37,7 +39,17 @@ export class ScannerComponent implements AfterViewInit {
   public percentage = 80;
   public quality = 100;
 
-  constructor(private qrcode: NgxScannerQrcodeService) { }
+  constructor(
+    private qrcode: NgxScannerQrcodeService,
+    private wrService: WeightRegisterService
+    ) { 
+
+
+
+    }
+  ngOnDestroy(): void {
+    this.action.stop();
+  }
 
   ngAfterViewInit(): void {
     this.action.isReady.subscribe((res: any) => {
@@ -49,6 +61,7 @@ export class ScannerComponent implements AfterViewInit {
     // e && action && action.pause();
     console.log("Action:", action);
     console.log(e[0].value);
+    this.wrService.setScannedBarcode( e[0].value );
     action.pause();
   }
 
