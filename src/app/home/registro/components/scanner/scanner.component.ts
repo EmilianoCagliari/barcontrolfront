@@ -47,7 +47,9 @@ export class ScannerComponent implements AfterViewInit {
 
   public onEvent(e: ScannerQRCodeResult[], action?: any): void {
     // e && action && action.pause();
-    console.log(e);
+    console.log("Action:", action);
+    console.log(e[0].value);
+    action.pause();
   }
 
   public handle(action: any, fn: string): void {
@@ -55,6 +57,10 @@ export class ScannerComponent implements AfterViewInit {
       // front camera or back camera check here!
       const device = devices.find(f => (/back|rear|environment/gi.test(f.label))); // Default Back Facing Camera
       action.playDevice(device ? device.deviceId : devices[0].deviceId);
+    }
+ 
+    if(fn === 'continue') {
+      action.play();
     }
 
     if (fn === 'start') {
