@@ -49,6 +49,7 @@ export class ScannerComponent implements  OnDestroy, AfterViewInit {
     }
   ngOnDestroy(): void {
     this.action.stop();
+    this.wrService.setScannerActive(false);
   }
 
   ngAfterViewInit(): void {

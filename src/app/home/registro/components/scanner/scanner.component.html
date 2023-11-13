@@ -20,21 +20,21 @@
         </button> -->
           <ng-container *ngIf="!action.isStart">
             <button
-              class="2xl:w-8 2xl:h-8 lg:w-6 lg:h-6 flex justify-center items-center border-2 border-prim-dark-1 rounded-2xl"
+              class="2xl:w-8 2xl:h-8 lg:w-6 lg:h-6 flex justify-center items-center border-2 lg:border-0 border-prim-dark-1 rounded-2xl"
               (click)="handle(action, action.isStart ? 'stop' : 'start')">
               <i-tabler name="camera"></i-tabler>
             </button>
           </ng-container>
           <ng-container *ngIf="action.isStart">
             <button
-              class="2xl:w-8 2xl:h-8 lg:w-6 lg:h-6 flex text-danger justify-center items-center border-2 border-bg-danger rounded-2xl"
+              class="2xl:w-8 2xl:h-8 lg:w-6 lg:h-6 flex text-danger justify-center items-center lg:border-0 border-2 border-bg-danger rounded-2xl"
               (click)="handle(action, action.isStart ? 'stop' : 'start')">
               <i-tabler name="camera-off"></i-tabler>
             </button>
           </ng-container>
 
             <button
-              class="2xl:w-8 2xl:h-8 lg:w-6 lg:h-6 flex justify-center items-center border-2 border-prim-dark-1 rounded-2xl"
+              class="2xl:w-8 2xl:h-8 lg:w-6 lg:h-6 flex justify-center items-center lg:border-0 border-2 border-prim-dark-1 rounded-2xl"
               [ngClass]="{'invisible': !action.isStart}"
               (click)="handle(action, 'continue')"> &#9654; </button>
       </div>
