@@ -17,8 +17,8 @@ import { AjustesComponent } from './ajustes/ajustes.component';
 import { SearchProductComponent } from './registro/components/search-product/search-product.component';
 import { ScannerComponent } from './registro/components/scanner/scanner.component';
 
-import { BrandPipe } from '../pipes/brand.pipe';
 import { NgxScannerQrcodeModule, LOAD_WASM  } from 'ngx-scanner-qrcode';
+import { BrandPipe } from '../pipes/brand.pipe';
 
 LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
 const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };

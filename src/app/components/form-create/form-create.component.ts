@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Brand } from 'src/app/interfaces/brand';
+import { BrandInterface } from 'src/app/interfaces/brand.interface';
 import { Product } from 'src/app/interfaces/product';
 import { User } from 'src/app/interfaces/user';
+import { BrandService } from 'src/app/services/brand.service';
+import { ProductService } from 'src/app/services/product.service';
 import { UserService } from 'src/app/services/user.service';
 
 import Swal from 'sweetalert2';
@@ -86,11 +89,15 @@ export class FormCreateComponent implements OnInit {
   htmlType: string[] = [];
   htmlBtnTitleString: string = "";
 
+  brands: any = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly productService: ProductService,
+    private readonly brandService: BrandService
   ) {
 
     //Controlar y obtener la ruta para cambiar el titulo y boton del formulario
@@ -111,14 +118,17 @@ export class FormCreateComponent implements OnInit {
           this.htmlBtnTitleString = "Crear Reporte"
           break;
       }
-
     });
+
+
 
   }
 
 
 
   ngOnInit(): void {
+
+
 
     //Modificacion de ruta a capitalize
     let ruta = this.route.snapshot.paramMap.get('item')!.toString();
@@ -127,10 +137,18 @@ export class FormCreateComponent implements OnInit {
     // console.log("CLASE:", this.clase);
 
     if (this.clase !== "Report") {
-
+      //Llamar marcas si eligen crear una o relacionado a brand_id
+      this.brandService.getBrands().subscribe({
+        next: (brands: BrandInterface[]) => {
+          console.log(brands);
+          this.brands = brands;
+        }
+      });
+      // console.log("BRANDS:", this.brands)
       // Creacion de los campos a controlar FormBuilder.
       this.generateForm();
     }
+
 
 
 
@@ -146,8 +164,18 @@ export class FormCreateComponent implements OnInit {
         let prodClass = new Product();
         Object.keys(prodClass).forEach(
           (p, i) => {
+            console.log(p);
             // console.log("Obj Key:", p.valueOf());
-            this.formControls[p] = ['', [Validators.required]];
+            const idx = Object.keys(prodClass).indexOf(p);
+            console.log("userClass Value:", typeof Object.values(prodClass)[idx]);
+
+            if (typeof Object.values(prodClass)[idx] === 'number') {
+              this.formControls[p] = [`${Object.values(prodClass)[idx]}`, [Validators.required]];
+            } else {
+              this.formControls[p] = [`${Object.values(prodClass)[idx]}`, [Validators.required]];
+            }
+
+
 
             this.claseProp.push(p);
           }
@@ -186,13 +214,14 @@ export class FormCreateComponent implements OnInit {
             // console.log("userClass Prop:", p);
             const idx = Object.keys(userClass).indexOf(p);
 
-            // console.log("userClass Value:", typeof Object.values(userClass)[idx]);
+            console.log("userClass Value:", typeof Object.values(userClass)[idx]);
 
             if (typeof Object.values(userClass)[idx] === 'boolean') {
               this.formControls[p] = [Object.values(userClass)[idx], [Validators.required]];
             } else {
               this.formControls[p] = [`${Object.values(userClass)[idx]}`, [Validators.required]];
             }
+
 
 
             this.claseProp.push(p);
@@ -212,53 +241,161 @@ export class FormCreateComponent implements OnInit {
   }
 
   async onSubmit() {
-    this.isLoading = true;
+    // this.isLoading = true;
     // Manejar la lógica cuando se envía el formulario
-    console.log(this.form.value);
-    let data =  this.form.value;
+    // let rawData = this.form.getRawValue();
+    // console.log("rawData:", rawData);
+    let data = this.form.value;
 
-    
+    switch (this.clase) {
+      case "Product":
 
-    this.userService.createUser( data )
-      .subscribe({
-        next: (response: any) => {
-          console.log(response);
-          this.isLoading = false;
-          let status = response.status;
-          let msg = "";
-          if( status !== 200 ){
-            msg = response.response.response.msg;
-          }
-          Swal.fire({
-            title: (status === 200) ? 'Usuario creado!' : 'Error al crear usuario',
-            html: `${msg}`,
-            background: '#ECECFC',
-            icon: (status === 200)  ? 'success' : 'info',
-            iconColor: (status === 200) ? '#37C234': '#4441E5',
-            confirmButtonText: 'Ok',
-            confirmButtonColor: '#37C234',
-            color: '#1B1A5B',
-          });
+        //Creacion de objeto acorde al tipo.
+        const prod = new Product(
+        data.name,
+        data.price,
+        parseInt(data.quantity),
+        parseInt(data.brand_id),
+        data.type,
+        data.initialWeight,
+        data.barcode
+        );
 
-        },
-        error: (err) => {
-            console.log("Error", err);
-            
 
-          this.isLoading = false;
-          Swal.fire({
-            title: `${err.error.error}`,
-            html: `${err.error.message}`,
-            background: '#ECECFC',
-            icon: 'error',
-            iconColor: '#D30E0E',
-            confirmButtonText: 'Ok',
-            confirmButtonColor: '#37C234',
-            color: '#1B1A5B',
-          });
-          // throw new Error(err);
-        }
-      })
+        this.productService.createProduct(prod)
+          .subscribe({
+            next: (response: any) => {
+              console.log(response);
+              this.isLoading = false;
+              let status = response.status;
+              let msg = "";
+              if (status !== 200) {
+                msg = response.response.response.msg;
+              }
+              Swal.fire({
+                title: (status === 200) ? 'Producto creado!' : 'Error al crear product',
+                html: `${msg}`,
+                background: '#ECECFC',
+                icon: (status === 200) ? 'success' : 'info',
+                iconColor: (status === 200) ? '#37C234' : '#4441E5',
+                confirmButtonText: 'Ok',
+                confirmButtonColor: '#37C234',
+                color: '#1B1A5B',
+              });
+
+            },
+            error: (err) => {
+              console.log("Error", err);
+
+
+              this.isLoading = false;
+              Swal.fire({
+                title: `${err.error.error}`,
+                html: `${err.error.message}`,
+                background: '#ECECFC',
+                icon: 'error',
+                iconColor: '#D30E0E',
+                confirmButtonText: 'Ok',
+                confirmButtonColor: '#37C234',
+                color: '#1B1A5B',
+              });
+            }
+          })
+
+        break;
+      case "Brand":
+
+        this.brandService.createBrand(data)
+          .subscribe({
+            next: (response: any) => {
+              console.log(response);
+              this.isLoading = false;
+              let status = response.status;
+              let msg = "";
+              if (status !== 200) {
+                msg = response.response.response.msg;
+              }
+              Swal.fire({
+                title: (status === 200) ? 'Producto creado!' : 'Error al crear product',
+                html: `${msg}`,
+                background: '#ECECFC',
+                icon: (status === 200) ? 'success' : 'info',
+                iconColor: (status === 200) ? '#37C234' : '#4441E5',
+                confirmButtonText: 'Ok',
+                confirmButtonColor: '#37C234',
+                color: '#1B1A5B',
+              });
+
+            },
+            error: (err) => {
+              console.log("Error", err);
+
+
+              this.isLoading = false;
+              Swal.fire({
+                title: `${err.error.error}`,
+                html: `${err.error.message}`,
+                background: '#ECECFC',
+                icon: 'error',
+                iconColor: '#D30E0E',
+                confirmButtonText: 'Ok',
+                confirmButtonColor: '#37C234',
+                color: '#1B1A5B',
+              });
+            }
+          })
+
+        break;
+      case "User":
+
+        this.userService.createUser(data)
+          .subscribe({
+            next: (response: any) => {
+              console.log(response);
+              this.isLoading = false;
+              let status = response.status;
+              let msg = "";
+              if (status !== 200) {
+                msg = response.response.response.msg;
+              }
+              Swal.fire({
+                title: (status === 200) ? 'Usuario creado!' : 'Error al crear usuario',
+                html: `${msg}`,
+                background: '#ECECFC',
+                icon: (status === 200) ? 'success' : 'info',
+                iconColor: (status === 200) ? '#37C234' : '#4441E5',
+                confirmButtonText: 'Ok',
+                confirmButtonColor: '#37C234',
+                color: '#1B1A5B',
+              });
+
+            },
+            error: (err) => {
+              console.log("Error", err);
+
+
+              this.isLoading = false;
+              Swal.fire({
+                title: `${err.error.error}`,
+                html: `${err.error.message}`,
+                background: '#ECECFC',
+                icon: 'error',
+                iconColor: '#D30E0E',
+                confirmButtonText: 'Ok',
+                confirmButtonColor: '#37C234',
+                color: '#1B1A5B',
+              });
+              // throw new Error(err);
+            }
+          })
+
+        break;
+
+      default:
+        break;
+    }
+
+
 
   }
 

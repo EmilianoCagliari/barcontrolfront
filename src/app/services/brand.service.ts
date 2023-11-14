@@ -19,6 +19,17 @@ export class BrandService {
     return this._brands;
   }
 
+  
+
+
+  createBrand( brand: string ) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+      return this.http.post(`${env.apiUrl}/brands`, brand ,{ headers: headers } );
+  }
 
 
 
@@ -28,15 +39,12 @@ export class BrandService {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get<BrandInterface[]>(this._url, { headers: headers })
-      .subscribe({
-        next: (brands: BrandInterface[]) => {
-          this._brands = brands;
-        }
-      })
-
+    return this.http.get<BrandInterface[]>(this._url, { headers: headers });
 
   }
+
+
+
 
   // getBrandName(id: Number): string {
   //   const token = localStorage.getItem('token');
