@@ -43,11 +43,16 @@ export class RegistroComponent implements OnInit {
 
 
   ngOnInit() {
-    this.brandService.getBrands();
+
+    this.brandService.getBrands().subscribe({
+      next: (brands) => {
+        this.brandService.setbrands(brands);
+      }
+    })
+
     
     this.productService.registerProduct$.subscribe((product) => {
       console.log("Product", product);
-      
       this.product = product;
     });
 

@@ -8,6 +8,7 @@ import { User } from 'src/app/interfaces/user';
 import { BrandService } from 'src/app/services/brand.service';
 import { ProductService } from 'src/app/services/product.service';
 import { UserService } from 'src/app/services/user.service';
+import { WeightRegisterService } from 'src/app/services/weight-register.service';
 
 import Swal from 'sweetalert2';
 
@@ -91,15 +92,23 @@ export class FormCreateComponent implements OnInit {
 
   brands: any = [];
 
+  //Dato escaneado si es el formulario crear producto
+  scannedData: string = "";
+
+  //bandera para el scanner
+  scanActive:boolean;
+
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private readonly userService: UserService,
     private readonly productService: ProductService,
-    private readonly brandService: BrandService
+    private readonly brandService: BrandService,
+    private readonly wrService:WeightRegisterService
   ) {
-
+    
     //Controlar y obtener la ruta para cambiar el titulo y boton del formulario
     this.router.events.subscribe(() => {
       let currentUrl = this.router.url.replace('/home/', '');
@@ -120,13 +129,34 @@ export class FormCreateComponent implements OnInit {
       }
     });
 
-
+    this.scanActive = this.wrService.getScannerActive();
 
   }
 
 
 
+  isActive() {
+    console.log("isActive:", !this.scanActive);
+    this.wrService.setScannerActive(!this.scanActive);
+    if(this.scannedData.length > 0 ) {
+      this.scannedData = "";
+    }
+    
+  }
+
   ngOnInit(): void {
+
+    this.wrService.scannerActive$.subscribe( (active) =>{
+      this.scanActive = active
+    })
+
+    //Obtener el dato escaneado
+    this.wrService.scannedBarcode$.subscribe(
+      (data) => {
+        // console.log("ScannedData en Formulario:", data);
+        this.scannedData = data  
+        this.wrService.setScannerActive(!this.scanActive); 
+      });
 
 
 
@@ -137,22 +167,23 @@ export class FormCreateComponent implements OnInit {
     // console.log("CLASE:", this.clase);
 
     if (this.clase !== "Report") {
+      
       //Llamar marcas si eligen crear una o relacionado a brand_id
       this.brandService.getBrands().subscribe({
         next: (brands: BrandInterface[]) => {
-          console.log(brands);
+          // console.log(brands);
           this.brands = brands;
         }
       });
+
       // console.log("BRANDS:", this.brands)
       // Creacion de los campos a controlar FormBuilder.
       this.generateForm();
     }
 
-
-
-
   }
+
+
   //Funcion para generar el formulario dinamico
   generateForm() {
 
@@ -164,10 +195,10 @@ export class FormCreateComponent implements OnInit {
         let prodClass = new Product();
         Object.keys(prodClass).forEach(
           (p, i) => {
-            console.log(p);
+            // console.log(p);
             // console.log("Obj Key:", p.valueOf());
             const idx = Object.keys(prodClass).indexOf(p);
-            console.log("userClass Value:", typeof Object.values(prodClass)[idx]);
+            // console.log("userClass Value:", typeof Object.values(prodClass)[idx]);
 
             if (typeof Object.values(prodClass)[idx] === 'number') {
               this.formControls[p] = [`${Object.values(prodClass)[idx]}`, [Validators.required]];
@@ -214,7 +245,7 @@ export class FormCreateComponent implements OnInit {
             // console.log("userClass Prop:", p);
             const idx = Object.keys(userClass).indexOf(p);
 
-            console.log("userClass Value:", typeof Object.values(userClass)[idx]);
+            // console.log("userClass Value:", typeof Object.values(userClass)[idx]);
 
             if (typeof Object.values(userClass)[idx] === 'boolean') {
               this.formControls[p] = [Object.values(userClass)[idx], [Validators.required]];
@@ -246,7 +277,8 @@ export class FormCreateComponent implements OnInit {
     // let rawData = this.form.getRawValue();
     // console.log("rawData:", rawData);
     let data = this.form.value;
-
+    console.log("FormData:", data);
+    
     switch (this.clase) {
       case "Product":
 
@@ -270,10 +302,10 @@ export class FormCreateComponent implements OnInit {
               let status = response.status;
               let msg = "";
               if (status !== 200) {
-                msg = response.response.response.msg;
+                msg = response.message;
               }
               Swal.fire({
-                title: (status === 200) ? 'Producto creado!' : 'Error al crear product',
+                title: (status === 200) ? 'Producto creado!' : 'Error al crear producto',
                 html: `${msg}`,
                 background: '#ECECFC',
                 icon: (status === 200) ? 'success' : 'info',
@@ -281,6 +313,13 @@ export class FormCreateComponent implements OnInit {
                 confirmButtonText: 'Ok',
                 confirmButtonColor: '#37C234',
                 color: '#1B1A5B',
+              }).then( (result) => {
+                if( (status === 200)  && result.isConfirmed){
+
+                  this.form.reset();
+                  this.form.get('brand_id')!.setValue('0');
+
+                }
               });
 
             },
@@ -290,8 +329,8 @@ export class FormCreateComponent implements OnInit {
 
               this.isLoading = false;
               Swal.fire({
-                title: `${err.error.error}`,
-                html: `${err.error.message}`,
+                title: `${err.statusText}`,
+                html: `${err.error.msg}`,
                 background: '#ECECFC',
                 icon: 'error',
                 iconColor: '#D30E0E',
@@ -303,6 +342,8 @@ export class FormCreateComponent implements OnInit {
           })
 
         break;
+
+
       case "Brand":
 
         this.brandService.createBrand(data)
@@ -346,6 +387,8 @@ export class FormCreateComponent implements OnInit {
           })
 
         break;
+
+
       case "User":
 
         this.userService.createUser(data)

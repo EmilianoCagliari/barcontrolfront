@@ -13,7 +13,10 @@ import { GaugeComponent } from './gauge/gauge.component';
 import { OptionCardComponent } from './option-card/option-card.component';
 import { FormCreateComponent } from './form-create/form-create.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ScannerComponent } from './scanner/scanner.component';
+import { NgxScannerQrcodeModule, LOAD_WASM  } from 'ngx-scanner-qrcode';
 
+LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
 
 
 @NgModule({
@@ -28,12 +31,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     WarningComponent,
     GaugeComponent,
     OptionCardComponent,
-    FormCreateComponent
+    FormCreateComponent,
+    ScannerComponent
   ],
   imports: [
     CommonModule,
     IconsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxScannerQrcodeModule
   ],
   exports: [
     ButtonComponent,
@@ -47,7 +52,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     WarningComponent,
     GaugeComponent,
     OptionCardComponent,
-    FormCreateComponent
+    FormCreateComponent,
+    ScannerComponent
   ]
 })
 export class ComponentModule { }

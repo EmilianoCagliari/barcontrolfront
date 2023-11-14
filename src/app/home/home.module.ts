@@ -15,12 +15,11 @@ import { RegistroComponent } from './registro/registro.component';
 import { AnaliticasComponent } from './analiticas/analiticas.component';
 import { AjustesComponent } from './ajustes/ajustes.component';
 import { SearchProductComponent } from './registro/components/search-product/search-product.component';
-import { ScannerComponent } from './registro/components/scanner/scanner.component';
 
-import { NgxScannerQrcodeModule, LOAD_WASM  } from 'ngx-scanner-qrcode';
+
 import { BrandPipe } from '../pipes/brand.pipe';
 
-LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
+
 const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };
 
 
@@ -32,7 +31,6 @@ const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };
     AnaliticasComponent,
     AjustesComponent,
     SearchProductComponent,
-    ScannerComponent,
     BrandPipe
   ],
   imports: [
@@ -40,7 +38,6 @@ const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };
     HomeRoutingModule,
     HttpClientModule,
     ComponentModule,
-    NgxScannerQrcodeModule,
     SocketIoModule.forRoot(config)
   ], 
   exports: [],

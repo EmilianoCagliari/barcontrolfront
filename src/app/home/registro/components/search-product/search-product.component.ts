@@ -14,7 +14,7 @@ export class SearchProductComponent implements OnInit {
 
   isEmpty: boolean = false;
 
-  scanActive: boolean = false;
+  scanActive: boolean;
 
   scannedData: string = "";
 
@@ -38,11 +38,20 @@ export class SearchProductComponent implements OnInit {
     private readonly wrService: WeightRegisterService
   ) {
 
+    this.scanActive = this.wrService.getScannerActive();
+
   }
 
 
 
   ngOnInit(): void {
+
+    //Estado de activo el componente Scanner
+    this.wrService.scannerActive$.subscribe( (active) =>{
+      this.scanActive = active
+    })
+
+    //Estado del dato cargado del scanner
     this.wrService.scannedBarcode$.subscribe(
       (data) => this.scannedData = data
     );
@@ -53,7 +62,6 @@ export class SearchProductComponent implements OnInit {
   isActive() {
     console.log("isActive:", !this.scanActive);
     this.wrService.setScannerActive(!this.scanActive);
-    this.scanActive = !this.scanActive;
   }
 
   onSubmit() {
