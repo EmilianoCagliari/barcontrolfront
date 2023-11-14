@@ -28,7 +28,7 @@ export class WebsocketService {
   }
 
   public setScaleConected(status: boolean): void {
-    this._scaleConected = status;
+    // this._scaleConected = status;
     this.scaleConected$.next(this._scaleConected);
   }
 

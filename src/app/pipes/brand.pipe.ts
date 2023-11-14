@@ -17,9 +17,14 @@ export class BrandPipe implements PipeTransform {
 
   transform(id: Number): string {
 
-    this.brandService.brands.forEach( (b) => {
+    console.log("Ingresando al transform del pipe", id);
+    
+    let brands: any[] = this.brandService.getBrandsArr();
+    brands.forEach( (b) => {
        if(b.id == id) {
         this.brandName = b.name;
+        console.log(b.name);
+        
         return
        }
     })

@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/interfaces/product';
 import { WeightRegister } from 'src/app/interfaces/weight_register';
+import { BrandService } from 'src/app/services/brand.service';
 import { ProductService } from 'src/app/services/product.service';
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { WeightRegisterService } from 'src/app/services/weight-register.service';
@@ -19,23 +20,39 @@ export class RegistroComponent implements OnInit {
 
   product: Product | undefined;
 
+  scanBarcode: string | undefined;
+
+  scanActive: boolean;
 
   constructor(
     private webSocketService: WebsocketService,
     private productService: ProductService,
-    private regWeightService: WeightRegisterService
+    private regWeightService: WeightRegisterService,
+    private brandService: BrandService
   ) {
     //Estado de la balanza
     this.balanza = this.webSocketService.getScaleConected();
     //Estado del peso
     this.peso = this.webSocketService.getScaleWeight();
+
+    //Estado boton escanear
+    this.scanActive = this.regWeightService.getScannerActive();
+    
   }
 
 
 
   ngOnInit() {
 
+    this.brandService.getBrands().subscribe({
+      next: (brands) => {
+        this.brandService.setbrands(brands);
+      }
+    })
+
+    
     this.productService.registerProduct$.subscribe((product) => {
+      console.log("Product", product);
       this.product = product;
     });
 
@@ -46,6 +63,10 @@ export class RegistroComponent implements OnInit {
 
     this.webSocketService.scaleWeight$.subscribe((peso) => {
       this.peso = peso;
+    })
+
+    this.regWeightService.scannerActive$.subscribe( (active) => {
+      this.scanActive = active;
     })
 
   }

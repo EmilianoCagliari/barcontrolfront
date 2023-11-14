@@ -1,10 +1,12 @@
 <img src="../../../assets/search-ilu.svg" alt="" srcset="" class="w-6/12 p-2 bg-prim-light/60 rounded-2xl">
 
-<div class="w-1/2 mx-1">
-    <div class="relative z-0 mb-4">
+<div class="w-fit mx-1 flex">
+    <div class="relative z-0 ml-10 mb-4">
         <input #barcode type="number" id="barcode" autocomplete="new-barcode"
             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" " />
+            placeholder=" " 
+            [value]="scannedData"
+            />
         <label for="barcode"
             class="absolute text-sm border-b-prim-dark-1 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Codigo
             de barra</label>
@@ -12,6 +14,15 @@
             Ingrese un codigo de barra
         </span>
     </div>
+    <button class="relative left-5 p-1 hover:text-prim-light border-2 border-prim-dark-1 rounded-lg hover:border-prim-light duration-100 transition-all"
+    [ngClass]="{'text-prim-light border-prim-light': scanActive }"
+    (click)="isActive()">
+        <i-tabler 
+        class="self-center"
+        name="focus-centered"></i-tabler>
+        <p class="text-xs">Escanear</p>
+    </button>
 </div>
+
 
 <app-button title="Buscar producto" class="w-2/4" (click)="onSubmit()"></app-button>

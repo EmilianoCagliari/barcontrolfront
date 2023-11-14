@@ -61,6 +61,14 @@ export class ProductService {
 
   }
 
+  createProduct( product: Product) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+      return this.http.post(`${env.apiUrl}/products`, product ,{ headers: headers } );
+  }
 
 
 

@@ -12,6 +12,8 @@ export class ButtonComponent {
   @Input()
   type!: string;
 
+  @Input()
+  disabled: boolean = false;
 
   
 
