@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class WarningComponent {
 
-  @Input() msg: string = "";
+  @Input() msg: string = ``;
 
 
 }

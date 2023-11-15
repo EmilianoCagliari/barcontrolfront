@@ -21,7 +21,8 @@ import {
   IconAsset,
   IconFocusCentered,
   IconCamera,
-  IconCameraOff
+  IconCameraOff,
+  IconEdit
 } from 'angular-tabler-icons/icons';
 
 
@@ -49,7 +50,8 @@ const icons = {
   IconAsset,
   IconFocusCentered,
   IconCamera,
-  IconCameraOff
+  IconCameraOff,
+  IconEdit
 };
 
 @NgModule({

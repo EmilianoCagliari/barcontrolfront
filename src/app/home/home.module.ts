@@ -18,6 +18,7 @@ import { SearchProductComponent } from './registro/components/search-product/sea
 
 
 import { BrandPipe } from '../pipes/brand.pipe';
+import { FormsModule } from '@angular/forms';
 
 
 const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };
@@ -38,6 +39,7 @@ const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };
     HomeRoutingModule,
     HttpClientModule,
     ComponentModule,
+    FormsModule,
     SocketIoModule.forRoot(config)
   ], 
   exports: [],

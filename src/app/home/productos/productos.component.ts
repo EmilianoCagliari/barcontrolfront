@@ -19,48 +19,36 @@ import Swal from 'sweetalert2';
 export class ProductosComponent implements OnInit {
 
 
-  private _idxRegistro: number = 10;
-  
+
   private _Products: Product[] = [];
   private _ProductCount: number = 0;
-  
-  
+
+  private _idxRegistro: number;
+
+
   public pages: any[] = [];
 
 
   private _currentPage: number;
-  currentPage$ = new Subject<number>();;
 
-  
-  public getCurentPage(): number {
+
+  public currentPage(): number {
     return this._currentPage;
   }
 
-  public setCurrentPage( idx: number ): void {
-    this._currentPage = idx;
-    this.currentPage$.next(this._currentPage);
-  }
-
-
-
-
-  public currentPage() {
-    return Math.floor(this._idxRegistro / 10);
-  }
-  
-  public get products() : Product[] {
+  public get products(): Product[] {
     return this._Products;
   }
 
-  
-  public get productCount() : number {
+
+  public get productCount(): number {
     return this._ProductCount;
   }
 
 
-  
-  
-  
+
+
+
 
   rowEdit: Number | null = null;
   loading: boolean = true;
@@ -72,67 +60,85 @@ export class ProductosComponent implements OnInit {
     private readonly router: Router
   ) {
     this.brandService.getBrands();
-    this._currentPage = this.currentPage();
+    this._currentPage = 1; // Inicia en la página 1
+    this._idxRegistro = 0; // Inicia en el índice 0
   }
 
 
+  public changePage(page: number) {
+    this._currentPage = page;
+    this._idxRegistro = (page - 1) * 10; // Ajusta el índice de registro en consecuencia
+  }
 
   ngOnInit(): void {
 
-    this.currentPage$.subscribe( (valor) => {
-      this.setCurrentPage(valor);
-    })
 
     this.productService.getProducts()
-    .subscribe({
-      next: (products: ProductResponse) => {
-        this._Products = products.rows;
-        this._ProductCount = products.count;
-        this.pages = new Array( (products.count % this._idxRegistro) );
-        console.log(this.pages);
-        
-      },
-      error: (err) => {
-        this.router.navigate(['/asdadas']);
-        throw new Error(err);
-      },
-      complete: () => {
-        this.loading = false;
-      }
+      .subscribe({
+        next: (p: ProductResponse) => {
+          this._Products = p.rows;
+          this._ProductCount = p.count;
+          console.log(p.count);
 
-    })
+          this.pages = new Array((Math.ceil(p.count / 10)));
+          console.log(this.pages);
+
+        },
+        error: (err) => {
+          this.router.navigate(['/asdadas']);
+          throw new Error(err);
+        },
+        complete: () => {
+          this.loading = false;
+        }
+
+      })
 
 
   }
 
-  prevPage(){
-
+  prevPage() {
+    this.loading = true;
+    this.changePage(this._currentPage - 1);
+    console.log('prevPage:', this._idxRegistro);
+    this.productService.getProducts(this._idxRegistro).subscribe({
+      next: (p: ProductResponse) => {
+        this._Products = p.rows;
+        this._ProductCount = p.count;
+        this.pages = new Array((Math.ceil(p.count / 10)));
+        this.loading = false;
+      },
+      error: (err) => {
+        throw new Error(err);
+      }
+    });
   }
 
   nextPage() {
     this.loading = true;
-    const offset: number = this._idxRegistro + (  (this.currentPage() != 1) ? 10 : 0 );
-    console.log('nextPage:', this._idxRegistro);
-    this.productService.getProducts( offset ).subscribe({
+    this.changePage(this._currentPage + 1);
+    console.log('prevPage:', this._idxRegistro);
+    this.productService.getProducts(this._idxRegistro).subscribe({
       next: (p: ProductResponse) => {
         this._Products = p.rows;
         this._ProductCount = p.count;
-        this.pages = new Array( (p.count % this._idxRegistro) );
+        this.pages = new Array((Math.ceil(p.count / 10)));
         this.loading = false;
-        this.setCurrentPage( this.currentPage() );
       },
       error: (err) => {
         throw new Error(err);
       }
-    })
+    });
   }
 
   editRow(idx: number) {
     this.rowEdit = idx;
   }
 
-  saveRow(idx: number) {
+  saveRow(data: any) {
 
+    console.log("SAVE ROW - Data:", data);
+      
     this.rowEdit = null; // Desactivar la edición
 
     Swal.fire({

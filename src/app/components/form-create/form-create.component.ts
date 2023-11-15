@@ -8,6 +8,7 @@ import { User } from 'src/app/interfaces/user/user';
 import { BrandService } from 'src/app/services/brand.service';
 import { ProductService } from 'src/app/services/product.service';
 import { UserService } from 'src/app/services/user.service';
+import { WebsocketService } from 'src/app/services/websocket.service';
 import { WeightRegisterService } from 'src/app/services/weight-register.service';
 
 import Swal from 'sweetalert2';
@@ -95,20 +96,25 @@ export class FormCreateComponent implements OnInit {
   //Dato escaneado si es el formulario crear producto
   scannedData: string = "";
 
-  //bandera para el scanner
-  scanActive:boolean;
+  dataWeight: number = 0;
 
+  //bandera para el scanner
+  scanActive: boolean;
+
+  //Balanza conectada
+  scaleActive: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private readonly websocketService: WebsocketService,
     private readonly userService: UserService,
     private readonly productService: ProductService,
     private readonly brandService: BrandService,
-    private readonly wrService:WeightRegisterService
+    private readonly wrService: WeightRegisterService
   ) {
-    
+
     //Controlar y obtener la ruta para cambiar el titulo y boton del formulario
     this.router.events.subscribe(() => {
       let currentUrl = this.router.url.replace('/home/', '');
@@ -130,23 +136,33 @@ export class FormCreateComponent implements OnInit {
     });
 
     this.scanActive = this.wrService.getScannerActive();
+    this.scaleActive = this.websocketService.getScaleConected();
 
+    console.log(this.scaleActive);
+    
   }
 
 
+  registerWeight() {
+    let peso = parseFloat(this.websocketService.getScaleWeight().toFixed(2));
+    this.form.get('initialWeight')!.setValue(peso);
+    
+  }
 
   isActive() {
     console.log("isActive:", !this.scanActive);
     this.wrService.setScannerActive(!this.scanActive);
-    if(this.scannedData.length > 0 ) {
+    if (this.scannedData.length > 0) {
       this.scannedData = "";
     }
-    
+
   }
 
   ngOnInit(): void {
 
-    this.wrService.scannerActive$.subscribe( (active) =>{
+
+    //Control activo el scanner
+    this.wrService.scannerActive$.subscribe((active) => {
       this.scanActive = active
     })
 
@@ -154,9 +170,16 @@ export class FormCreateComponent implements OnInit {
     this.wrService.scannedBarcode$.subscribe(
       (data) => {
         // console.log("ScannedData en Formulario:", data);
-        this.scannedData = data  
-        this.wrService.setScannerActive(!this.scanActive); 
+        this.form.get('barcode')!.setValue(data);
+        this.wrService.setScannerActive(!this.scanActive);
       });
+
+
+    //Scale status
+    this.websocketService.scaleConected$.subscribe( (active) => {
+      this.scaleActive = active;
+    });
+
 
 
 
@@ -167,7 +190,7 @@ export class FormCreateComponent implements OnInit {
     // console.log("CLASE:", this.clase);
 
     if (this.clase !== "Report") {
-      
+
       //Llamar marcas si eligen crear una o relacionado a brand_id
       this.brandService.getBrands().subscribe({
         next: (brands: BrandInterface[]) => {
@@ -272,27 +295,32 @@ export class FormCreateComponent implements OnInit {
   }
 
   async onSubmit() {
-    // this.isLoading = true;
+    this.isLoading = true;
     // Manejar la lógica cuando se envía el formulario
     // let rawData = this.form.getRawValue();
     // console.log("rawData:", rawData);
     let data = this.form.value;
+
+    //TODO: Corroborar si es valido los campos antes de mandar el formulario.
+
     console.log("FormData:", data);
-    
+
     switch (this.clase) {
       case "Product":
 
         //Creacion de objeto acorde al tipo.
         const prod = new Product(
-        data.name,
-        data.price,
-        parseInt(data.quantity),
-        parseInt(data.brand_id),
-        data.type,
-        data.initialWeight,
-        data.barcode
+          data.name,
+          data.price,
+          parseInt(data.quantity),
+          parseInt(data.brand_id),
+          data.type,
+          data.initialWeight.toString(),
+          data.barcode
         );
 
+        console.log(prod);
+        
 
         this.productService.createProduct(prod)
           .subscribe({
@@ -313,8 +341,8 @@ export class FormCreateComponent implements OnInit {
                 confirmButtonText: 'Ok',
                 confirmButtonColor: '#37C234',
                 color: '#1B1A5B',
-              }).then( (result) => {
-                if( (status === 200)  && result.isConfirmed){
+              }).then((result) => {
+                if ((status === 200) && result.isConfirmed) {
 
                   this.form.reset();
                   this.form.get('brand_id')!.setValue('0');
