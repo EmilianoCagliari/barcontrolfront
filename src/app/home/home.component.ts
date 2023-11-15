@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UserInterface } from '../interfaces/user.interface';
+import { UserInterface } from '../interfaces/user/user.interface';
 
 import { UserService } from '../services/user.service';
 import { LocalstorageService } from '../services/localstorage.service';

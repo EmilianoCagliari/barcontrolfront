@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { BrandService } from '../services/brand.service';
-import { BrandInterface } from '../interfaces/brand.interface';
+import { BrandInterface } from '../interfaces/brand/brand.interface';
 
 @Pipe({
   name: 'brandPipe'

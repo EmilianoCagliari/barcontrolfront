@@ -2,16 +2,16 @@ import { ProductInterface } from "./product.interface";
 
 export class Product implements ProductInterface {
 
-    id?: Number | undefined;
+    id?: number | undefined;
     name: string;
     price: string;
-    quantity: Number;
-    brand_id: Number;
+    quantity: number;
+    brand_id: number;
     type: string;
     initialWeight: string;
     barcode: string;
-    updatedAt?: string | undefined;
-    createdAt?: string | undefined;
+    updatedAt?: Date | undefined;
+    createdAt?: Date | undefined;
 
     constructor(
         name = "",

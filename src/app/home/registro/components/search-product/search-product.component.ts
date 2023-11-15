@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Product } from 'src/app/interfaces/product';
+import { Product } from 'src/app/interfaces/product/product';
 import { ProductService } from 'src/app/services/product.service';
 import { WeightRegisterService } from 'src/app/services/weight-register.service';
 import Swal from 'sweetalert2';

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Brand } from 'src/app/interfaces/brand';
-import { BrandInterface } from 'src/app/interfaces/brand.interface';
-import { Product } from 'src/app/interfaces/product';
-import { User } from 'src/app/interfaces/user';
+import { Brand } from 'src/app/interfaces/brand/brand';
+import { BrandInterface } from 'src/app/interfaces/brand/brand.interface';
+import { Product } from 'src/app/interfaces/product/product';
+import { User } from 'src/app/interfaces/user/user';
 import { BrandService } from 'src/app/services/brand.service';
 import { ProductService } from 'src/app/services/product.service';
 import { UserService } from 'src/app/services/user.service';
