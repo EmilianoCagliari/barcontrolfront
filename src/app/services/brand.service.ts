@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BrandInterface } from '../interfaces/brand.interface';
+import { BrandInterface } from '../interfaces/brand/brand.interface';
 import { env } from 'src/environments/environment';
-import { Brand } from '../interfaces/brand';
+import { Brand } from '../interfaces/brand/brand';
 import { Subject } from 'rxjs';
 
 @Injectable({

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ProductInterface } from '../interfaces/product.interface';
+import { ProductInterface } from '../interfaces/product/product.interface';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { env } from 'src/environments/environment';
 import { Subject } from 'rxjs';
-import { Product } from '../interfaces/product';
+import { Product } from '../interfaces/product/product';
+import { ProductResponse } from '../interfaces/product/productResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -46,18 +47,22 @@ export class ProductService {
     const param = new HttpParams({
       fromString: `bc=${barcode}`
     })
-    return this.http.get<ProductInterface>(`${this._url}/p`, { params: param, headers: headers })
+    return this.http.get<Product>(`${this._url}/p`, { params: param, headers: headers })
 
   }
 
 
-  getProducts() {
+  getProducts( pagination: number = 0) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<ProductInterface[]>(this._url, { headers: headers });
+    const params = new HttpParams({
+      fromString: `p=${pagination}`
+    })
+
+    return this.http.get<ProductResponse>(this._url, {params: params,  headers: headers });
 
   }
 

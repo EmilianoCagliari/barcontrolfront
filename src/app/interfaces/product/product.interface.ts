@@ -7,6 +7,6 @@ export interface ProductInterface {
     type: string,
     initialWeight: string,
     barcode: string,
-    updatedAt?: string,
-    createdAt?: string
+    updatedAt?: Date,
+    createdAt?: Date
 }

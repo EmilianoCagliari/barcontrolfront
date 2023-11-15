@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { env } from 'src/environments/environment';
-import { UserInterface } from '../interfaces/user.interface';
+import { UserInterface } from '../interfaces/user/user.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({

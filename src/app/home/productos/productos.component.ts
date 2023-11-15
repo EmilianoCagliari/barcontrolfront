@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductInterface } from 'src/app/interfaces/product.interface';
+import { Subject } from 'rxjs';
+import { Product } from 'src/app/interfaces/product/product';
+import { ProductInterface } from 'src/app/interfaces/product/product.interface';
+import { ProductResponse } from 'src/app/interfaces/product/productResponse.interface';
 import { BrandService } from 'src/app/services/brand.service';
 import { ProductService } from 'src/app/services/product.service';
 import Swal from 'sweetalert2';
@@ -16,12 +19,47 @@ import Swal from 'sweetalert2';
 export class ProductosComponent implements OnInit {
 
 
-  private _Products: ProductInterface[] = [];
+  private _idxRegistro: number = 10;
+  
+  private _Products: Product[] = [];
+  private _ProductCount: number = 0;
+  
+  
+  public pages: any[] = [];
+
+
+  private _currentPage: number;
+  currentPage$ = new Subject<number>();;
 
   
-  public get products() : ProductInterface[] {
+  public getCurentPage(): number {
+    return this._currentPage;
+  }
+
+  public setCurrentPage( idx: number ): void {
+    this._currentPage = idx;
+    this.currentPage$.next(this._currentPage);
+  }
+
+
+
+
+  public currentPage() {
+    return Math.floor(this._idxRegistro / 10);
+  }
+  
+  public get products() : Product[] {
     return this._Products;
   }
+
+  
+  public get productCount() : number {
+    return this._ProductCount;
+  }
+
+
+  
+  
   
 
   rowEdit: Number | null = null;
@@ -34,19 +72,24 @@ export class ProductosComponent implements OnInit {
     private readonly router: Router
   ) {
     this.brandService.getBrands();
-
+    this._currentPage = this.currentPage();
   }
 
 
 
   ngOnInit(): void {
 
+    this.currentPage$.subscribe( (valor) => {
+      this.setCurrentPage(valor);
+    })
 
     this.productService.getProducts()
     .subscribe({
-      next: (products: ProductInterface[]) => {
-        this._Products = products;
-        console.log(this._Products);
+      next: (products: ProductResponse) => {
+        this._Products = products.rows;
+        this._ProductCount = products.count;
+        this.pages = new Array( (products.count % this._idxRegistro) );
+        console.log(this.pages);
         
       },
       error: (err) => {
@@ -60,6 +103,28 @@ export class ProductosComponent implements OnInit {
     })
 
 
+  }
+
+  prevPage(){
+
+  }
+
+  nextPage() {
+    this.loading = true;
+    const offset: number = this._idxRegistro + (  (this.currentPage() != 1) ? 10 : 0 );
+    console.log('nextPage:', this._idxRegistro);
+    this.productService.getProducts( offset ).subscribe({
+      next: (p: ProductResponse) => {
+        this._Products = p.rows;
+        this._ProductCount = p.count;
+        this.pages = new Array( (p.count % this._idxRegistro) );
+        this.loading = false;
+        this.setCurrentPage( this.currentPage() );
+      },
+      error: (err) => {
+        throw new Error(err);
+      }
+    })
   }
 
   editRow(idx: number) {

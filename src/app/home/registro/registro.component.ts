@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
-import { Product } from 'src/app/interfaces/product';
-import { WeightRegister } from 'src/app/interfaces/weight_register';
+import { Product } from 'src/app/interfaces/product/product';
+import { WeightRegister } from 'src/app/interfaces/weight_register/weight_register';
 import { BrandService } from 'src/app/services/brand.service';
 import { ProductService } from 'src/app/services/product.service';
 import { WebsocketService } from 'src/app/services/websocket.service';
