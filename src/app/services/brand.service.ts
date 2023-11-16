@@ -44,6 +44,8 @@ export class BrandService {
 
 
   getBrands() {
+    console.log("getBrands");
+    
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`

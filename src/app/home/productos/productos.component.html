@@ -3,7 +3,7 @@
                 border
                 border-prim-light-2
                 rounded-xl
-                max-h-[500px]
+                h-5/6
                 overflow-y-auto">
         <table class="table-auto w-full">
             <thead>
@@ -64,7 +64,7 @@
                         <span> {{d.brand_id | brandPipe}}</span>
                         <!-- <span *ngIf="i !== rowEdit"> {{d.brand_id | brandPipe}}</span> -->
                     </td>
-                    <td class="py-2 text-xs lg:text-base">
+                    <td class="py-2 text-xs lg:text-base ">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [(ngModel)]="d.type" [value]='d.type'
                             *ngIf="i === rowEdit">
                         <span *ngIf="i !== rowEdit"> {{d.type}}</span>
@@ -72,7 +72,7 @@
                     <td class="py-2 text-xs lg:text-base">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.initialWeight'
                             *ngIf="i === rowEdit">
-                        <span *ngIf="i !== rowEdit"> {{d.initialWeight| number: '4.1-2' }} <b>g</b></span>
+                        <span *ngIf="i !== rowEdit"> {{d.initialWeight| number: '4.1-2' }} <b class="hidden md:inline">g</b></span>
                     </td>
                     <td class="py-2 text-xs lg:text-base">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.barcode'
@@ -121,7 +121,8 @@
                             [ngClass]="{'iconsm': screenWidth <= 1024}"
                             class="text-prim-light-2"></i-tabler>
                         </button>
-                        <button class="w-7 h-7 
+                        <button (click)="deleteRow( i, d.id )"
+                            class="w-7 h-7 
                             lg:w-9 lg:h-9 mr-1 
                             rounded-full bg-danger flex justify-center items-center 
                             transition ease-in-out delaxy-75 

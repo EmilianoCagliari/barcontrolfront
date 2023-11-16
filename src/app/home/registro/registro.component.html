@@ -3,17 +3,18 @@
 <ng-container *ngIf="balanza">
     <div class="w-full h-full py-2 flex justify-center items-center">
         
-        <div class=" w-2/3 h-2/3 
+        <div class="  h-2/3 
         lg:w-2/3
         lg:h-5/6
         border-2 rounded-xl border-[#ECECFC] mainshadow p-2 flex flex-col justify-evenly items-center">
         <ng-container *ngIf="scanActive" >
+            <!-- FIXME: Arreglar responsive al activar el uso de camara -->
             <app-scanner 
             class="absolute 
-            2xl:top-[37%] 2xl:right-[11.5%]
-            xl:right-[5%]  
             lg:top-[42%] lg:right-[2%] 
-            w-1/4"></app-scanner>
+            xl:right-[5%]  
+            2xl:top-[37%] 2xl:right-[11.5%]
+            "></app-scanner>
         </ng-container>
 
             <h1 class="font-black text-3xl">Registro de peso</h1>
@@ -23,7 +24,7 @@
             </div>
 
             <ng-container *ngIf="product == undefined">
-                <app-search-product class="w-3/6 h-4/6  flex flex-col justify-evenly items-center "></app-search-product>
+                <app-search-product class="md:w-3/6 h-4/6  flex flex-col justify-evenly items-center "></app-search-product>
             </ng-container>
 
 

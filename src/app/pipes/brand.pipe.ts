@@ -15,7 +15,7 @@ export class BrandPipe implements PipeTransform {
   }
 
 
-  transform(id: Number): string {
+  transform(id: number): string {
 
     // console.log("Ingresando al transform del pipe", id);
     

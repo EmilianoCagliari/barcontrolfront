@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Product } from 'src/app/interfaces/product/product';
@@ -30,6 +30,7 @@ export class ProductosComponent implements OnInit {
 
   private _idxRegistro: number;
 
+  private valorOriginal: any;
 
   public pages: any[] = [];
 
@@ -55,21 +56,29 @@ export class ProductosComponent implements OnInit {
 
 
 
-  rowEdit: Number | null = null;
+  rowEdit: number | null = null;
   loading: boolean = true;
 
 
   constructor(
+    private cdr: ChangeDetectorRef,
     private readonly productService: ProductService,
     private readonly brandService: BrandService,
     private readonly router: Router
   ) {
-    this.brandService.getBrands();
     this._currentPage = 1; // Inicia en la página 1
     this._idxRegistro = 0; // Inicia en el índice 0
 
     this.screenWidth = window.innerWidth;
-  
+
+    if (this.brandService.getBrandsArr.length == 0) {
+      this.brandService.getBrands().subscribe({
+        next: (brands) => {
+          this.brandService.setbrands(brands);
+        }
+      })
+    }
+
   }
 
 
@@ -79,6 +88,8 @@ export class ProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
 
 
     this.productService.getProducts()
@@ -141,13 +152,14 @@ export class ProductosComponent implements OnInit {
 
   editRow(idx: number) {
     this.rowEdit = idx;
+    this.valorOriginal = { ...this.products[idx] }; // Guarda una copia del valor original
   }
 
-  saveRow(data: any) {
+  saveRow(data: Product) {
 
     console.log("SAVE ROW - Data:", data);
-      
-    this.rowEdit = null; // Desactivar la edición
+
+    // this.rowEdit = null; // Desactivar la edición
 
     Swal.fire({
       title: 'Quiere guardar los cambios?',
@@ -166,15 +178,65 @@ export class ProductosComponent implements OnInit {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         // Swal.fire('Datos Guardados!', '', 'success')
-        Swal.fire({
-          title: 'Datos Guardados!',
-          background: '#ECECFC',
-          icon: 'success',
-          iconColor: '#37C234',
-          confirmButtonText: 'Ok',
-          confirmButtonColor: '#37C234',
-          color: '#1B1A5B',
+        this.loading = true;
+        //Objeto a enviar removiendo propiedades opcionales.
+        const prodUpdate: Product = {
+          name: data.name,
+          price: data.price.toString(),
+          quantity: data.quantity,
+          brand_id: data.brand_id,
+          type: data.type,
+          initialWeight: data.initialWeight.toString(),
+          barcode: data.barcode,
+        };
+        console.log(prodUpdate);
 
+        const id: number = data.id ?? 0;
+        this.productService.updateProduct(id, prodUpdate).subscribe({
+          next: (resp: any) => {
+
+            this.loading = false;
+
+            Swal.fire({
+              title: 'Registro Actualizado!',
+              background: '#ECECFC',
+              icon: 'success',
+              iconColor: '#37C234',
+              confirmButtonText: 'Ok',
+              confirmButtonColor: '#37C234',
+              color: '#1B1A5B',
+
+            }).then(resp => {
+              if (resp.isConfirmed) {
+                this.rowEdit = null;                
+                this.cdr.detectChanges();
+              }
+            });
+
+          },
+          error: (err) => {
+            this.loading = false;
+            console.log(err);
+            
+            if (this.rowEdit !== null) {
+              console.log("Cancel:", this.valorOriginal);
+
+              this.products[this.rowEdit] = { ...this.valorOriginal }; // Restaura el valor original
+              this.rowEdit = null;
+              this.cdr.detectChanges(); // Actualiza la vista
+            }
+
+            Swal.fire({
+              title: 'Error al guardar los registros.',
+              html: err,
+              background: '#ECECFC',
+              icon: 'error',
+              iconColor: '#D30E0E',
+              confirmButtonText: 'Ok',
+              confirmButtonColor: '#37C234',
+              color: '#1B1A5B',
+            })
+          }
         });
 
       } else if (result.isDenied) {
@@ -188,12 +250,77 @@ export class ProductosComponent implements OnInit {
           confirmButtonText: 'Ok',
           confirmButtonColor: '#37C234',
           color: '#1B1A5B',
+        }).then(resp => {
+          if (resp.isConfirmed) {
+            if (this.rowEdit !== null) {
+              console.log("Cancel:", this.valorOriginal);
 
+              this.products[this.rowEdit] = { ...this.valorOriginal }; // Restaura el valor original
+              this.rowEdit = null;
+              this.cdr.detectChanges(); // Actualiza la vista
+            }
+          }
         });
       }
     })
 
   }
 
+  deleteRow( idx: number, id: number | undefined ) {
 
+    const delId: number = id ?? 0;
+
+
+    Swal.fire({
+      title: 'Esta seguro que quiere eliminar el registro?',
+      background: '#ECECFC',
+      icon: 'info',
+      iconColor: '#1B1A5B',
+      confirmButtonText: 'Guardar',
+      confirmButtonColor: '#37C234',
+      showDenyButton: true,
+      denyButtonColor: '#2F2DA0',
+      denyButtonText: `Cancelar`,
+      color: '#1B1A5B',
+      allowOutsideClick: false
+
+    }).then((result) => {
+      if(result.isConfirmed) {
+        this.productService.deleteProduct(delId).subscribe({
+          next: (resp: any) => {
+
+            Swal.fire({
+              title: 'Registro Eliminado.',
+              background: '#ECECFC',
+              icon: 'success',
+              iconColor: '#37C234',
+              confirmButtonText: 'Ok',
+              confirmButtonColor: '#37C234',
+              color: '#1B1A5B',
+
+            }).then(resp => {
+              if (resp.isConfirmed) {      
+                this.products.splice(idx, 1);        
+                this.cdr.detectChanges();
+              }
+            });
+          },
+          error: (err) => {
+            Swal.fire({
+              title: 'Error al realizar la peticion',
+              html: `${err}`,
+              background: '#ECECFC',
+              icon: 'error',
+              iconColor: '#D30E0E',
+              confirmButtonText: 'Ok',
+              confirmButtonColor: '#37C234',
+              color: '#1B1A5B',
+            })
+          }
+        })
+      }
+    });
+
+
+  }
 }

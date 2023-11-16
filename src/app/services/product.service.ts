@@ -66,15 +66,35 @@ export class ProductService {
 
   }
 
-  createProduct( product: Product) {
+  createProduct( p: Product) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-      return this.http.post(`${env.apiUrl}/products`, product ,{ headers: headers } );
+      return this.http.post(`${env.apiUrl}/products`, p ,{ headers: headers } );
   }
 
+  updateProduct( id:number, p: Product ) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.patch(`${env.apiUrl}/products/${id}`, p ,{ headers: headers } );
+  }
+
+  deleteProduct(id: number) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.delete(`${env.apiUrl}/products/${id}`,{ headers: headers } );
+
+  }
 
 
 }

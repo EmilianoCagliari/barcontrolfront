@@ -37,20 +37,23 @@ export class RegistroComponent implements OnInit {
 
     //Estado boton escanear
     this.scanActive = this.regWeightService.getScannerActive();
-    
+
+    if (this.brandService.getBrandsArr.length == 0) {
+      this.brandService.getBrands().subscribe({
+        next: (brands) => {
+          this.brandService.setbrands(brands);
+        }
+      })
+    }
   }
 
 
 
   ngOnInit() {
 
-    this.brandService.getBrands().subscribe({
-      next: (brands) => {
-        this.brandService.setbrands(brands);
-      }
-    })
 
-    
+
+
     this.productService.registerProduct$.subscribe((product) => {
       console.log("Product", product);
       this.product = product;
@@ -65,7 +68,7 @@ export class RegistroComponent implements OnInit {
       this.peso = peso;
     })
 
-    this.regWeightService.scannerActive$.subscribe( (active) => {
+    this.regWeightService.scannerActive$.subscribe((active) => {
       this.scanActive = active;
     })
 
