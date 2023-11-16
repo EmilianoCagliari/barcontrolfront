@@ -32,11 +32,4 @@ export class Product implements ProductInterface {
     }
 
 
-
-
-
-
-
-
-
 }

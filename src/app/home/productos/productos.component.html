@@ -3,73 +3,89 @@
                 border
                 border-prim-light-2
                 rounded-xl
-                sm:max-h-[530px]  
-                md:max-h-[550px]
-                lg:max-h-[600px]
-                xl:max-h-[500px]
-                2xl:max-h-[700px]
+                max-h-[500px]
                 overflow-y-auto">
         <table class="table-auto w-full">
             <thead>
                 <tr class="bg-prim-light-1/25">
-                    <th class="py-2">Nombre</th>
-                    <th class="py-2">Precio</th>
-                    <th class="py-2">Cantidad</th>
-                    <th class="py-2">Marca</th>
-                    <th class="py-2">Tipo</th>
-                    <th class="py-2">Peso Base</th>
-                    <th class="py-2">Codigo de Barra</th>
-                    <th class="py-2">Creado</th>
-                    <th class="py-2">Actualizado</th>
-                    <th class="py-2">Acciones</th>
+                    <th class="py-2
+                    text-xs
+                    lg:text-base">Nombre</th>
+                    <th class="py-2
+                    text-xs
+                    lg:text-base">Precio</th>
+                    <th class="py-2
+                    text-xs
+                    lg:text-base">Cantidad</th>
+                    <th class="py-2
+                    text-xs
+                    lg:text-base">Marca</th>
+                    <th class="py-2
+                    text-xs
+                    lg:text-base">Tipo</th>
+                    <th class="py-2
+                    text-xs
+                    lg:text-base">Peso Base</th>
+                    <th class="py-2
+                    text-xs
+                    lg:text-base">Codigo de Barra</th>
+                    <th class="py-2
+                    text-xs
+                    lg:text-base">Creado</th>
+                    <th class="py-2
+                    text-xs
+                    lg:text-base">Actualizado</th>
+                    <th class="py-2
+                    text-xs
+                    lg:text-base">Acciones</th>
                 </tr>
             </thead>
             <tbody>
 
                 <tr *ngFor="let d of products; let i = index;" class="border-b border-b-[#574FB4]/25 text-center">
-                    <td class="py-2 text-start">
+                    <td class="py-2 text-start text-xs lg:text-base">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [(ngModel)]="d.name" [value]='d.name'
                         *ngIf="i === rowEdit">
                         <span *ngIf="i !== rowEdit">{{d.name}}</span>
                     </td>
-                    <td class="py-2">
+                    <td class="py-2 text-xs lg:text-base ">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="number" [(ngModel)]="d.price" [value]='d.price'
                             *ngIf="i === rowEdit">
                         <span *ngIf="i !== rowEdit"> {{d.price}}</span>
                     </td>
-                    <td class="py-2">
+                    <td class="py-2 text-xs lg:text-base">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="number" [(ngModel)]="d.quantity" [value]='d.quantity'
                             *ngIf="i === rowEdit">
                         <span *ngIf="i !== rowEdit"> {{d.quantity}}</span>
                     </td>
-                    <td class="py-2">
+                    <td class="py-2 text-xs lg:text-base">
                         <!-- <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.brand_id'
                                 *ngIf="i === rowEdit" > -->
                         <span> {{d.brand_id | brandPipe}}</span>
                         <!-- <span *ngIf="i !== rowEdit"> {{d.brand_id | brandPipe}}</span> -->
                     </td>
-                    <td class="py-2">
+                    <td class="py-2 text-xs lg:text-base">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [(ngModel)]="d.type" [value]='d.type'
                             *ngIf="i === rowEdit">
                         <span *ngIf="i !== rowEdit"> {{d.type}}</span>
                     </td>
-                    <td class="py-2">
+                    <td class="py-2 text-xs lg:text-base">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.initialWeight'
                             *ngIf="i === rowEdit">
                         <span *ngIf="i !== rowEdit"> {{d.initialWeight| number: '4.1-2' }} <b>g</b></span>
                     </td>
-                    <td class="py-2">
+                    <td class="py-2 text-xs lg:text-base">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.barcode'
                             *ngIf="i === rowEdit">
                         <span *ngIf="i !== rowEdit"> {{d.barcode}}</span>
                     </td>
-                    <td class="py-2">
+                    <td class="py-2 text-xs lg:text-base">
                         <!-- <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.createdAt'
                                 *ngIf="i === rowEdit"> -->
                         <span> {{d.createdAt | date:"shortDate"}}</span>
                         <!-- <span *ngIf="i !== rowEdit"> {{d.createdAt | date:"short"}}</span> -->
                     </td>
-                    <td class="py-2">
+                    <td class="py-2 text-xs lg:text-base">
                         <!-- <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.updatedAt'
                             *ngIf="i === rowEdit">
                             <span *ngIf="i !== rowEdit"> {{d.updatedAt | date:"shortDate"}}</span> -->
@@ -86,15 +102,33 @@
                     <th class="py-2">Year</th>-->
                     <td class="py-2 flex justify-center items-center">
                         <button (click)="editRow(i)" *ngIf="i !== rowEdit"
-                            class="w-9 h-9 mx-2 rounded-full bg-prim-light flex justify-center items-center">
-                            <i-tabler name="edit-circle" class="text-prim-light-2"></i-tabler>
+                            class="w-7 h-7 
+                                lg:w-9 lg:h-9 
+                                mx-2 rounded-full bg-prim-light flex justify-center items-center
+                                transition ease-in-out delaxy-75 
+                                hover:shadow-md hover:shadow-prim-dark-1/70 hover:-translate-y-0.5">
+                            <i-tabler name="edit-circle" 
+                            [ngClass]="{'iconsm': screenWidth <= 1024}"
+                            class="text-prim-light-2"></i-tabler>
                         </button>
                         <button (click)="saveRow(d)" *ngIf="i === rowEdit"
-                            class="w-9 h-9 mx-2 rounded-full bg-secondary flex justify-center items-center">
-                            <i-tabler name="device-floppy" class="text-prim-light-2"></i-tabler>
+                            class="w-7 h-7 
+                            lg:w-9 lg:h-9 
+                            mx-2 rounded-full bg-secondary flex justify-center items-center
+                            transition ease-in-out delaxy-75 
+                            hover:shadow-md hover:shadow-prim-dark-1/70 hover:-translate-y-0.5">
+                            <i-tabler name="device-floppy" 
+                            [ngClass]="{'iconsm': screenWidth <= 1024}"
+                            class="text-prim-light-2"></i-tabler>
                         </button>
-                        <button class="w-9 h-9 mr-1 rounded-full bg-danger flex justify-center items-center">
-                            <i-tabler name="trash" class="text-prim-light-2"></i-tabler>
+                        <button class="w-7 h-7 
+                            lg:w-9 lg:h-9 mr-1 
+                            rounded-full bg-danger flex justify-center items-center 
+                            transition ease-in-out delaxy-75 
+                            hover:shadow-md hover:shadow-prim-dark-1/70 hover:-translate-y-0.5">
+                            <i-tabler name="trash" 
+                            [ngClass]="{'iconsm': screenWidth <= 1024}"
+                            class="text-prim-light-2"></i-tabler>
                         </button>
                     </td>
                 </tr>
@@ -107,7 +141,7 @@
 
     <ng-container *ngIf="productCount > 10">
 
-        <div class="w-full h-3/12 flex justify-center items-center  text-lg">
+        <div class="w-full h-3/12 flex justify-center items-center  text-sm lg:text-lg">
             <div class="w-3/6 h-16  flex items-center justify-center">
                 <button (click)="prevPage()" [disabled]=" currentPage() == 1"
                     [ngClass]="{'disabled:bg-prim-light-1/20': currentPage() == 1}"

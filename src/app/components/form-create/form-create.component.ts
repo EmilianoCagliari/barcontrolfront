@@ -139,14 +139,14 @@ export class FormCreateComponent implements OnInit {
     this.scaleActive = this.websocketService.getScaleConected();
 
     console.log(this.scaleActive);
-    
+
   }
 
 
   registerWeight() {
     let peso = parseFloat(this.websocketService.getScaleWeight().toFixed(2));
     this.form.get('initialWeight')!.setValue(peso);
-    
+
   }
 
   isActive() {
@@ -176,7 +176,7 @@ export class FormCreateComponent implements OnInit {
 
 
     //Scale status
-    this.websocketService.scaleConected$.subscribe( (active) => {
+    this.websocketService.scaleConected$.subscribe((active) => {
       this.scaleActive = active;
     });
 
@@ -224,8 +224,20 @@ export class FormCreateComponent implements OnInit {
             // console.log("userClass Value:", typeof Object.values(prodClass)[idx]);
 
             if (typeof Object.values(prodClass)[idx] === 'number') {
+              console.log("IF:", p);
+              
               this.formControls[p] = [`${Object.values(prodClass)[idx]}`, [Validators.required]];
+            } else if (p == 'price' || p == 'initialWeight') {
+              console.log("ElseIf:", p);
+              this.formControls[p] = [
+                [`${Object.values(prodClass)[idx]}`], [
+                  Validators.pattern(/^\d{1,4}(\.\d{0,2})?$/), // Expresión regular para máximo 4 dígitos antes del punto y máximo 2 dígitos después del punto
+                  Validators.required]];
+
             } else {
+
+              console.log("ELSE:", p);
+              
               this.formControls[p] = [`${Object.values(prodClass)[idx]}`, [Validators.required]];
             }
 
@@ -294,6 +306,7 @@ export class FormCreateComponent implements OnInit {
 
   }
 
+
   async onSubmit() {
     this.isLoading = true;
     // Manejar la lógica cuando se envía el formulario
@@ -303,174 +316,208 @@ export class FormCreateComponent implements OnInit {
 
     //TODO: Corroborar si es valido los campos antes de mandar el formulario.
 
-    console.log("FormData:", data);
+    if (this.form.valid) {
 
-    switch (this.clase) {
-      case "Product":
+      console.log("FormData:", data);
 
-        //Creacion de objeto acorde al tipo.
-        const prod = new Product(
-          data.name,
-          data.price,
-          parseInt(data.quantity),
-          parseInt(data.brand_id),
-          data.type,
-          data.initialWeight.toString(),
-          data.barcode
-        );
+      switch (this.clase) {
+        case "Product":
 
-        console.log(prod);
-        
+          //Creacion de objeto acorde al tipo.
+          const prod = new Product(
+            data.name,
+            data.price,
+            parseInt(data.quantity),
+            parseInt(data.brand_id),
+            data.type,
+            data.initialWeight.toString(),
+            data.barcode
+          );
 
-        this.productService.createProduct(prod)
-          .subscribe({
-            next: (response: any) => {
-              console.log(response);
-              this.isLoading = false;
-              let status = response.status;
-              let msg = "";
-              if (status !== 200) {
-                msg = response.message;
-              }
-              Swal.fire({
-                title: (status === 200) ? 'Producto creado!' : 'Error al crear producto',
-                html: `${msg}`,
-                background: '#ECECFC',
-                icon: (status === 200) ? 'success' : 'info',
-                iconColor: (status === 200) ? '#37C234' : '#4441E5',
-                confirmButtonText: 'Ok',
-                confirmButtonColor: '#37C234',
-                color: '#1B1A5B',
-              }).then((result) => {
-                if ((status === 200) && result.isConfirmed) {
+          console.log(prod);
 
-                  this.form.reset();
-                  this.form.get('brand_id')!.setValue('0');
 
+          this.productService.createProduct(prod)
+            .subscribe({
+              next: (response: any) => {
+                console.log(response);
+                this.isLoading = false;
+                let status = response.status;
+                let msg = "";
+                if (status !== 200) {
+                  msg = response.message;
                 }
-              });
+                Swal.fire({
+                  title: (status === 200) ? 'Producto creado!' : 'Error al crear producto',
+                  html: `${msg}`,
+                  background: '#ECECFC',
+                  icon: (status === 200) ? 'success' : 'info',
+                  iconColor: (status === 200) ? '#37C234' : '#4441E5',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: '#37C234',
+                  color: '#1B1A5B',
+                }).then((result) => {
+                  if ((status === 200) && result.isConfirmed) {
 
-            },
-            error: (err) => {
-              console.log("Error", err);
+                    this.form.reset();
+                    this.form.get('brand_id')!.setValue('0');
+
+                  }
+                });
+
+              },
+              error: (err) => {
+                console.log("Error", err);
 
 
-              this.isLoading = false;
-              Swal.fire({
-                title: `${err.statusText}`,
-                html: `${err.error.msg}`,
-                background: '#ECECFC',
-                icon: 'error',
-                iconColor: '#D30E0E',
-                confirmButtonText: 'Ok',
-                confirmButtonColor: '#37C234',
-                color: '#1B1A5B',
-              });
-            }
-          })
-
-        break;
-
-
-      case "Brand":
-
-        this.brandService.createBrand(data)
-          .subscribe({
-            next: (response: any) => {
-              console.log(response);
-              this.isLoading = false;
-              let status = response.status;
-              let msg = "";
-              if (status !== 200) {
-                msg = response.response.response.msg;
+                this.isLoading = false;
+                Swal.fire({
+                  title: `${err.statusText}`,
+                  html: `${err.error.msg}`,
+                  background: '#ECECFC',
+                  icon: 'error',
+                  iconColor: '#D30E0E',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: '#37C234',
+                  color: '#1B1A5B',
+                });
               }
-              Swal.fire({
-                title: (status === 200) ? 'Producto creado!' : 'Error al crear product',
-                html: `${msg}`,
-                background: '#ECECFC',
-                icon: (status === 200) ? 'success' : 'info',
-                iconColor: (status === 200) ? '#37C234' : '#4441E5',
-                confirmButtonText: 'Ok',
-                confirmButtonColor: '#37C234',
-                color: '#1B1A5B',
-              });
+            })
 
-            },
-            error: (err) => {
-              console.log("Error", err);
+          break;
 
 
-              this.isLoading = false;
-              Swal.fire({
-                title: `${err.error.error}`,
-                html: `${err.error.message}`,
-                background: '#ECECFC',
-                icon: 'error',
-                iconColor: '#D30E0E',
-                confirmButtonText: 'Ok',
-                confirmButtonColor: '#37C234',
-                color: '#1B1A5B',
-              });
-            }
-          })
+        case "Brand":
 
-        break;
+          this.brandService.createBrand(data)
+            .subscribe({
+              next: (response: any) => {
+                console.log(response);
+                this.isLoading = false;
+                let status = response.status;
+                let msg = "";
+                if (status !== 200) {
+                  msg = response.response.response.msg;
+                }
+                Swal.fire({
+                  title: (status === 200) ? 'Producto creado!' : 'Error al crear product',
+                  html: `${msg}`,
+                  background: '#ECECFC',
+                  icon: (status === 200) ? 'success' : 'info',
+                  iconColor: (status === 200) ? '#37C234' : '#4441E5',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: '#37C234',
+                  color: '#1B1A5B',
+                });
+
+              },
+              error: (err) => {
+                console.log("Error", err);
 
 
-      case "User":
-
-        this.userService.createUser(data)
-          .subscribe({
-            next: (response: any) => {
-              console.log(response);
-              this.isLoading = false;
-              let status = response.status;
-              let msg = "";
-              if (status !== 200) {
-                msg = response.response.response.msg;
+                this.isLoading = false;
+                Swal.fire({
+                  title: `${err.error.error}`,
+                  html: `${err.error.message}`,
+                  background: '#ECECFC',
+                  icon: 'error',
+                  iconColor: '#D30E0E',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: '#37C234',
+                  color: '#1B1A5B',
+                });
               }
-              Swal.fire({
-                title: (status === 200) ? 'Usuario creado!' : 'Error al crear usuario',
-                html: `${msg}`,
-                background: '#ECECFC',
-                icon: (status === 200) ? 'success' : 'info',
-                iconColor: (status === 200) ? '#37C234' : '#4441E5',
-                confirmButtonText: 'Ok',
-                confirmButtonColor: '#37C234',
-                color: '#1B1A5B',
-              });
+            })
 
-            },
-            error: (err) => {
-              console.log("Error", err);
+          break;
 
 
-              this.isLoading = false;
-              Swal.fire({
-                title: `${err.error.error}`,
-                html: `${err.error.message}`,
-                background: '#ECECFC',
-                icon: 'error',
-                iconColor: '#D30E0E',
-                confirmButtonText: 'Ok',
-                confirmButtonColor: '#37C234',
-                color: '#1B1A5B',
-              });
-              // throw new Error(err);
-            }
-          })
+        case "User":
 
-        break;
+          this.userService.createUser(data)
+            .subscribe({
+              next: (response: any) => {
+                console.log(response);
+                this.isLoading = false;
+                let status = response.status;
+                let msg = "";
+                if (status !== 200) {
+                  msg = response.response.response.msg;
+                }
+                Swal.fire({
+                  title: (status === 200) ? 'Usuario creado!' : 'Error al crear usuario',
+                  html: `${msg}`,
+                  background: '#ECECFC',
+                  icon: (status === 200) ? 'success' : 'info',
+                  iconColor: (status === 200) ? '#37C234' : '#4441E5',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: '#37C234',
+                  color: '#1B1A5B',
+                });
 
-      default:
-        break;
+              },
+              error: (err) => {
+                console.log("Error", err);
+
+
+                this.isLoading = false;
+                Swal.fire({
+                  title: `${err.error.error}`,
+                  html: `${err.error.message}`,
+                  background: '#ECECFC',
+                  icon: 'error',
+                  iconColor: '#D30E0E',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: '#37C234',
+                  color: '#1B1A5B',
+                });
+                // throw new Error(err);
+              }
+            })
+
+          break;
+
+        default:
+          break;
+      }
+    } else {
+      this.isLoading = false;
+      Swal.fire({
+        title: `Hay campos invalidos, por favor revise los datos.`,
+        background: '#ECECFC',
+        icon: 'error',
+        iconColor: '#D30E0E',
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#37C234',
+        color: '#1B1A5B',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.markFormGroupTouched(this.form);
+        }
+      });
     }
+
+
+
 
 
 
   }
 
+  // =========================== Funciones Privadas ===========================
 
+  // Función para marcar todos los campos de un FormGroup como "touched"
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+        console.log("markFormGroupTouched control:", control);
+
+      }
+    });
+  }
 
   //funcion privada para cambiar el nombre de las tablas en ingles a español para los inputs html.
   private changeNameField(names: string[]) {

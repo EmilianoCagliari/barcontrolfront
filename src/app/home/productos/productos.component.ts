@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Product } from 'src/app/interfaces/product/product';
@@ -18,7 +18,12 @@ import Swal from 'sweetalert2';
 })
 export class ProductosComponent implements OnInit {
 
+  screenWidth: number;
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth = window.innerWidth;
+  }
 
   private _Products: Product[] = [];
   private _ProductCount: number = 0;
@@ -62,6 +67,9 @@ export class ProductosComponent implements OnInit {
     this.brandService.getBrands();
     this._currentPage = 1; // Inicia en la página 1
     this._idxRegistro = 0; // Inicia en el índice 0
+
+    this.screenWidth = window.innerWidth;
+  
   }
 
 
