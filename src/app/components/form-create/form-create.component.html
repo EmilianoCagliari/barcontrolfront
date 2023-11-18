@@ -2,14 +2,14 @@
 
     <ng-container *ngIf="claseProp.length > 0">
 
-        <div class=" 
-                    h-full
+        <div class="h-full
+                    w-full            
                     lg:w-2/3   
                     p-2 flex flex-col  lg:justify-center items-center overflow-auto
                     border-2 rounded-xl border-[#ECECFC] mainshadow ">
 
             <h1 class="font-bold mt-2"> {{ htmlBtnTitleString }}</h1>
-            <div class="w-10/12  p-2 mt-2">
+            <div class=" w-full lg:w-10/12  p-2 mt-2">
                 <form class="w-full flex flex-col items-center" [formGroup]="form" (ngSubmit)="onSubmit()"
                     autocomplete="disabled">
 

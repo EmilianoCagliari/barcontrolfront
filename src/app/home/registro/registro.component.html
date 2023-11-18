@@ -6,7 +6,7 @@
         <div class="  h-2/3 
         lg:w-2/3
         lg:h-5/6
-        border-2 rounded-xl border-[#ECECFC] mainshadow p-2 flex flex-col justify-evenly items-center">
+        border-2 rounded-xl border-[#ECECFC] mainshadow p-2 flex flex-col justify-between lg:justify-evenly items-center">
         <ng-container *ngIf="scanActive" >
             <!-- FIXME: Arreglar responsive al activar el uso de camara -->
             <app-scanner 
@@ -16,12 +16,14 @@
             2xl:top-[37%] 2xl:right-[11.5%]
             "></app-scanner>
         </ng-container>
-
-            <h1 class="font-black text-3xl">Registro de peso</h1>
-            <div class="w-3/4 flex flex-col items-center text-sm font-bold">
+        
+        <div class="h-2/5 flex flex-col items-center ">
+            <h1 class="font-black lg:text-3xl my-3">Registro de peso</h1>
+            <div class="w-4/5 text-justify lg:w-full flex flex-col items-center text-xs lg:text-sm font-bold">
                 <p>Ingrese el codigo de barra del producto y comience a registar.</p>
                 <p>Utilice la balanza inalámbrica y apoye la bebida para comenzar a registrar.</p>
             </div>
+        </div>
 
             <ng-container *ngIf="product == undefined">
                 <app-search-product class="md:w-3/6 h-4/6  flex flex-col justify-evenly items-center "></app-search-product>
@@ -30,19 +32,19 @@
 
             <ng-container *ngIf="product !== undefined">
 
-                <div class="w-3/4 h-3/5  flex justify-center items-center p-1">
+                <div class="w-full h-3/5 lg:w-3/4 flex flex-col lg:flex-row justify-between lg:justify-center items-center p-1">
 
                     <!-- Indicador de peso -->
-                    <div class="w-1/2 h-full m-1 flex flex-col justify-around items-center ">
+                    <div class="lg:w-1/2 h-full m-1 flex flex-col justify-around items-center ">
                         <app-gauge [valorIndicador]='peso'></app-gauge>
-                        <h2 class="text-2xl font-bold">Peso: <span class="font-normal ml-5">{{peso | number: '1.2-2'}}
+                        <h2 class="lg:text-2xl font-bold">Peso: <span class="lg:font-normal block lg:ml-5 lg:inline">{{peso | number: '1.2-2'}}
                                 Grs.</span></h2>
                     </div>
 
                     <!-- Seleccion de bebida  - POSIBLE CAMBIO POR CODIGO DE BARRA -->
-                    <div class="w-1/2 h-full m-1 flex flex-col items-center justify-start">
+                    <div class="lg:w-1/2 h-full m-1 flex flex-col items-center justify-start">
 
-                        <div class="w-6/12  p-2">
+                        <div class="hidden lg:block w-6/12 p-2 ">
                             <img src="../../../assets/carrousel/img1.jpg" alt="" class="rounded-lg">
                         </div>
                         <div class="w-full flex justify-around text-sm px-6">
@@ -51,7 +53,7 @@
                                 <p>Marca:</p>
                                 <p>Tipo:</p>
                             </div>
-                            <div class="flex flex-col">
+                            <div class="flex flex-col items-end lg:items-start">
                                 <p>{{ product.name }}</p>
                                 <p>{{ product.brand_id  | brandPipe }}</p>
                                 <p>{{ product.type }}</p>

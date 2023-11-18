@@ -3,7 +3,7 @@
 <div class="w-fit mx-1 flex">
     <div class="relative z-0 ml-10 mb-4">
         <input #barcode type="number" id="barcode" autocomplete="new-barcode"
-            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            class="block w-4/5 lg:w-full py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" " 
             [value]="scannedData"
             />
@@ -14,7 +14,7 @@
             Ingrese un codigo de barra
         </span>
     </div>
-    <button class="relative left-5 p-1 hover:text-prim-light border-2 border-prim-dark-1 rounded-lg hover:border-prim-light duration-100 transition-all"
+    <button class="relative lg:left-5 p-1 hover:text-prim-light border-2 border-prim-dark-1 rounded-lg hover:border-prim-light duration-100 transition-all"
     [ngClass]="{'text-prim-light border-prim-light': scanActive }"
     (click)="isActive()">
         <i-tabler 

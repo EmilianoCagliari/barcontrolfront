@@ -55,26 +55,32 @@
 
     </aside>
 
-    <div class="w-full flex flex-col flex-1" >
+    <div class="w-4/5 lg:w-full  flex flex-col lg:flex-1" >
 
-        <header class="h-24 flex justify-center">
+        <header class="h-24 flex justify-between lg:justify-normal">
     
-            <div class="p-2 ml-3 mt-2 h-4/5 flex flex-col justify-center items-center border-2 rounded-lg border-b-prim-dark-1">
-                <h2 class="font-bold">Balanza</h2>
-
-                <i-tabler *ngIf="scaleConected" name="scale-outline" class="iconsize text-secondary"></i-tabler>
-                <i-tabler *ngIf="!scaleConected" name="scale-outline-off" class="iconsize text-danger"></i-tabler>
+            <div class="lg:flex h-4/5 lg:h-full">            
+                <div class=" h-3/5 lg:h-4/5 
+                    lg:p-2 ml-3 mt-2 
+                    flex flex-col lg:justify-center lg:items-center lg:border-2 rounded-lg border-b-prim-dark-1">
+                    <h2 class="font-bold hidden lg:block">Balanza</h2>
+    
+                    <i-tabler *ngIf="scaleConected" name="scale-outline" class="iconsize text-secondary"></i-tabler>
+                    <i-tabler *ngIf="!scaleConected" name="scale-outline-off" class="iconsize text-danger"></i-tabler>
+                </div>
+        
+                <h1 class="ml-3 lg:mb-4 self-end font-black text-base lg:text-3xl ">{{ currentUrl | titlecase }}</h1>
             </div>
-    
-            <h1 class="ml-3 mb-4 self-end font-black">{{ currentUrl | titlecase }}</h1>
         
         
             <!-- User area -->
-            <div class="w-5/12 ml-auto flex justify-evenly items-center ">
+            <div class="lg:w-2/5 lg:ml-auto flex justify-start lg:justify-evenly items-center ">
         
-                <button [routerLink]="['create', 'product' ]"  class="h-3/5 w-2/6 border-2 rounded-2xl border-none bg-secondary text-prim-dark-2 shadow-sm shadow-prim-dark-2 font-bold transition-all ease-in-out duration-100  hover:-translate-y-1"
-                [ngClass]="{ 'invisible': !productBtn }"
-                
+                <button [routerLink]="['create', 'product' ]"  class="lg:h-3/5 lg:w-2/6 
+                w-2/5
+                text-xs
+                p-1 border-2 rounded-2xl border-none bg-secondary text-prim-dark-2 shadow-sm shadow-prim-dark-2 font-bold transition-all ease-in-out duration-100  hover:-translate-y-1"
+                [ngClass]="{ 'invisible': !productBtn }"                
                 >
                 <!-- (click)="scaleChangeStatus()" -->
                     Crear Producto
@@ -89,12 +95,12 @@
                 </div>
         
         
-                <p class="font-bold">Hola! {{ username | titlecase}}</p>
+                <p class="font-bold hidden lg:block">Hola! {{ username | titlecase}}</p>
         
         
                 <!-- Icono y menu desplegable -->
                 <div class="flex items-center">
-                    <i-tabler name="user-circle" class="iconbigsize midstroke"></i-tabler>
+                    <i-tabler name="user-circle" class=" iconbigsize midstroke"></i-tabler>
                     <i-tabler name="chevron-down" class="iconsize "></i-tabler>
                 </div>
         
