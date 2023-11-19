@@ -12,9 +12,11 @@ import { WarningComponent } from './warning/warning.component';
 import { GaugeComponent } from './gauge/gauge.component';
 import { OptionCardComponent } from './option-card/option-card.component';
 import { FormCreateComponent } from './form-create/form-create.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ScannerComponent } from './scanner/scanner.component';
 import { NgxScannerQrcodeModule, LOAD_WASM  } from 'ngx-scanner-qrcode';
+import { TableEditComponent } from './table-edit/table-edit.component';
+import { BrandPipe } from '../pipes/brand.pipe';
 
 LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
 
@@ -32,13 +34,16 @@ LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
     GaugeComponent,
     OptionCardComponent,
     FormCreateComponent,
-    ScannerComponent
+    ScannerComponent,
+    TableEditComponent,
+    BrandPipe
   ],
   imports: [
     CommonModule,
     IconsModule,
     ReactiveFormsModule,
-    NgxScannerQrcodeModule
+    NgxScannerQrcodeModule,
+    FormsModule
   ],
   exports: [
     ButtonComponent,
@@ -53,7 +58,9 @@ LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
     GaugeComponent,
     OptionCardComponent,
     FormCreateComponent,
-    ScannerComponent
+    ScannerComponent,
+    TableEditComponent,
+    BrandPipe
   ]
 })
 export class ComponentModule { }

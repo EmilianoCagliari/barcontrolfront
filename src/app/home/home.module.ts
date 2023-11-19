@@ -17,7 +17,6 @@ import { AjustesComponent } from './ajustes/ajustes.component';
 import { SearchProductComponent } from './registro/components/search-product/search-product.component';
 
 
-import { BrandPipe } from '../pipes/brand.pipe';
 import { FormsModule } from '@angular/forms';
 
 
@@ -31,8 +30,7 @@ const config: SocketIoConfig = { url: `${env.socketUrl}`, options: {} };
     RegistroComponent,
     AnaliticasComponent,
     AjustesComponent,
-    SearchProductComponent,
-    BrandPipe
+    SearchProductComponent
   ],
   imports: [
     CommonModule,
