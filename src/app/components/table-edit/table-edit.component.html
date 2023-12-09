@@ -29,6 +29,9 @@
                     lg:text-base">Peso Base</th>
                     <th class="py-2
                     text-xs
+                    lg:text-base">Peso Lleno</th>
+                    <th class="py-2
+                    text-xs
                     lg:text-base">Codigo de Barra</th>
                     <th class="py-2
                     text-xs
@@ -76,6 +79,11 @@
                         <span *ngIf="i !== rowEdit"> {{d.initialWeight| number: '4.1-2' }} <b class="hidden md:inline">g</b></span>
                     </td>
                     <td class="py-2 text-xs lg:text-base">
+                        <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.fullWeight'
+                            *ngIf="i === rowEdit">
+                        <span *ngIf="i !== rowEdit"> {{d.fullWeight| number: '4.1-2' }} <b class="hidden md:inline">g</b></span>
+                    </td>
+                    <td class="py-2 text-xs lg:text-base">
                         <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.barcode'
                             *ngIf="i === rowEdit">
                         <span *ngIf="i !== rowEdit"> {{d.barcode}}</span>
@@ -83,14 +91,14 @@
                     <td class="py-2 text-xs lg:text-base">
                         <!-- <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.createdAt'
                                 *ngIf="i === rowEdit"> -->
-                        <span> {{d.createdAt | date:"shortDate"}}</span>
+                        <span> {{d.createdAt | date: "dd/MM/yyyy"}}</span>
                         <!-- <span *ngIf="i !== rowEdit"> {{d.createdAt | date:"short"}}</span> -->
                     </td>
                     <td class="py-2 text-xs lg:text-base">
                         <!-- <input class="w-full py-1 text-center bg-prim-light-1/25" type="text" [value]='d.updatedAt'
                             *ngIf="i === rowEdit">
                             <span *ngIf="i !== rowEdit"> {{d.updatedAt | date:"shortDate"}}</span> -->
-                        <span> {{d.updatedAt | date:"shortDate"}}</span>
+                        <span> {{d.updatedAt | date: "dd/MM/yyyy"}}</span>
                     </td>
 
 
@@ -107,7 +115,9 @@
                                 lg:w-9 lg:h-9 
                                 mx-2 rounded-full bg-prim-light flex justify-center items-center
                                 transition ease-in-out delaxy-75 
-                                hover:shadow-md hover:shadow-prim-dark-1/70 hover:-translate-y-0.5">
+                                hover:shadow-md hover:shadow-prim-dark-1/70 hover:-translate-y-0.5"
+                                aria-label="edit-item"
+                            >
                             <i-tabler name="edit-circle" 
                             [ngClass]="{'iconsm': screenWidth <= 1024}"
                             class="text-prim-light-2"></i-tabler>
@@ -117,7 +127,9 @@
                             lg:w-9 lg:h-9 
                             mx-2 rounded-full bg-secondary flex justify-center items-center
                             transition ease-in-out delaxy-75 
-                            hover:shadow-md hover:shadow-prim-dark-1/70 hover:-translate-y-0.5">
+                            hover:shadow-md hover:shadow-prim-dark-1/70 hover:-translate-y-0.5"
+                            aria-label="save-item"
+                            >                            
                             <i-tabler name="device-floppy" 
                             [ngClass]="{'iconsm': screenWidth <= 1024}"
                             class="text-prim-light-2"></i-tabler>
@@ -127,7 +139,9 @@
                             lg:w-9 lg:h-9 mr-1 
                             rounded-full bg-danger flex justify-center items-center 
                             transition ease-in-out delaxy-75 
-                            hover:shadow-md hover:shadow-prim-dark-1/70 hover:-translate-y-0.5">
+                            hover:shadow-md hover:shadow-prim-dark-1/70 hover:-translate-y-0.5"
+                            aria-label="delete-item"
+                            >
                             <i-tabler name="trash" 
                             [ngClass]="{'iconsm': screenWidth <= 1024}"
                             class="text-prim-light-2"></i-tabler>
@@ -147,7 +161,8 @@
             <div class="w-3/6 h-16  flex items-center justify-center">
                 <button (click)="prevPage()" [disabled]=" currentPage() == 1"
                     [ngClass]="{'disabled:bg-prim-light-1/20': currentPage() == 1}"
-                    class="w-9 h-9 bg-prim-light-1/50  hover:bg-prim-light-1/90 rounded-full flex justify-center items-center">
+                    class="w-9 h-9 bg-prim-light-1/50  hover:bg-prim-light-1/90 rounded-full flex justify-center items-center"
+                    aria-label="prev-pag">
                     <i-tabler name="chevron-left"></i-tabler>
                 </button>
 
@@ -164,7 +179,9 @@
                 </div>
                 <button (click)="nextPage()" [disabled]=" currentPage() === pages.length"
                     [ngClass]="{'disabled:bg-prim-light-1/20': currentPage() === pages.length}"
-                    class="w-9 h-9 bg-prim-light-1/50 hover:bg-prim-light-1/90 rounded-full flex justify-center items-center">
+                    class="w-9 h-9 bg-prim-light-1/50 hover:bg-prim-light-1/90 rounded-full flex justify-center items-center"
+                    aria-label="next-pag"
+                    >
                     <i-tabler name="chevron-right"></i-tabler>
                 </button>
             </div>

@@ -51,13 +51,27 @@ export class ProductService {
 
   }
 
+  getProductByName( name: string ) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    const param = new HttpParams({
+      fromString: `name=${name}`
+    })
+    return this.http.get<Product>(`${this._url}/name`, { params: param, headers: headers })
 
-  getProducts( pagination: number = 0) {
+  }
+
+
+  getProductsWithPagination( pagination: number ) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
+    console.log("PAGINACION:", pagination);
+    
     const params = new HttpParams({
       fromString: `p=${pagination}`
     })

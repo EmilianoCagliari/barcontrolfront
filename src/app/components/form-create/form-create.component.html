@@ -52,9 +52,9 @@
                                     </select>
                                 </div>
 
-                                <div *ngSwitchDefault [ngClass]="{'flex': (p === 'barcode') || (p === 'initialWeight')}">
+                                <div *ngSwitchDefault [ngClass]="{'flex': (p === 'barcode') || (p === 'initialWeight') || (p === 'fullWeight')}">
 
-                                    <ng-container *ngIf="p !== 'barcode' && p !== 'initialWeight'">
+                                    <ng-container *ngIf="p !== 'barcode' && p !== 'initialWeight' && p !== 'fullWeight'">
                                         <input [type]="htmlType[i]" [id]="p" [formControlName]="p"
                                             [autocomplete]="'new-'+p"
                                             [ngClass]="{'border-danger': form.get(p)!.invalid && form.get(p)!.touched}"
@@ -65,7 +65,7 @@
                                             htmlNames[i] | titlecase }} </label>
                                     </ng-container>
 
-                                    <ng-container *ngIf="p === 'initialWeight'">
+                                    <ng-container *ngIf="p === 'initialWeight' || p === 'fullWeight'">
                                         <div class="w-full">
                                             <input [type]="htmlType[i]" [id]="p" [formControlName]="p"
                                                 [autocomplete]="'new-'+p"
@@ -79,7 +79,7 @@
 
                                         <div *ngIf="scaleActive"
                                         class="relative w-12 h-12 lg:w-16 lg:h-16 flex flex-col justify-center left-5 p-1 hover:text-prim-light border-2 border-prim-dark-1 rounded-lg hover:border-prim-light duration-100 transition-all cursor-pointer"                                            
-                                            (click)="registerWeight()">
+                                            (click)="registerWeight(p)">
                                             <i-tabler class="self-center" name="edit"></i-tabler>
                                             <p class="text-[8px] lg:text-xs">Registrar</p>
                                         </div>

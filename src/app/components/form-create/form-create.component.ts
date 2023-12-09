@@ -44,7 +44,11 @@ export class FormCreateComponent implements OnInit {
       inputType: "text"
     },
     {
-      initialWeight: "peso inicial",
+      initialWeight: "peso vacio",
+      inputType: "number"
+    },
+    {
+      fullWeight: "peso lleno",
       inputType: "number"
     },
     {
@@ -143,10 +147,9 @@ export class FormCreateComponent implements OnInit {
   }
 
 
-  registerWeight() {
+  registerWeight( p: string ) {
     let peso = parseFloat(this.websocketService.getScaleWeight().toFixed(2));
-    this.form.get('initialWeight')!.setValue(peso);
-
+    this.form.get(p)!.setValue(peso);
   }
 
   isActive() {
@@ -155,7 +158,6 @@ export class FormCreateComponent implements OnInit {
     if (this.scannedData.length > 0) {
       this.scannedData = "";
     }
-
   }
 
   ngOnInit(): void {
@@ -209,7 +211,6 @@ export class FormCreateComponent implements OnInit {
 
   //Funcion para generar el formulario dinamico
   generateForm() {
-
 
     //Verificar y en base al tipo de clase se genera el formulario.
     switch (this.clase) {
@@ -331,6 +332,7 @@ export class FormCreateComponent implements OnInit {
             parseInt(data.brand_id),
             data.type,
             data.initialWeight.toString(),
+            data.fullWeight.toString(),
             data.barcode
           );
 

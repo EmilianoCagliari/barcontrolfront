@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ProductReportComponent } from 'src/app/components/product-report/product-report.component';
+import { Product } from 'src/app/interfaces/product/product';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-analiticas',
@@ -6,5 +9,46 @@ import { Component } from '@angular/core';
   styleUrls: ['./analiticas.component.css']
 })
 export class AnaliticasComponent {
+
+  productos: Product[] = [];
+  loading: boolean = false;
+  prodReportSelected: boolean = false;
+  prod!: Product;
+
+  constructor(private readonly productService: ProductService) {
+  }
+
+  buscarProducto(termino: string) {
+
+    if (termino.length >= 1) {
+      // console.log("termino:", termino);
+      this.loading = true;
+
+      this.productService.getProductByName(termino)
+        .subscribe({
+          next: (prod: any) => {
+            this.loading = false;
+            this.productos = prod.rows;
+            console.log(prod.rows);
+
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
+    } else {
+      this.productos = [];
+    }
+
+
+
+
+  }
+
+
+  productSelected( prod: Product) {
+    this.prodReportSelected = !this.prodReportSelected;
+    this.prod = prod;    
+  }
 
 }

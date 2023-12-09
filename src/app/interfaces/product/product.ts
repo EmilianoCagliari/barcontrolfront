@@ -9,6 +9,7 @@ export class Product implements ProductInterface {
     brand_id: number;
     type: string;
     initialWeight: string;
+    fullWeight: string;
     barcode: string;
     updatedAt?: Date | undefined;
     createdAt?: Date | undefined;
@@ -20,6 +21,7 @@ export class Product implements ProductInterface {
         brand_id = 0,
         type = "",
         iniWeight = "",
+        fullWeight = "",
         barcode = ""
     ) {
         this.name = name;
@@ -28,6 +30,7 @@ export class Product implements ProductInterface {
         this.brand_id = brand_id;
         this.type = type;
         this.initialWeight = iniWeight;
+        this.fullWeight = fullWeight;
         this.barcode = barcode;
     }
 

@@ -17,26 +17,30 @@ import { ScannerComponent } from './scanner/scanner.component';
 import { NgxScannerQrcodeModule, LOAD_WASM  } from 'ngx-scanner-qrcode';
 import { TableEditComponent } from './table-edit/table-edit.component';
 import { BrandPipe } from '../pipes/brand.pipe';
+import { ProductReportComponent } from './product-report/product-report.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
 
 
 @NgModule({
   declarations: [
+    AlertComponent,
     ButtonComponent,
+    BrandPipe,
     CarouselComponent,
+    FormCreateComponent,
+    GaugeComponent,
     HeaderComponent,
     LoaderComponent,
-    AlertComponent,
     NotFoundComponent,
+    OptionCardComponent,
+    ProductReportComponent,
+    ScannerComponent,
+    SpinnerComponent,
+    TableEditComponent,
     WorkInProgressComponent,
     WarningComponent,
-    GaugeComponent,
-    OptionCardComponent,
-    FormCreateComponent,
-    ScannerComponent,
-    TableEditComponent,
-    BrandPipe
   ],
   imports: [
     CommonModule,
@@ -46,21 +50,23 @@ LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
     FormsModule
   ],
   exports: [
-    ButtonComponent,
-    CarouselComponent,
-    HeaderComponent,
-    LoaderComponent,
     AlertComponent,
-    IconsModule,
-    NotFoundComponent,
-    WorkInProgressComponent,
-    WarningComponent,
-    GaugeComponent,
-    OptionCardComponent,
+    ButtonComponent,
+    BrandPipe,
+    CarouselComponent,
     FormCreateComponent,
+    GaugeComponent,
+    HeaderComponent,
+    IconsModule,
+    LoaderComponent,
+    NotFoundComponent,
+    OptionCardComponent,
+    ProductReportComponent,
     ScannerComponent,
+    SpinnerComponent,
     TableEditComponent,
-    BrandPipe
+    WorkInProgressComponent,
+    WarningComponent
   ]
 })
 export class ComponentModule { }

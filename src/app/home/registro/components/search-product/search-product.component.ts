@@ -84,8 +84,8 @@ export class SearchProductComponent implements OnInit {
                 icon: 'success',
                 title: 'Producto econtrado!'
               })
-              this.wrService.setScannerActive(false);
               this.wrService.setScannedBarcode("");
+              this.wrService.setScannerActive(!this.scanActive);
 
 
             } else {

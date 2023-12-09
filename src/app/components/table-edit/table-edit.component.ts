@@ -1,8 +1,6 @@
 import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 import { Product } from 'src/app/interfaces/product/product';
-import { ProductInterface } from 'src/app/interfaces/product/product.interface';
 import { ProductResponse } from 'src/app/interfaces/product/productResponse.interface';
 import { BrandService } from 'src/app/services/brand.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -13,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './table-edit.component.html',
   styleUrl: './table-edit.component.css'
 })
-export class TableEditComponent {
+export class TableEditComponent implements OnInit {
 
   // TODO: Transformar la operatoria de la tabla actua de productos a dinamico acorde a lo solicitado.
 
@@ -23,6 +21,8 @@ export class TableEditComponent {
   onResize(event: any) {
     this.screenWidth = window.innerWidth;
   }
+
+  
 
   private _Products: Product[] = [];
   private _ProductCount: number = 0;
@@ -47,8 +47,10 @@ export class TableEditComponent {
     private readonly brandService: BrandService,
     private readonly router: Router
   ) {
-    this._currentPage = 1; // Inicia en la página 1
-    this._idxRegistro = 0; // Inicia en el índice 0
+
+
+    this._currentPage = 1; // Inicia en la página 1 para controlar la paginación.
+    this._idxRegistro = 0; // Inicia en el índice 1 para busqueda de registros
 
     this.screenWidth = window.innerWidth;
 
@@ -65,14 +67,12 @@ export class TableEditComponent {
   ngOnInit(): void {
 
 
-
-
-    this.productService.getProducts()
+    this.productService.getProductsWithPagination( this._idxRegistro )
       .subscribe({
         next: (p: ProductResponse) => {
           this._Products = p.rows;
           this._ProductCount = p.count;
-          console.log(p.count);
+          console.log(p);
 
           this.pages = new Array((Math.ceil(p.count / 10)));
           console.log(this.pages);
@@ -86,7 +86,7 @@ export class TableEditComponent {
           this.loading = false;
         }
 
-      })
+      });
 
 
   }
@@ -108,13 +108,16 @@ export class TableEditComponent {
   public changePage(page: number) {
     this._currentPage = page;
     this._idxRegistro = (page - 1) * 10; // Ajusta el índice de registro en consecuencia
+    if( this._idxRegistro == 0) {
+      this._idxRegistro = 1;
+    }
   }
 
   prevPage() {
     this.loading = true;
     this.changePage(this._currentPage - 1);
     console.log('prevPage:', this._idxRegistro);
-    this.productService.getProducts(this._idxRegistro).subscribe({
+    this.productService.getProductsWithPagination(this._idxRegistro).subscribe({
       next: (p: ProductResponse) => {
         this._Products = p.rows;
         this._ProductCount = p.count;
@@ -131,7 +134,7 @@ export class TableEditComponent {
     this.loading = true;
     this.changePage(this._currentPage + 1);
     console.log('prevPage:', this._idxRegistro);
-    this.productService.getProducts(this._idxRegistro).subscribe({
+    this.productService.getProductsWithPagination(this._idxRegistro).subscribe({
       next: (p: ProductResponse) => {
         this._Products = p.rows;
         this._ProductCount = p.count;
@@ -185,6 +188,7 @@ export class TableEditComponent {
             brand_id: data.brand_id,
             type: data.type,
             initialWeight: data.initialWeight.toString(),
+            fullWeight: data.fullWeight.toString(),
             barcode: data.barcode,
           };
           console.log(prodUpdate);
@@ -207,6 +211,7 @@ export class TableEditComponent {
               }).then(resp => {
                 if (resp.isConfirmed) {
                   this.rowEdit = null;
+                  this.ngOnInit();
                   this.cdr.detectChanges();
                 }
               });
@@ -351,6 +356,16 @@ export class TableEditComponent {
     return true;
   }
 
-
-
+  private transformKeys(data: any, mapping: any) {
+    let result: any = {};
+    for (let key in data) {
+      if (mapping.hasOwnProperty(key)) {
+        result[mapping[key]] = data[key];
+      } else {
+        result[key] = data[key];
+      }
+    }
+    return Object.keys(result);
+  }
+  
 }

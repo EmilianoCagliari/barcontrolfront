@@ -1,0 +1,23 @@
+<div class="h-full
+            w-full            
+            lg:w-11/12   
+            p-2 flex flex-col  
+            items-center
+            mx-auto
+            my-2
+            overflow-auto
+            border-2 rounded-xl border-[#ECECFC] mainshadow ">
+
+    <div class=" w-2/3 flex justify-between items-end font-bold">
+        <h2 class="text-4xl">{{product.name}} </h2>
+        <p >Precio de coste: {{ product.price | currency: 'EUR'}}</p>
+        <h3 class="text-xl">Tipo: <span class="text-lg">{{product.type}}</span></h3>
+    </div>
+    <div class="w-5/6 h-0.5 my-2 bg-prim-dark-1/60"></div>
+    <div class="w-full">
+        <div class="w-2/3 flex">
+
+        </div>
+    </div>
+
+</div>
