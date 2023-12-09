@@ -2,17 +2,6 @@ import { Component } from '@angular/core';
 import { Product } from 'src/app/interfaces/product/product';
 import { ProductService } from 'src/app/services/product.service';
 
-import {
-  ChartComponent,
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexXAxis,
-  ApexDataLabels,
-  ApexStroke,
-  ApexYAxis,
-  ApexTitleSubtitle,
-  ApexLegend
-} from "ng-apexcharts";
 @Component({
   selector: 'app-analiticas',
   templateUrl: './analiticas.component.html',
