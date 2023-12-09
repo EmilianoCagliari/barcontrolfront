@@ -19,6 +19,7 @@ import { TableEditComponent } from './table-edit/table-edit.component';
 import { BrandPipe } from '../pipes/brand.pipe';
 import { ProductReportComponent } from './product-report/product-report.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
 
@@ -47,6 +48,7 @@ LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
     IconsModule,
     ReactiveFormsModule,
     NgxScannerQrcodeModule,
+    NgApexchartsModule,
     FormsModule
   ],
   exports: [

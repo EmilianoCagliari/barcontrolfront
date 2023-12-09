@@ -100,7 +100,7 @@ export class RegistroComponent implements OnInit {
           confirmButtonText: 'Ok',
           confirmButtonColor: '#37C234',
           color: '#1B1A5B',
-        }).then((result) => {
+        }).then((result: any) => {
           if (result.isConfirmed) {
             this.productService.setRegisterProduct(undefined);
           }

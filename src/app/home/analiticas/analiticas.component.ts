@@ -1,8 +1,18 @@
 import { Component } from '@angular/core';
-import { ProductReportComponent } from 'src/app/components/product-report/product-report.component';
 import { Product } from 'src/app/interfaces/product/product';
 import { ProductService } from 'src/app/services/product.service';
 
+import {
+  ChartComponent,
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ApexDataLabels,
+  ApexStroke,
+  ApexYAxis,
+  ApexTitleSubtitle,
+  ApexLegend
+} from "ng-apexcharts";
 @Component({
   selector: 'app-analiticas',
   templateUrl: './analiticas.component.html',
@@ -30,7 +40,7 @@ export class AnaliticasComponent {
             this.loading = false;
             this.productos = prod.rows;
             console.log(prod.rows);
-
+            
           },
           error: (err) => {
             console.log(err);
@@ -38,6 +48,7 @@ export class AnaliticasComponent {
         });
     } else {
       this.productos = [];
+      
     }
 
 

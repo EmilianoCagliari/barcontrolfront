@@ -21,10 +21,12 @@
     "@zxing/browser": "^0.1.4",
     "@zxing/library": "^0.20.0",
     "angular-tabler-icons": "^2.40.0",
+    "apexcharts": "^3.44.2",
+    "ng-apexcharts": "^1.8.0",
     "ngx-scanner-qrcode": "^1.6.7",
     "ngx-socket-io": "^4.6.1",
     "rxjs": "~7.8.0",
-    "sweetalert2": "^11.9.0",
+    "sweetalert2": "^11.6.13",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
   },

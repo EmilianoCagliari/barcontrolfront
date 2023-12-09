@@ -12,9 +12,9 @@
         <div>
             <h2 class="font-bold text-2xl">Escriba el nombre del producto deseado</h2>
         </div>
-        <div class="flex justify-around items-center w-1/3 mt-2">
+        <div class="flex justify-around items-center w-2/5 lg:w-1/3 mt-2">
 
-            <div class="relative z-0 mb-4 w-2/3">
+            <div class="relative z-0 mb-4 w-full xl:w-2/3">
                 <input #termino type="text" id="productSearch" autocomplete="new-productSearch" (keyup)="buscarProducto(termino.value)" 
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" " />
@@ -43,7 +43,7 @@
             </div>
 
             <ng-container *ngIf="prod != undefined">
-                <app-product-report [product]="prod"></app-product-report>                
+                <app-product-report [product]="prod"></app-product-report>               
             </ng-container>
             
         </div>
